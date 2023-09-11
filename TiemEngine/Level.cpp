@@ -13,7 +13,7 @@ void Level::LevelLoad()
 void Level::LevelInit()
 {
 	ImageObject * obj = new ImageObject();
-	obj->SetTexture("../Resource/Texture/penguin.png");
+	obj->SetTexture("../Resource/Texture/MOTIVATED.png");
 	obj->SetSize(1.0f, -1.0f);
 	objectsList.push_back(obj);
 
@@ -53,10 +53,10 @@ void Level::HandleKey(char key)
 	 
 	switch (key)
 	{
-		case 'w': player->Translate(glm::vec3(0, 0.3, 0)); break;
-		case 's': player->Translate(glm::vec3(0, -0.3, 0)); break;
-		case 'a': player->Translate(glm::vec3(-0.3, 0, 0)); break;
-		case 'd': player->Translate(glm::vec3(0.3, 0, 0)); break;
+		case 'w': player->Translate(glm::vec3(0, 0.1, 0)); break;
+		case 's': player->Translate(glm::vec3(0, -0.1, 0)); break;
+		case 'a': player->Translate(glm::vec3(-0.1, 0, 0)); break;
+		case 'd': player->Translate(glm::vec3(0.1, 0, 0)); break;
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 		case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ; break;
