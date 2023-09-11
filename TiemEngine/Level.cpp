@@ -50,7 +50,7 @@ void Level::LevelUnload()
 
 void Level::HandleKey(char key)
 {
-
+	 
 	switch (key)
 	{
 		case 'w': player->Translate(glm::vec3(0, 0.3, 0)); break;
