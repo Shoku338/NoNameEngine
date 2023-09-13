@@ -12,7 +12,7 @@ protected:
 
 public:
 	glm::mat4 getTransform();
-
+	glm::vec3 velocity;
 	DrawableObject();
 	~DrawableObject();
 	virtual void Render(glm::mat4 globalModelTransform) = 0;

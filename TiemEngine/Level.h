@@ -9,6 +9,7 @@ class Level
 private:
 	vector<DrawableObject*> objectsList;
 	ImageObject * player;
+	
 
 public:
 	virtual void LevelLoad();

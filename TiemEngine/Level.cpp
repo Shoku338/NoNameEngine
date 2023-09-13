@@ -25,6 +25,8 @@ void Level::LevelInit()
 void Level::LevelUpdate()
 {
 	//cout << "Update Level" << endl;
+	
+	player->Translate(player->velocity);
 }
 
 void Level::LevelDraw()
@@ -53,7 +55,8 @@ void Level::HandleKey(char key)
 	 
 	switch (key)
 	{
-		case 'w': player->Translate(glm::vec3(0, 0.1, 0)); break;
+		case 'w': player->velocity.y = 1; break;
+		//case 'w': player->Translate(glm::vec3(0, 0.1, 0)); break;
 		case 's': player->Translate(glm::vec3(0, -0.1, 0)); break;
 		case 'a': player->Translate(glm::vec3(-0.1, 0, 0)); break;
 		case 'd': player->Translate(glm::vec3(0.1, 0, 0)); break;
