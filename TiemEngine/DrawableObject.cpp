@@ -40,4 +40,10 @@ void DrawableObject::Translate(glm::vec3 moveDistance)
 	pos = pos + moveDistance;
 }
 
+float DrawableObject::getPosX() {
+	return pos.x;
+}
+float DrawableObject::getPosY() {
+	return pos.x;
+}
 
