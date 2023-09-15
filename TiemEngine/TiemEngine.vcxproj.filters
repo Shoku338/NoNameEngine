@@ -109,5 +109,8 @@
     <None Include="..\Resource\Shader\vertext.shd">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include=".gitignore">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
