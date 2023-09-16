@@ -64,6 +64,7 @@ void Level::HandleKey(char key)
 		case 'a': player->velocity.x = -1; break;
 		case 'd': player->velocity.x = 1; break;
 			//need spacebar
+		case ' ': player->velocity.y = 1; break;
 		//case 'w': player->Translate(glm::vec3(0, 0.1, 0)); break;
 		//case 's': player->Translate(glm::vec3(0, -0.1, 0)); break;
 		//case 'a': player->Translate(glm::vec3(-0.1, 0, 0)); break;
