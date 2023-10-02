@@ -1,6 +1,0 @@
-﻿  Level.cpp
-C:\Users\Kapom\Documents\GitHub\NoNameEngine\TiemEngine\Level.cpp(85,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Kapom\Documents\GitHub\NoNameEngine\TiemEngine\Level.cpp(86,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  Main.cpp
-  Generating Code...
-  TiemEngine.vcxproj -> C:\Users\Kapom\Documents\GitHub\NoNameEngine\Debug\TiemEngine.exe
