@@ -14,7 +14,7 @@ private:
 public:
 	virtual void LevelLoad();
 	virtual void LevelInit();
-	virtual void LevelUpdate();
+	virtual void LevelUpdate(float dt);
 	virtual void LevelDraw();
 	virtual void LevelFree();
 	virtual void LevelUnload();

@@ -22,14 +22,14 @@ void Level::LevelInit()
 	//cout << "Init Level" << endl;
 }
 
-void Level::LevelUpdate()
+void Level::LevelUpdate(float dt)
 {
 	//cout << "Update Level" << endl;
 	//gonna make pos public need it too much
 	if (player->getPosX() >= 800) {
 		player->SetPosition(glm::vec3(800.0f, player->getPosY(), 0.0f));
 	}
-	player->Translate(player->velocity);
+	player->Translate(player->velocity * dt);
 	//how to get time
 	
 }

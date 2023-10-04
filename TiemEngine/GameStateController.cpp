@@ -44,9 +44,9 @@ void GameStateController::InitLevel()
 	currentLevel->LevelInit();
 }
 
-void GameStateController::UpdateLevel()
+void GameStateController::UpdateLevel(float dt)
 {
-	currentLevel->LevelUpdate();
+	currentLevel->LevelUpdate(dt);
 }
 
 void GameStateController::DrawLevel()

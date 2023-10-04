@@ -21,7 +21,7 @@ public:
 
 	void LoadLevel();
 	void InitLevel();
-	void UpdateLevel();
+	void UpdateLevel(float dt);
 	void DrawLevel();
 	void Freelevel();
 	void UnloadLevel();
