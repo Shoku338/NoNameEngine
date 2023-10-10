@@ -7,6 +7,7 @@ using namespace std;
 class DrawableObject
 {
 protected:
+	bool grounded = true;
 	glm::vec3 pos;
 	glm::vec3 size;
 
@@ -21,6 +22,8 @@ public:
 	void Translate(glm::vec3 moveDistance);
 	float getPosX();
 	float getPosY();
+	void setGround(bool state);
+	bool getGrounded();
 	//Rotate, Scale ???
 
 };

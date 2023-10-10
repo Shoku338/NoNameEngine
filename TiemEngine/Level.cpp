@@ -1,5 +1,5 @@
 #include "Level.h"
-#define GRAVITY -37.0f
+#define GRAVITY -5.0f
 
 void Level::LevelLoad()
 {
@@ -14,23 +14,27 @@ void Level::LevelInit()
 {
 	ImageObject * obj = new ImageObject();
 	obj->SetTexture("../Resource/Texture/Player.png");
-	obj->SetSize(1.0f, -1.0f);
+	obj->SetSize(0.5f, -0.5f);
 	objectsList.push_back(obj);
 
 	player = obj;
-
+	player->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	//cout << "Init Level" << endl;
 }
 
 void Level::LevelUpdate(float dt)
 {
+	
 	//cout << "Update Level" << endl;
 	//gonna make pos public need it too much
-	if (player->getPosX() >= 800) {
-		player->SetPosition(glm::vec3(800.0f, player->getPosY(), 0.0f));
+	if (!player->getGrounded()) {
+		player->velocity.y = GRAVITY *dt;
+		
+	}
+	if (player->getPosX() <= -GameEngine::GetInstance()->GetWindowHeight() + 0.2) {
+		player->SetPosition(glm::vec3(player->getPosX(), -GameEngine::GetInstance()->GetWindowHeight() +0.2, 0.0f));
 	}
 	player->Translate(player->velocity * dt);
-	//how to get time
 	
 }
 
@@ -42,11 +46,12 @@ void Level::LevelDraw()
 
 void Level::LevelFree()
 {
+	cout << "Free Level" << endl;
 	for (DrawableObject* obj : objectsList) {
 		delete obj;
 	}
 	objectsList.clear();
-	//cout << "Free Level" << endl;
+	
 }
 
 void Level::LevelUnload()
@@ -60,7 +65,8 @@ void Level::HandleKey(char key)
 	 
 	switch (key)
 	{
-		case 'w': player->velocity.y = 1; break;
+		case 'w': player->velocity.y = 15.0f; 
+			player->setGround(false);	break;
 		case 'a': player->velocity.x = -1; break;
 		case 'd': player->velocity.x = 1; break;
 			//need spacebar

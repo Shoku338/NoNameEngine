@@ -18,11 +18,13 @@ DrawableObject::DrawableObject()
 {
 	pos = glm::vec3(0.0, 0.0, 0.0);
 	size = glm::vec3(1.0, 1.0, 1.0);
+	velocity = glm::vec3(0.0, 0.0, 0.0);
 }
 
 
 DrawableObject::~DrawableObject()
 {
+
 }
 
 void DrawableObject::SetSize(float sizeX, float sizeY)
@@ -47,3 +49,9 @@ float DrawableObject::getPosY() {
 	return pos.x;
 }
 
+void DrawableObject::setGround(bool state) {
+	grounded = state;
+}
+bool DrawableObject::getGrounded() {
+	return grounded;
+}
