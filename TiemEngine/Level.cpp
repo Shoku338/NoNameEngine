@@ -19,6 +19,14 @@ void Level::LevelInit()
 
 	player = obj;
 	player->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+
+	//Added by Kapom
+	ImageObject* other = new ImageObject();
+	other->SetTexture("../Resource/Texture/MOTIVATED.png");
+	other->SetSize(2.0f, -2.0f);
+	other->SetPosition(glm::vec3(2, 2, 1));
+	objectsList.push_back(other);
+
 	//cout << "Init Level" << endl;
 }
 
