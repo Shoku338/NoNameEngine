@@ -37,12 +37,10 @@ void Level::LevelUpdate(float dt)
 	//gonna make pos public need it too much
 	player->velocity.x *= (1.0f - 0.7f);
 	if (!player->getGrounded()) {
-		player->velocity.y = GRAVITY *dt;
+		player->velocity.y += GRAVITY *dt;
 		
 	}
-	if (player->getPosX() <= -GameEngine::GetInstance()->GetWindowHeight() + 0.2) {
-		player->SetPosition(glm::vec3(player->getPosX(), -GameEngine::GetInstance()->GetWindowHeight() +0.2, 0.0f));
-	}
+	
 	
 	player->Translate(player->velocity * dt);
 	
@@ -75,24 +73,19 @@ void Level::HandleKey(char key)
 	 
 	switch (key)
 	{
-		case 'w': player->velocity.y = 15.0f; 
+		case 'w': player->velocity.y = 15.0f ; 
 			player->setGround(false);	break;
-		
+		case 'a': player->velocity.x = -5; break;//(move velocity value
+		case 'd': player->velocity.x = 5; break;//(move velocity value
 			//need spacebar
 		case ' ': player->velocity.y = 1; break;
-		//case 'w': player->Translate(glm::vec3(0, 0.1, 0)); break;
-		//case 's': player->Translate(glm::vec3(0, -0.1, 0)); break;
-		//case 'a': player->Translate(glm::vec3(-0.1, 0, 0)); break;
-		//case 'd': player->Translate(glm::vec3(0.1, 0, 0)); break;
+		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 		case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ; break;
 		
 	}
-	switch (key) {
-	case 'a': player->velocity.x = -5; break;//(move velocity value
-	case 'd': player->velocity.x = 5; break;//(move velocity value
-	}
+	
 	
 }
 
