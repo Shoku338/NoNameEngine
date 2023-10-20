@@ -6,7 +6,7 @@ void LevelTest::LevelLoad()
 	square->LoadData();
 	GameEngine::GetInstance()->AddMesh(SquareMeshVbo::MESH_NAME, square);
 
-	//cout << "Load Level" << endl;
+	cout << "Load Level" << endl;
 }
 
 void LevelTest::LevelInit()

@@ -12,6 +12,13 @@ void Level::LevelLoad()
 
 void Level::LevelInit()
 {
+	//Added by Kapom
+	ImageObject* other = new ImageObject();
+	other->SetTexture("../Resource/Texture/MOTIVATED.png");
+	other->SetSize(2.0f, -2.0f);
+	other->SetPosition(glm::vec3(2, 2, 1));
+	objectsList.push_back(other);
+
 	ImageObject * obj = new ImageObject();
 	obj->SetTexture("../Resource/Texture/Player.png");
 	obj->SetSize(0.5f, -0.5f);
@@ -20,12 +27,7 @@ void Level::LevelInit()
 	player = obj;
 	player->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 
-	//Added by Kapom
-	ImageObject* other = new ImageObject();
-	other->SetTexture("../Resource/Texture/MOTIVATED.png");
-	other->SetSize(2.0f, -2.0f);
-	other->SetPosition(glm::vec3(2, 2, 1));
-	objectsList.push_back(other);
+	
 
 	//cout << "Init Level" << endl;
 }
@@ -38,10 +40,7 @@ void Level::LevelUpdate(float dt)
 	player->velocity.x *= (1.0f - 0.7f);
 	if (!player->getGrounded()) {
 		player->velocity.y += GRAVITY *dt;
-		
 	}
-	
-	
 	player->Translate(player->velocity * dt);
 	
 }
@@ -78,7 +77,8 @@ void Level::HandleKey(char key)
 		case 'a': player->velocity.x = -5; break;//(move velocity value
 		case 'd': player->velocity.x = 5; break;//(move velocity value
 			//need spacebar
-		case ' ': player->velocity.y = 1; break;
+		case ' ': player->velocity.y = 1.0f;
+			player->setGround(false);	break; break;
 		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
