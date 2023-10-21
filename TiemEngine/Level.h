@@ -9,7 +9,7 @@ class Level
 private:
 	vector<DrawableObject*> objectsList;
 	ImageObject * player;
-	
+	float realLeftWall = ((-GameEngine::GetInstance()->GetWindowWidth() / 2) / 100.0f);
 
 public:
 	virtual void LevelLoad();

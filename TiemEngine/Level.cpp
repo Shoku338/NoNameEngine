@@ -1,5 +1,6 @@
 #include "Level.h"
-#define GRAVITY -5.0f
+#define GRAVITY -15.0f
+
 
 void Level::LevelLoad()
 {
@@ -21,7 +22,7 @@ void Level::LevelInit()
 
 	ImageObject * obj = new ImageObject();
 	obj->SetTexture("../Resource/Texture/Player.png");
-	obj->SetSize(0.5f, -0.5f);
+	obj->SetSize(1.0f, -1.0f);
 	objectsList.push_back(obj);
 
 	player = obj;
@@ -37,11 +38,15 @@ void Level::LevelUpdate(float dt)
 	
 	//cout << "Update Level" << endl;
 	//gonna make pos public need it too much
-	player->velocity.x *= (1.0f - 0.7f);
-	if (!player->getGrounded()) {
-		player->velocity.y += GRAVITY *dt;
-	}
 	player->Translate(player->velocity * dt);
+	//collide left
+	if (player->getPosX() <= realLeftWall) {
+		player->SetPosition(glm::vec3 (realLeftWall + 0.5, player->getPosY(), 0));
+		cout << "wall" << endl;
+	}
+	player->velocity.x *= (1.0f - 0.7f);//0.7 is friction for now
+	//player->velocity.y += GRAVITY * dt;
+
 	
 }
 
@@ -72,12 +77,12 @@ void Level::HandleKey(char key)
 	 
 	switch (key)
 	{
-		case 'w': player->velocity.y = 15.0f ; 
+		case 'w': player->velocity.y = 5.0f; 
 			player->setGround(false);	break;
 		case 'a': player->velocity.x = -5; break;//(move velocity value
 		case 'd': player->velocity.x = 5; break;//(move velocity value
 			//need spacebar
-		case ' ': player->velocity.y = 1.0f;
+		case ' ': player->velocity.y = 5.0f;
 			player->setGround(false);	break; break;
 		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
@@ -97,11 +102,11 @@ void Level::HandleMouse(int type, int x, int y)
 	float h = GameEngine::GetInstance()->GetWindowHeight();
 	float w = GameEngine::GetInstance()->GetWindowWidth();
 	
-	//cout << x << ',' << y << endl;
+	cout << h << ',' << w << endl;
 
 	realX = (x - (w / 2)) / 100.0f;
-	realY = (-(y - (h / 2))) / 100.0f;
-	//cout << realX << ',' << realY << endl;
+	realY = -(y - (h / 2)) / 100.0f;
+	cout << realX << ',' << realY << endl;
 	
 
 	player->SetPosition(glm::vec3(realX, realY, 0));
