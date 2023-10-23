@@ -104,8 +104,8 @@ void Level::HandleMouse(int type, int x, int y)
 	
 	cout << h << ',' << w << endl;
 
-	realX = (x - (w / 2)) / 100.0f;
-	realY = -(y - (h / 2)) / 100.0f;
+	realX = (x - (w / 2)) / (w / 6.0f);
+	realY = -(y - (h / 2)) / (h / 6.0f);
 	cout << realX << ',' << realY << endl;
 	
 
