@@ -69,8 +69,8 @@ void Level::LevelUpdate(float dt)
 	for (int i = 0; i < objectsList.size(); i ++) {
 		if (objectsList.at(i) != player) {
 			int _result = _detectCollisionAABB(player->getPosX(), player->getPosY(), 1.f, 1.f, objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), 2.f, 2.f);
-			cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(0)->getPosX() << ' ' << objectsList.at(0)->getPosY() << endl;
-			cout << _result << endl;
+			//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(0)->getPosX() << ' ' << objectsList.at(0)->getPosY() << endl;
+			//cout << _result << endl;
 		}
 	}
 	
