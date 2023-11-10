@@ -18,9 +18,10 @@ int _detectCollisionAABB(float ax, float ay, float ah, float aw, float bx, float
 		result |= dx > 0 ? 1 : 2;
 		result |= dy > 0 ? 8 : 4;
 	}
-	//cout << result << endl;
+
 	return result;
 }
+
 
 void Level::LevelLoad()
 {
@@ -57,20 +58,16 @@ void Level::LevelUpdate(float dt)
 {
 	
 	//cout << "Update Level" << endl;
-	//gonna make pos public need it too much
+	
 	player->Translate(player->velocity * dt);
-	//test collision at wall
-	/*if (player->getPosX() < -3) {
-		player->Translate(glm::vec3 (-3, player->getPosY(), 0.0f));
-	}*/
-	//cout << player->getPosX() << endl;
 	player->velocity.x *= (1.0f - 0.7f); //0.7 is friction for now
-	//player->velocity.y += GRAVITY * dt;
+	player->velocity.y += GRAVITY * dt; //Gravity
 	for (int i = 0; i < objectsList.size(); i ++) {
 		if (objectsList.at(i) != player) {
-			int _result = _detectCollisionAABB(player->getPosX(), player->getPosY(), 1.f, 1.f, objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), 2.f, 2.f);
-			//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(0)->getPosX() << ' ' << objectsList.at(0)->getPosY() << endl;
-			//cout << _result << endl;
+			int resultCol = _detectCollisionAABB(player->getPosX(), player->getPosY(), 1.f, 1.f,
+				objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), 2.f, 2.f);
+			//collision value
+			//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
 		}
 	}
 	

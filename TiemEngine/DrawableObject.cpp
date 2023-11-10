@@ -46,7 +46,7 @@ float DrawableObject::getPosX() {
 	return pos.x;
 }
 float DrawableObject::getPosY() {
-	return pos.x;
+	return pos.y;
 }
 
 void DrawableObject::setGround(bool state) {
