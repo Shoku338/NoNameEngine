@@ -7,6 +7,7 @@ class GameObject :public DrawableObject
 {
 	glm::vec3 color;
 
+
 public:
 	GameObject();
 	~GameObject();

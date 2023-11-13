@@ -42,11 +42,11 @@ void Level::LevelInit()
 
 	ImageObject * obj = new ImageObject();
 	obj->SetTexture("../Resource/Texture/Player.png");
-	obj->SetSize(1.0f, -1.0f);
+	obj->SetSize(64.0f, -64.0f);
 	objectsList.push_back(obj);
 
 	player = obj;
-	player->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	player->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
 
 	
 
