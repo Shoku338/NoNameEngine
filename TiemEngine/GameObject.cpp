@@ -19,6 +19,11 @@ void GameObject::SetColor(float r, float g, float b)
 	color = glm::vec3(r, g, b);
 }
 
+void GameObject::SetTexture(string path)
+{
+	texture = GameEngine::GetInstance()->GetRenderer()->LoadTexture(path);
+}
+
 void GameObject::Render(glm::mat4 globalModelTransform)
 {
 	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (GameEngine::GetInstance()->GetRenderer()->GetMesh(SquareMeshVbo::MESH_NAME));
@@ -39,7 +44,7 @@ void GameObject::Render(glm::mat4 globalModelTransform)
 		cout << "Error: Can't set renderMode in ImageObject " << endl;
 		return;
 	}
-	//vector <glm::mat4> matrixStack;
+	vector <glm::mat4> matrixStack;
 
 	glm::mat4 currentMatrix = this->getTransform();
 
@@ -48,7 +53,8 @@ void GameObject::Render(glm::mat4 globalModelTransform)
 		currentMatrix = globalModelTransform * currentMatrix;
 		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
 		glUniform3f(colorId, color.x, color.y, color.z);
-		glUniform1i(renderModeId, 0);
+		glUniform1i(renderModeId, 1);
+		glBindTexture(GL_TEXTURE_2D, texture);
 		squareMesh->Render();
 
 	}

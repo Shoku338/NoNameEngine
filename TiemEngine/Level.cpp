@@ -41,7 +41,7 @@ void Level::LevelInit()
 	other->SetPosition(glm::vec3(2, 2, 0));
 	objectsList.push_back(other);
 
-	ImageObject * obj = new ImageObject();
+	GameObject * obj = new GameObject();
 	obj->SetTexture("../Resource/Texture/Player.png");
 	obj->SetSize(64.0f, -64.0f);
 	objectsList.push_back(obj);
