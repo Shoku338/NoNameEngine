@@ -48,6 +48,13 @@ float DrawableObject::getPosX() {
 float DrawableObject::getPosY() {
 	return pos.y;
 }
+float DrawableObject::getsizeX() {
+	return size.x;
+}
+float DrawableObject::getsizeY() {
+	return size.y;
+}
+
 
 void DrawableObject::setGround(bool state) {
 	grounded = state;

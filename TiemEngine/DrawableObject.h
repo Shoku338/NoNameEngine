@@ -23,6 +23,8 @@ public:
 	void Translate(glm::vec3 moveDistance);
 	float getPosX();
 	float getPosY();
+	float getsizeX();
+	float getsizeY();
 	void setGround(bool state);
 	bool getGrounded();
 	//Rotate, Scale ???
