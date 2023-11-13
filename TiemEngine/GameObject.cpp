@@ -6,7 +6,6 @@
 
 GameObject::GameObject()
 {
-	//texture = nullptr;
 	color = glm::vec3(0.0, 0.0, 0.0);
 }
 

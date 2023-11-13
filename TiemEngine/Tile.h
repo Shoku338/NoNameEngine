@@ -4,10 +4,14 @@
 
 class Tile :public GameObject
 {
-	int textureID;
-	int size;
-	int position;
+	float tileSize;
+    int posIndexX, posIndexY;
 
 public:
 	
+    Tile(float size,int indexX,int indexY,unsigned int texture);
+    ~Tile();
+    void setTextureID(unsigned int newTexture);
+
+
 };

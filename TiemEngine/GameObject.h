@@ -5,8 +5,9 @@
 #include "gtc/type_ptr.hpp"
 class GameObject :public DrawableObject
 {
+protected:
 	glm::vec3 color;
-	unsigned int texture;
+	unsigned int texture = -1;
 
 public:
 	GameObject();
