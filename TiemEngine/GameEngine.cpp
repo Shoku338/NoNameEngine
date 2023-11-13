@@ -46,6 +46,8 @@ void GameEngine::Render(vector<DrawableObject*> renderObjects)
 
 void GameEngine::SetDrawArea(float left, float right, float bottom, float top)
 {
+	widthGame = right;
+	heightGame = top;
 	renderer->SetOrthoProjection(left, right, bottom, top);
 }
 
@@ -72,4 +74,13 @@ int GameEngine::GetWindowWidth()
 int GameEngine::GetWindowHeight()
 {
 	return winHeight;
+}
+int GameEngine::GetGameWidth()
+{
+	return widthGame;
+}
+
+int GameEngine::GetGameHeight()
+{
+	return heightGame;
 }

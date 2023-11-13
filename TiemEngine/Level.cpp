@@ -61,7 +61,7 @@ void Level::LevelUpdate(float dt)
 	
 	player->Translate(player->velocity * dt);
 	player->velocity.x *= (1.0f - 0.7f); //0.7 is friction for now
-	player->velocity.y += GRAVITY * dt; //Gravity
+	//player->velocity.y += GRAVITY * dt; //Gravity
 	for (int i = 0; i < objectsList.size(); i ++) {
 		if (objectsList.at(i) != player) {
 			int resultCol = _detectCollisionAABB(player->getPosX(), player->getPosY(), 1.f, 1.f,
@@ -125,11 +125,13 @@ void Level::HandleMouse(int type, int x, int y)
 	// Calculate Real X Y 
 	float h = GameEngine::GetInstance()->GetWindowHeight();
 	float w = GameEngine::GetInstance()->GetWindowWidth();
+	float hg = GameEngine::GetInstance()->GetGameHeight();
+	float wg = GameEngine::GetInstance()->GetGameWidth();
 	
-	cout << h << ',' << w << endl;
-
-	realX = (x - (w / 2)) / (w / 6.0f);
-	realY = -(y - (h / 2)) / (h / 6.0f);
+	//cout << h << ',' << w << endl;
+	cout << "mouse x,y " << x << ',' << y << endl;
+	realX = (x) / (w /wg);
+	realY = hg - (y / (h / hg));
 	cout << realX << ',' << realY << endl;
 	
 

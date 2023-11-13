@@ -10,6 +10,7 @@ class GameEngine
 {
 	static GameEngine* instance;
 	int winWidth, winHeight;
+	int widthGame, heightGame;
 	
 	GLRenderer *renderer;
 	GameStateController* stateController;
@@ -26,4 +27,6 @@ public:
 	void Render(vector<DrawableObject*> renderObjects);
 	int GetWindowWidth();
 	int GetWindowHeight();
+	int GetGameWidth();
+	int GetGameHeight();
 };
