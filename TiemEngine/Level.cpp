@@ -1,9 +1,9 @@
 #include "Level.h"
 #define GRAVITY -15.0f
 #define	COLLISION_LEFT				1
-#define	COLLISION_RIGHT				3
-#define	COLLISION_TOP				2
-#define	COLLISION_BOTTOM			4
+#define	COLLISION_RIGHT				2
+#define	COLLISION_TOP				4
+#define	COLLISION_BOTTOM			3
 
 
 
@@ -76,12 +76,15 @@ void Level::LevelUpdate(float dt)
 	
 	player->Translate(player->velocity * dt);
 	player->velocity.x *= (1.0f - 0.1f); //0.3 is friction for now
-	//player->velocity.y += GRAVITY * dt; //Gravity
+	player->velocity.y += GRAVITY * dt; //Gravity
 	for (int i = 0; i < objectsList.size(); i ++) {
 		
 		if (objectsList.at(i) != player) {
 			int resultCol = player->detectCollisionAABB(objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), abs(objectsList.at(i)->getsizeY()), objectsList.at(i)->getsizeX());
-			
+			if (resultCol == COLLISION_BOTTOM)
+			{
+				player->Translate(glm::vec3(0, 10, 0));
+			}
 			
 			//collision value
 			//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
