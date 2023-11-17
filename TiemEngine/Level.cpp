@@ -83,6 +83,7 @@ void Level::LevelUpdate(float dt)
 			int resultCol = player->detectCollisionAABB(objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), abs(objectsList.at(i)->getsizeY()), objectsList.at(i)->getsizeX());
 			if (resultCol == COLLISION_BOTTOM)
 			{
+				//game logic here
 				player->Translate(glm::vec3(0, 10, 0));
 			}
 			
