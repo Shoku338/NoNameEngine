@@ -22,7 +22,6 @@ int Level::_detectCollisionAABB(float ax, float ay, float ah, float aw, float bx
 		result |= dx > 0 ? 1 : 2;
 		result |= dy > 0 ? 8 : 4;
 	}
-
 	return result;
 }
 
@@ -94,16 +93,15 @@ void Level::LevelUpdate(float dt)
 	//cout << "Update Level" << endl;
 	
 	//player->Translate(player->velocity * dt);
-	player->velocity.x *= (1.0f - 0.3f); //0.3 is friction for now
+	player->velocity.x *= (1.0f - 0.1f); //0.3 is friction for now
 	//player->velocity.y += GRAVITY * dt; //Gravity
 	for (int i = 0; i < objectsList.size(); i ++) {
 		
 		if (objectsList.at(i) != player) {
-			int resultCol = _detectCollisionAABB(player->getPosX(), player->getPosY(), -player->getsizeY(), player->getsizeX(),
+			int resultCol = _detectCollisionAABB(player->getPosX() + (player->velocity.x / 10), player->getPosY() + (player->velocity.y/10), -player->getsizeY(), player->getsizeX(),
 				objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), -objectsList.at(i)->getsizeY(), objectsList.at(i)->getsizeX());
 			if (resultCol== 0) {
 				player->Translate(player->velocity * dt);
-
 			}
 			
 		
@@ -151,8 +149,8 @@ void Level::HandleKey(char key)
 	{
 		case 'w': player->velocity.y = 128.0f; 
 			player->setGround(false);	break; // jumping
-		case 'a': player->velocity.x = -50; break;//move velocity value
-		case 'd': player->velocity.x = 50; break;//move velocity value
+		case 'a': player->velocity.x = -50.f; break;//move velocity value
+		case 'd': player->velocity.x = 50.f; break;//move velocity value
 			//need spacebar
 		case ' ': player->velocity.y = 5.0f;
 			player->setGround(false);	break; 
