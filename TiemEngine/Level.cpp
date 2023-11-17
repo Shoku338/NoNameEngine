@@ -130,6 +130,11 @@ void Level::LevelFree()
 		delete obj;
 	}
 	objectsList.clear();
+
+	for (Tile* tile : TileList) {
+		delete tile;
+	}
+	TileList.clear();
 	
 }
 
