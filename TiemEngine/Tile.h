@@ -2,10 +2,12 @@
 
 #include "GameObject.h"
 
+
 class Tile :public GameObject
 {
 	float tileSize;
     int posIndexX, posIndexY;
+    vector<vector<int>> tileMap;
 
 public:
 	

@@ -44,6 +44,11 @@ void GameEngine::Render(vector<DrawableObject*> renderObjects)
 	this->GetRenderer()->Render(renderObjects);
 }
 
+void GameEngine::RenderTile(vector<Tile*> renderTile)
+{
+	this->GetRenderer()->RenderTile(renderTile);
+}
+
 void GameEngine::SetDrawArea(float left, float right, float bottom, float top)
 {
 	widthGame = right;

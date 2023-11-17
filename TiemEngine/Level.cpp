@@ -39,12 +39,40 @@ void Level::LevelLoad()
 
 void Level::LevelInit()
 {
-	//Added by Kapom
+	
+
 	ImageObject* other = new ImageObject();
 	other->SetTexture("../Resource/Texture/MOTIVATED.png");
 	other->SetSize(128.0f, -128.0f);
 	other->SetPosition(glm::vec3(200, 200, 0));
 	objectsList.push_back(other);
+
+
+	//Added by Kapom
+
+	Tilemap tilemap(1024, 576, 1);
+	tilemap.LoadMapFromFile("../Resource/Texture/map.txt");
+
+	// Loop through the tile map and create tiles based on the map data
+	for (int y = 0; y < 9; ++y) {
+		for (int x = 0; x < 16; ++x) {
+			int tileType = tilemap.GetTileType(x, y);
+
+			Tile* tile = new Tile(64.0f, x, y, tileType);
+
+			// Set the texture based on the tile type
+			if (tileType == 1) {
+				tile->SetTexture("../Resource/Texture/grass.png");
+			}
+			else {
+				tile->SetTexture("../Resource/Texture/water.jpg"); 
+			}
+
+			TileList.push_back(tile);
+		}
+	}
+
+	//Game object
 
 	GameObject * obj = new GameObject();
 	obj->SetTexture("../Resource/Texture/Player.png");
@@ -53,6 +81,7 @@ void Level::LevelInit()
 
 	player = obj;
 	player->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
+
 
 	
 
@@ -88,7 +117,9 @@ void Level::LevelUpdate(float dt)
 
 void Level::LevelDraw()
 {
+	GameEngine::GetInstance()->RenderTile(TileList);
 	GameEngine::GetInstance()->Render(objectsList);
+	
 	//cout << "Draw Level" << endl;
 }
 

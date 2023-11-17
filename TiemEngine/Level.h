@@ -3,11 +3,14 @@
 #include "SquareMeshVbo.h"
 #include "GameObject.h"
 #include "ImageObject.h"
+#include "Tile.h"
+#include "Tilemap.h"
 
 class Level
 {
 private:
 	vector<DrawableObject*> objectsList;
+	vector<Tile*> TileList;
 	GameObject * player;
 	float overlapX, overlapY;
 

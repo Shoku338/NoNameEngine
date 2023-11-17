@@ -32,6 +32,7 @@
     <ClCompile Include="MeshVbo.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SquareMeshVbo.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TriangleMeshVbo.cpp" />
   </ItemGroup>

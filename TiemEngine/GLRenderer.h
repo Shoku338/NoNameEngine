@@ -9,6 +9,7 @@
 #include "MeshVbo.h"
 #include "glm.hpp"
 #include "DrawableObject.h"
+#include "Tile.h"
 
 
 using namespace std;
@@ -37,6 +38,7 @@ protected:
 
 public:
 	void Render(vector <DrawableObject*> & objList);
+	void RenderTile(vector <Tile*>& tileList);
 	GLRenderer(int w, int h);
 	bool InitGL(string vertexShaderFile, string fragmentShaderFile);
 

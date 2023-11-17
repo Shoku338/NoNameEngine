@@ -12,6 +12,7 @@ public:
     void SetTileset(GLRenderer* renderer, GLuint textureID, int tileWidth, int tileHeight);
     void LoadMapFromFile(const std::string& filePath); // New function for loading from a file
     void Render();
+    int GetTileType(int x, int y);
 
 private:
     int mapWidth;

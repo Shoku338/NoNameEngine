@@ -4,6 +4,7 @@
 #include "DrawableObject.h"
 #include "GLRenderer.h"
 #include "GameStateController.h"
+#include "Tile.h"
 
 using namespace std;
 class GameEngine
@@ -25,6 +26,7 @@ public:
 	void AddMesh(string name, MeshVbo* mesh);
 	void ClearMesh();
 	void Render(vector<DrawableObject*> renderObjects);
+	void RenderTile(vector<Tile*> renderTile);
 	int GetWindowWidth();
 	int GetWindowHeight();
 	int GetGameWidth();

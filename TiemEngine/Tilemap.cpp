@@ -26,6 +26,8 @@ void Tilemap::LoadMapFromFile(const std::string& filePath) {
         return;
     }
 
+    std::vector<std::vector<int>> tempMap;  // Temporary vector to store rows in reverse order
+
     std::string line;
     while (std::getline(file, line)) {
         std::vector<int> row;
@@ -34,33 +36,29 @@ void Tilemap::LoadMapFromFile(const std::string& filePath) {
         while (ss >> tileID) {
             row.push_back(tileID);
         }
-        tileMap.push_back(row);
+        tempMap.push_back(row);
     }
 
     file.close();
 
-    // Print the loaded map to the console
-    for (const auto& row : tileMap) {
-        for (int tileID : row) {
-            std::cout << tileID << " ";
-        }
-        std::cout << std::endl;
-    }
+    // Reverse the order of rows
+    std::reverse(tempMap.begin(), tempMap.end());
+
+    // Copy the reversed map to tileMap
+    tileMap = tempMap;
+
 }
 
-void Tilemap::Render() {
-    //for (int y = 0; y < mapHeight; ++y) {
-    //    for (int x = 0; x < mapWidth; ++x) {
-    //        int tileID = tileMap[y][x];
-    //        if (tileID != -1) { // Assuming -1 represents an empty tile
-    //            int srcX = (tileID % (tilesetWidth / tileSize)) * tileSize;
-    //            int srcY = (tileID / (tilesetWidth / tileSize)) * tileSize;
-    //            int destX = x * tileSize;
-    //            int destY = y * tileSize;
+void Tilemap::Render() 
+{
+   
+}
 
-    //            // Assuming you have a method in GLRenderer to render a tile using OpenGL
-    //            RenderTile(tilesetTexture, srcX, srcY, destX, destY, tileSize, tileSize);
-    //        }
-    //    }
-    //}
+int Tilemap::GetTileType(int x, int y)
+{
+    if (x >= 0 && x < mapWidth && y >= 0 && y < mapHeight) {
+        return tileMap[y][x];
+    }
+    // Return a default value or handle out-of-bounds as needed
+    return 0;
 }
