@@ -5,6 +5,7 @@
 #include "ImageObject.h"
 #include "Tile.h"
 #include "Tilemap.h"
+#include "Player.h"
 
 class Level
 {

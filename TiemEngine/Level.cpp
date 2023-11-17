@@ -55,12 +55,12 @@ void Level::LevelInit()
 
 	//Game object
 
-	GameObject * obj = new GameObject();
-	obj->SetTexture("../Resource/Texture/Player.png");
-	obj->SetSize(96.0f, -96.0f);
-	objectsList.push_back(obj);
+	Player * ply = new Player();
+	ply->SetTexture("../Resource/Texture/Player.png");
+	ply->SetSize(96.0f, -96.0f);
+	objectsList.push_back(ply);
 
-	player = obj;
+	player = ply;
 	player->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
 
 
