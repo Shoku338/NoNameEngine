@@ -15,7 +15,6 @@ private:
 	float overlapX, overlapY;
 
 public:
-	int _detectCollisionAABB(float ax, float ay, float ah, float aw, float bx, float by, float bh, float bw);
 	virtual void LevelLoad();
 	virtual void LevelInit();
 	virtual void LevelUpdate(float dt);

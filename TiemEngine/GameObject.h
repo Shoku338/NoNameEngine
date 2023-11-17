@@ -15,5 +15,6 @@ public:
 	void SetColor(float r, float g, float b);
 	void SetTexture(string path);
 	void Render(glm::mat4 globalModelTransform);
+	int detectCollisionAABB(float bx, float by, float bh, float bw);
 };
 

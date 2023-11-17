@@ -60,3 +60,35 @@ void GameObject::Render(glm::mat4 globalModelTransform)
 	}
 }
 
+int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw) {
+	float aHalfWidth = abs(size.x / 2.0f);
+	float aHalfHeight = abs(size.y / 2.0f);
+	float aQuatWidth = abs(size.x / 4.0f);
+	float aQuatHeight = abs(size.y / 4.0f);
+
+	float bTop = abs(by + (bh / 2));
+	float bBot = abs(by - (bh / 2));
+	float bRig = abs(bx + (bw / 2));
+	float bLef = abs(bx - (bw / 2));
+
+	// Calculate the eight points for each object
+	float aPoints[8][2] = {
+		{pos.x - aQuatWidth, pos.y + aHalfHeight},   // half top left
+		{pos.x + aQuatWidth, pos.y + aHalfHeight},    // half top right
+		{pos.x + aHalfWidth, pos.y + aQuatHeight},   // upper mid right
+		{pos.x + aHalfWidth, pos.y - aQuatHeight},    // lower mid right
+		{pos.x - aQuatWidth, pos.y - aHalfHeight},     // half bottom left
+		{pos.x + aQuatWidth, pos.y - aHalfHeight},   // half bottom right
+		{pos.x - aHalfWidth, pos.y + aQuatHeight},   // upper mid left
+		{pos.x - aHalfWidth, pos.y - aQuatHeight}    // lower mid left
+	};
+
+	//collision logic
+	int collisionResult = 0;
+	if (aPoints[0][1] <= bTop && (aPoints[0][0] > bLef && aPoints[0][0] < bRig)) {
+		cout << "BOTTOM" << endl;
+		return 4;
+	}
+
+	return collisionResult;
+}
