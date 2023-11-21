@@ -72,7 +72,7 @@ void Level::LevelInit()
 
 	Player * ply = new Player();
 	ply->SetTexture("../Resource/Texture/Main_Character.png");
-	ply->SetSize(196.0f, -196.0f);
+	ply->SetSize(96.0f, -96.0f);
 	objectsList.push_back(ply);
 
 	player = ply;
@@ -100,6 +100,11 @@ void Level::LevelUpdate(float dt)
 			{
 				//game logic here
 				player->Translate(glm::vec3(0, 1, 0));
+			}
+			if (resultCol == COLLISION_RIGHT)
+			{
+				//game logic here
+				player->Translate(glm::vec3(-0.4, 0, 0));
 			}
 			
 			//collision value
