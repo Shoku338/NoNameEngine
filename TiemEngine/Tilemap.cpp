@@ -5,18 +5,15 @@
 
 Tilemap::Tilemap(int width, int height, int tileSize) : mapWidth(width), mapHeight(height), tileSize(tileSize) {
     // Initialize tileMap with default values or load it from a file
+    textures.push_back(GameEngine::GetInstance()->GetRenderer()->LoadTexture("../Resource/Texture/water.jpg"));
+    textures.push_back(GameEngine::GetInstance()->GetRenderer()->LoadTexture("../Resource/Texture/grass.png"));
 }
+
 
 Tilemap::~Tilemap() {
     // Clean up any resources if needed
 }
 
-void Tilemap::SetTileset(GLRenderer* renderer, GLuint textureID, int tileWidth, int tileHeight) {
-    /*tilesetTexture = textureID;
-    tilesetWidth = tileWidth;
-    tilesetHeight = tileHeight;
-    renderer->SetTileset(this, textureID, tileWidth, tileHeight);*/
-}
 
 void Tilemap::LoadMapFromFile(const std::string& filePath) {
     std::ifstream file(filePath);
@@ -61,4 +58,9 @@ int Tilemap::GetTileType(int x, int y)
     }
     // Return a default value or handle out-of-bounds as needed
     return 0;
+}
+
+ unsigned int Tilemap::getTexture(int index)
+{
+    return textures[index];
 }

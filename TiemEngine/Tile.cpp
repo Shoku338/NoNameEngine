@@ -29,5 +29,5 @@ Tile::~Tile()
 
 void Tile::setTextureID(unsigned int newTexture)
 {
-
+    texture = newTexture;
 }

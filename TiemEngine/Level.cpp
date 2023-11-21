@@ -43,10 +43,10 @@ void Level::LevelInit()
 
 			// Set the texture based on the tile type
 			if (tileType == 1) {
-				tile->SetTexture("../Resource/Texture/grass.png");
+				tile->setTextureID(tilemap.getTexture(1));
 			}
 			else {
-				tile->SetTexture("../Resource/Texture/water.jpg"); 
+				tile->setTextureID(tilemap.getTexture(0));
 			}
 
 			TileList.push_back(tile);
@@ -56,8 +56,8 @@ void Level::LevelInit()
 	//Game object
 
 	Player * ply = new Player();
-	ply->SetTexture("../Resource/Texture/Player.png");
-	ply->SetSize(96.0f, -96.0f);
+	ply->SetTexture("../Resource/Texture/Main_Character.png");
+	ply->SetSize(196.0f, -196.0f);
 	objectsList.push_back(ply);
 
 	player = ply;
