@@ -14,6 +14,7 @@ public:
     Tile(float size,int indexX,int indexY,unsigned int texture);
     ~Tile();
     void setTextureID(unsigned int newTexture);
+    glm::vec3 getPosition();
 
 
 };

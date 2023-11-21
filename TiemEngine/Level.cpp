@@ -44,12 +44,27 @@ void Level::LevelInit()
 			// Set the texture based on the tile type
 			if (tileType == 1) {
 				tile->setTextureID(tilemap.getTexture(1));
+				TileList.push_back(tile);
 			}
-			else {
+			else if(tileType == 2)
+			{
 				tile->setTextureID(tilemap.getTexture(0));
+				TileList.push_back(tile);
+
+				ImageObject* zelda = new ImageObject();
+				zelda ->SetTexture("../Resource/Texture/Zelda.png");
+				zelda ->SetSize(128.0f, -128.0f);
+				zelda->SetPosition(tile->getPosition());
+				objectsList.push_back(zelda);
+
+			}
+			else if(tileType == 0)
+			{
+				tile->setTextureID(tilemap.getTexture(0));
+				TileList.push_back(tile);
 			}
 
-			TileList.push_back(tile);
+			//TileList.push_back(tile);
 		}
 	}
 

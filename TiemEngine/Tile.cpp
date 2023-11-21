@@ -18,7 +18,7 @@ Tile::Tile(float size, int indexX, int indexY, unsigned int newTexture)
 
     SetPosition(glm::vec3(x,y, z));
     SetSize(size, -size);
-	texture = newTexture;
+    setTextureID(newTexture);
     
 }
 
@@ -30,4 +30,9 @@ Tile::~Tile()
 void Tile::setTextureID(unsigned int newTexture)
 {
     texture = newTexture;
+}
+
+glm::vec3 Tile::getPosition()
+{
+    return pos;
 }
