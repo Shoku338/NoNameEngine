@@ -1,5 +1,5 @@
 #include "Level.h"
-#define GRAVITY -15.0f
+#define GRAVITY -40.0f
 #define	COLLISION_LEFT				1
 #define	COLLISION_RIGHT				2
 #define	COLLISION_TOP				4
@@ -99,7 +99,7 @@ void Level::LevelUpdate(float dt)
 			if (resultCol == COLLISION_BOTTOM)
 			{
 				//game logic here
-				player->Translate(glm::vec3(0, 10, 0));
+				player->Translate(glm::vec3(0, 1, 0));
 			}
 			
 			//collision value
@@ -144,12 +144,12 @@ void Level::HandleKey(char key)
 	 
 	switch (key)
 	{
-		case 'w': player->velocity.y = 128.0f; 
+		case 'w': player->velocity.y = 50.0f; 
 			player->setGround(false);	break; // jumping
 		case 'a': player->velocity.x = -50.f; break;//move velocity value
 		case 'd': player->velocity.x = 50.f; break;//move velocity value
 			//need spacebar
-		case ' ': player->velocity.y = 5.0f;
+		case ' ': player->velocity.y = 50.0f;
 			player->setGround(false);	break; 
 		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
