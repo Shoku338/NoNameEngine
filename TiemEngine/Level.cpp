@@ -20,14 +20,19 @@ void Level::LevelLoad()
 
 void Level::LevelInit()
 {
-	
+	ImageObject* bullet = new ImageObject();
+	bullet->SetTexture("../Resource/Texture/LaserB.png");
+	bullet->SetSize(32.0f, -32.0f);
+	bullet->SetPosition(glm::vec3(200, 200, 0));
+	objectsList.push_back(bullet);
+	//objectsList.at(0)->rotate(60);
 
 	ImageObject* other = new ImageObject();
 	other->SetTexture("../Resource/Texture/MOTIVATED.png");
 	other->SetSize(128.0f, -128.0f);
 	other->SetPosition(glm::vec3(200, 200, 0));
 	objectsList.push_back(other);
-
+	//objectsList.at(0)->rotate(60);
 
 	//Added by Kapom
 
@@ -77,12 +82,11 @@ void Level::LevelInit()
 
 	player = ply;
 	player->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
-
-
-	
-
 	//cout << "Init Level" << endl;
+
+
 }
+
 
 void Level::LevelUpdate(float dt)
 {
@@ -92,6 +96,8 @@ void Level::LevelUpdate(float dt)
 	player->Translate(player->velocity * dt);
 	player->velocity.x *= (1.0f - 0.1f); //0.3 is friction for now
 	player->velocity.y += GRAVITY * dt; //Gravity
+	objectsList.at(0)->velocity.x += 50.0 * dt;
+	objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
 	for (int i = 0; i < objectsList.size(); i ++) {
 		
 		if (objectsList.at(i) != player) {

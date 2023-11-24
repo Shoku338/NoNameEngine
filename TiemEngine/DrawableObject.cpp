@@ -55,10 +55,7 @@ float DrawableObject::getsizeY() {
 	return size.y;
 }
 
-
-void DrawableObject::setGround(bool state) {
-	grounded = state;
-}
-bool DrawableObject::getGrounded() {
-	return grounded;
+void DrawableObject::rotate(int degree) {
+	// Convert degrees to radians
+	float radians = glm::radians(static_cast<float>(degree));
 }

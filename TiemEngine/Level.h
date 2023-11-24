@@ -12,7 +12,7 @@ class Level
 private:
 	vector<DrawableObject*> objectsList;
 	vector<Tile*> TileList;
-	GameObject * player;
+	Player * player;
 	float overlapX, overlapY;
 
 public:

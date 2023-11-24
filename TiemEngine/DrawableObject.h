@@ -8,9 +8,10 @@ using namespace std;
 class DrawableObject
 {
 protected:
-	bool grounded = true;
+	
 	glm::vec3 pos;
 	glm::vec3 size;
+	glm::vec3 rotation;
 
 public:
 	glm::mat4 getTransform();
@@ -25,9 +26,9 @@ public:
 	float getPosY();
 	float getsizeX();
 	float getsizeY();
-	void setGround(bool state);
-	bool getGrounded();
+	void rotate(int degree);
 	//Rotate, Scale ???
+	//add rotate
 
 };
 
