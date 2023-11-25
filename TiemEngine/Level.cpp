@@ -6,9 +6,6 @@
 #define	COLLISION_BOTTOM			3
 
 
-
-
-
 void Level::LevelLoad()
 {
 	SquareMeshVbo * square = new SquareMeshVbo();
@@ -83,8 +80,6 @@ void Level::LevelInit()
 	player = ply;
 	player->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
 	//cout << "Init Level" << endl;
-
-
 }
 
 
@@ -96,8 +91,8 @@ void Level::LevelUpdate(float dt)
 	player->Translate(player->velocity * dt);
 	player->velocity.x *= (1.0f - 0.1f); //0.3 is friction for now
 	player->velocity.y += GRAVITY * dt; //Gravity
-	objectsList.at(0)->velocity.x += 50.0 * dt;
-	objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
+	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
+	//objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
 	for (int i = 0; i < objectsList.size(); i ++) {
 		
 		if (objectsList.at(i) != player) {
@@ -115,6 +110,10 @@ void Level::LevelUpdate(float dt)
 			
 			//collision value
 			//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
+		}
+		if (objectsList.at(i)->getPosX() >= GameEngine::GetInstance()->GetGameWidth()) {
+			objectsList.erase(objectsList.begin() + i);
+			
 		}
 	}
 	
