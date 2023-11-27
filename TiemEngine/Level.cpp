@@ -90,7 +90,10 @@ void Level::LevelUpdate(float dt)
 	
 	player->Translate(player->velocity * dt);
 	player->velocity.x *= (1.0f - 0.1f); //0.3 is friction for now
-	player->velocity.y += GRAVITY * dt; //Gravity
+	if (player->velocity.y >= -50.0f) {
+		//cout << "add grav" << endl;
+		player->velocity.y += GRAVITY * dt; //Gravity
+	}
 	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
 	//objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
 	for (int i = 0; i < objectsList.size(); i ++) {
@@ -100,7 +103,9 @@ void Level::LevelUpdate(float dt)
 			if (resultCol == COLLISION_BOTTOM)
 			{
 				//game logic here
-				player->Translate(glm::vec3(0, 1, 0));
+				player->setGround(true);
+				player->velocity.y = 0;
+				player->Translate(glm::vec3(0, 0.5, 0));
 			}
 			if (resultCol == COLLISION_RIGHT)
 			{
@@ -154,13 +159,17 @@ void Level::HandleKey(char key)
 	 
 	switch (key)
 	{
-		case 'w': player->velocity.y = 50.0f; 
-			player->setGround(false);	break; // jumping
+		case ' ':
+		case 'w': if (player->getGrounded()) {
+			cout << "Rising hopper" << endl;
+			player->velocity.y = 50.0f;
+		}
+			player->setGround(false);
+			break; // jumping
 		case 'a': player->velocity.x = -50.f; break;//move velocity value
 		case 'd': player->velocity.x = 50.f; break;//move velocity value
 			//need spacebar
-		case ' ': player->velocity.y = 50.0f;
-			player->setGround(false);	break; 
+		
 		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
