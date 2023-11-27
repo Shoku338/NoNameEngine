@@ -60,7 +60,17 @@ int Tilemap::GetTileType(int x, int y)
     return 0;
 }
 
- unsigned int Tilemap::getTexture(int index)
+unsigned int Tilemap::getTexture(int index)
 {
     return textures[index];
+}
+
+int Tilemap::getWidth()
+{
+    return mapWidth;
+}
+
+int Tilemap::getHeight()
+{
+    return mapHeight;
 }

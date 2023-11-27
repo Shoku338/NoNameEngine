@@ -13,13 +13,14 @@ public:
     void Render();
     int GetTileType(int x, int y);
     unsigned int getTexture(int index);
+    int getWidth();
+    int getHeight();
 
 private:
     int mapWidth;
     int mapHeight;
     int tileSize;
 
-    GLuint tilesetTexture;
     vector<unsigned int> textures;
     std::vector<std::vector<int>> tileMap; // 2D vector representing the tile IDs
 };

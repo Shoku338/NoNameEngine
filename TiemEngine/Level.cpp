@@ -33,12 +33,12 @@ void Level::LevelInit()
 
 	//Added by Kapom
 
-	Tilemap tilemap(1024, 576, 1);
+	Tilemap tilemap(32, 9, 64);
 	tilemap.LoadMapFromFile("../Resource/Texture/map.txt");
 
 	// Loop through the tile map and create tiles based on the map data
-	for (int y = 0; y < 9; ++y) {
-		for (int x = 0; x < 16; ++x) {
+	for (int y = 0; y < tilemap.getHeight(); ++y) {
+		for (int x = 0; x < tilemap.getWidth(); ++x) {
 			int tileType = tilemap.GetTileType(x, y);
 
 			Tile* tile = new Tile(64.0f, x, y, tileType);
@@ -51,11 +51,11 @@ void Level::LevelInit()
 			else if(tileType == 2)
 			{
 				tile->setTextureID(tilemap.getTexture(0));
-				TileList.push_back(tile);
+				//TileList.push_back(tile);
 
 				ImageObject* zelda = new ImageObject();
 				zelda ->SetTexture("../Resource/Texture/Zelda.png");
-				zelda ->SetSize(128.0f, -128.0f);
+				zelda ->SetSize(128.0f, -96.0f);
 				zelda->SetPosition(tile->getPosition());
 				objectsList.push_back(zelda);
 
