@@ -11,9 +11,9 @@ class Level
 {
 private:
 	vector<DrawableObject*> objectsList;
-	vector<Tile*> TileList;
 	Player * player;
 	float overlapX, overlapY;
+	Tilemap * tilemap;
 
 public:
 	virtual void LevelLoad();

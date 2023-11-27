@@ -11,4 +11,5 @@ public:
 	virtual string GetMeshName();
 	virtual void Render();
 	virtual void LoadData();
+	void LoadData(float* uv);
 };

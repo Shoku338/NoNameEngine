@@ -12,6 +12,10 @@ Tilemap::Tilemap(int width, int height, int tileSize) : mapWidth(width), mapHeig
 
 Tilemap::~Tilemap() {
     // Clean up any resources if needed
+    for (Tile* tile : TileList) {
+        delete tile;
+    }
+    TileList.clear();
 }
 
 
@@ -48,7 +52,7 @@ void Tilemap::LoadMapFromFile(const std::string& filePath) {
 
 void Tilemap::Render() 
 {
-   
+    GameEngine::GetInstance()->RenderTile(TileList);
 }
 
 int Tilemap::GetTileType(int x, int y)
@@ -73,4 +77,39 @@ int Tilemap::getWidth()
 int Tilemap::getHeight()
 {
     return mapHeight;
+}
+
+void Tilemap::setTile(vector<DrawableObject*> * list)
+{
+    for (int y = 0; y < mapHeight; ++y) {
+        for (int x = 0; x < mapWidth; ++x) {
+            int tileType = tileMap[y][x];
+
+            Tile* tile = new Tile(64.0f, x, y, tileType);
+
+            // Set the texture based on the tile type
+            if (tileType == 1) {
+                tile->setTextureID(textures[1]);
+            }
+            else if (tileType == 2)
+            {
+                //tile->setTextureID(textures[1]);
+             
+
+                GameObject* zelda = new GameObject();
+                zelda->SetTexture("../Resource/Texture/Zelda.png");
+                zelda->SetSize(128.0f, -96.0f);
+                zelda->SetPosition(tile->getPosition());
+                list->push_back(zelda);
+
+            }
+            else if (tileType == 0)
+            {
+                tile->setTextureID(textures[0]);
+            }
+
+            TileList.push_back(tile);
+            //cout << "push back tile " << endl;
+        }
+    }
 }

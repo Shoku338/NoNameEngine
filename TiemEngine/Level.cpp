@@ -12,6 +12,12 @@ void Level::LevelLoad()
 	square->LoadData();
 	GameEngine::GetInstance()->AddMesh(SquareMeshVbo::MESH_NAME, square);
 
+	//Added by Kapom
+
+	tilemap = new Tilemap(16, 9, 64);
+	tilemap->LoadMapFromFile("../Resource/Texture/map.txt");
+	tilemap->setTile(&objectsList);
+
 	//cout << "Load Level" << endl;
 }
 
@@ -31,49 +37,13 @@ void Level::LevelInit()
 	objectsList.push_back(other);
 	//objectsList.at(0)->rotate(60);
 
-	//Added by Kapom
+	
 
-	Tilemap tilemap(32, 9, 64);
-	tilemap.LoadMapFromFile("../Resource/Texture/map.txt");
-
-	// Loop through the tile map and create tiles based on the map data
-	for (int y = 0; y < tilemap.getHeight(); ++y) {
-		for (int x = 0; x < tilemap.getWidth(); ++x) {
-			int tileType = tilemap.GetTileType(x, y);
-
-			Tile* tile = new Tile(64.0f, x, y, tileType);
-
-			// Set the texture based on the tile type
-			if (tileType == 1) {
-				tile->setTextureID(tilemap.getTexture(1));
-				TileList.push_back(tile);
-			}
-			else if(tileType == 2)
-			{
-				tile->setTextureID(tilemap.getTexture(0));
-				//TileList.push_back(tile);
-
-				ImageObject* zelda = new ImageObject();
-				zelda ->SetTexture("../Resource/Texture/Zelda.png");
-				zelda ->SetSize(128.0f, -96.0f);
-				zelda->SetPosition(tile->getPosition());
-				objectsList.push_back(zelda);
-
-			}
-			else if(tileType == 0)
-			{
-				tile->setTextureID(tilemap.getTexture(0));
-				TileList.push_back(tile);
-			}
-
-			//TileList.push_back(tile);
-		}
-	}
 
 	//Game object
 
 	Player * ply = new Player();
-	ply->SetTexture("../Resource/Texture/Main_Character.png");
+	ply->SetTexture("../Resource/Texture/penguin.png");
 	ply->SetSize(96.0f, -96.0f);
 	objectsList.push_back(ply);
 
@@ -127,7 +97,7 @@ void Level::LevelUpdate(float dt)
 
 void Level::LevelDraw()
 {
-	GameEngine::GetInstance()->RenderTile(TileList);
+	tilemap->Render();
 	GameEngine::GetInstance()->Render(objectsList);
 	
 	//cout << "Draw Level" << endl;
@@ -141,10 +111,7 @@ void Level::LevelFree()
 	}
 	objectsList.clear();
 
-	for (Tile* tile : TileList) {
-		delete tile;
-	}
-	TileList.clear();
+	
 	
 }
 

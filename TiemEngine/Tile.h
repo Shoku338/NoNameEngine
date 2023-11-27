@@ -8,6 +8,7 @@ class Tile :public GameObject
 	float tileSize;
     int posIndexX, posIndexY;
     vector<vector<int>> tileMap;
+    string tileName;
 
 public:
 	
