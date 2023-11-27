@@ -26,7 +26,7 @@ public:
 	float getPosY();
 	float getsizeX();
 	float getsizeY();
-	void rotate(int degree);
+	glm::mat4 rotateDegree(float degree);
 	//Rotate, Scale ???
 	//add rotate
 

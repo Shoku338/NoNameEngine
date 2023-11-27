@@ -11,6 +11,7 @@ glm::mat4 DrawableObject::getTransform()
 	glm::mat4 transform = glm::mat4(1.0);
 	transform = glm::translate(transform, glm::vec3(pos.x, pos.y, 0));
 	transform = glm::scale(transform, glm::vec3(size.x, size.y, 1));
+	transform = glm::rotate(transform, glm::radians(0.0f), glm::vec3(1, 0, 0));
 	return transform;
 }
 
@@ -55,7 +56,8 @@ float DrawableObject::getsizeY() {
 	return size.y;
 }
 
-void DrawableObject::rotate(int degree) {
-	// Convert degrees to radians
-	float radians = glm::radians(static_cast<float>(degree));
+glm::mat4 DrawableObject::rotateDegree(float degree) {
+	glm::mat4 transform = glm::mat4(1.0);
+	transform = glm::rotate(transform, glm::radians(degree), glm::vec3(1, 0, 0));
+	return transform;
 }
