@@ -104,3 +104,5 @@ int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw) {
 
 	return collisionResult;
 }
+
+

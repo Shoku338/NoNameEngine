@@ -55,3 +55,34 @@ void SquareMeshVbo::Render()
 	}
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
+
+void SquareMeshVbo::LoadData(float * uv)
+{
+	//VBO data
+	GLfloat vertexData[] =
+	{
+	  -0.5f, -0.5f,
+	  0.5f, -0.5f,
+	  0.5f,  0.5f,
+	  -0.5f,  0.5f
+	};
+
+	GLfloat texData[] =
+	{
+	  uv[0],uv[1],
+	  uv[2],uv[3],
+	  uv[4],uv[5],
+	  uv[6],uv[7]
+	};
+
+	//Create VBO
+	glGenBuffers(1, &(this->posVboId));
+	glBindBuffer(GL_ARRAY_BUFFER, this->posVboId);
+	glBufferData(GL_ARRAY_BUFFER, 2 * 4 * sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &(this->texVboId));
+	glBindBuffer(GL_ARRAY_BUFFER, this->texVboId);
+	glBufferData(GL_ARRAY_BUFFER, 2 * 4 * sizeof(GLfloat), texData, GL_STATIC_DRAW);
+
+
+}

@@ -18,6 +18,7 @@ public:
     int getWidth();
     int getHeight();
     void setTile(vector<DrawableObject*> * list);
+    float* calculateUV(float MaxRow, float MaxCol, float CurrentRow, float CurrentCol);
 
 private:
     int mapWidth;
