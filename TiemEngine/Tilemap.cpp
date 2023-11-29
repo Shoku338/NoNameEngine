@@ -114,7 +114,7 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
     }
 }
 
-float* Tilemap::calculateUV(float MaxRow, float MaxCol, float CurrentRow, float CurrentCol)
-{
-
-}
+//float* Tilemap::calculateUV(float MaxRow, float MaxCol, float CurrentRow, float CurrentCol)
+//{
+//    
+//}
