@@ -114,7 +114,21 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
     }
 }
 
-//float* Tilemap::calculateUV(float MaxRow, float MaxCol, float CurrentRow, float CurrentCol)
-//{
-//    
-//}
+float* Tilemap::calculateUV(float MaxRow, float MaxCol, float CurrentRow, float CurrentCol)
+{
+    // Calculate UV coordinates starting from bottom-left in counter-clockwise order
+    float uv[8];
+    uv[0] = CurrentCol / MaxCol;               // bottom left x
+    uv[1] = 1.0f - ((CurrentRow + 1.0f) / MaxRow);  // bottom left y
+
+    uv[2] = (CurrentCol + 1.0f) / MaxCol;       // bottom right x
+    uv[3] = 1.0f - ((CurrentRow + 1.0f) / MaxRow);  // bottom right y
+
+    uv[4] = (CurrentCol + 1.0f) / MaxCol;       // top right x
+    uv[5] = 1.0f - (CurrentRow / MaxRow);       // top right y
+
+    uv[6] = CurrentCol / MaxCol;               // top left x
+    uv[7] = 1.0f - (CurrentRow / MaxRow);       // top left y
+
+    return uv;
+}
