@@ -75,7 +75,7 @@ void Level::LevelUpdate(float dt)
 				//game logic here
 				player->setGround(true);
 				player->velocity.y = 0;
-				player->Translate(glm::vec3(0, 0.5, 0));
+				
 			}
 			if (resultCol == COLLISION_RIGHT)
 			{
