@@ -111,9 +111,6 @@ void Level::LevelFree()
 		delete obj;
 	}
 	objectsList.clear();
-
-	
-	
 }
 
 void Level::LevelUnload()
