@@ -30,7 +30,7 @@ void Level::LevelInit()
 	objectsList.push_back(bullet);
 	//objectsList.at(0)->rotate(60);
 
-	ImageObject* other = new ImageObject();
+	GameObject* other = new GameObject();
 	other->SetTexture("../Resource/Texture/MOTIVATED.png");
 	other->SetSize(128.0f, -128.0f);
 	other->SetPosition(glm::vec3(200, 200, 0));
@@ -69,7 +69,9 @@ void Level::LevelUpdate(float dt)
 	for (int i = 0; i < objectsList.size(); i ++) {
 		
 		if (objectsList.at(i) != player) {
-			if (dynamic_cast<GameObject*>(objectsList.at(i))->getCollision()) {
+			GameObject* gameObject = dynamic_cast<GameObject*>(objectsList.at(i));
+			if (gameObject) {
+				if (gameObject->getCollision()) {
 				int resultCol = player->detectCollisionAABB(objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), abs(objectsList.at(i)->getsizeY()), objectsList.at(i)->getsizeX());
 				if (resultCol == COLLISION_BOTTOM)
 				{
@@ -87,12 +89,11 @@ void Level::LevelUpdate(float dt)
 				//collision value
 				//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
 			}
+			}
 			
 		}
-		/*if (objectsList.at(i)->getPosX() >= GameEngine::GetInstance()->GetGameWidth()) {
-			objectsList.erase(objectsList.begin() + i);*/
-		}
 	}
+}
 	
 
 void Level::LevelDraw()

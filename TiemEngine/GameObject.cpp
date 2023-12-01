@@ -108,3 +108,6 @@ int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw) {
 bool  GameObject::getCollision() {
 	return haveCollision;
 }
+void  GameObject::setCollision(bool have) {
+	haveCollision = have;
+}
