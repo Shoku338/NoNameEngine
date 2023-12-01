@@ -69,31 +69,31 @@ void Level::LevelUpdate(float dt)
 	for (int i = 0; i < objectsList.size(); i ++) {
 		
 		if (objectsList.at(i) != player) {
-			int resultCol = player->detectCollisionAABB(objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), abs(objectsList.at(i)->getsizeY()), objectsList.at(i)->getsizeX());
-			if (resultCol == COLLISION_BOTTOM)
-			{
-				//game logic here
-				player->setGround(true);
-				player->velocity.y = 0;
-				
-			}
-			if (resultCol == COLLISION_RIGHT)
-			{
-				//game logic here
-				player->Translate(glm::vec3(-0.4, 0, 0));
+			if (dynamic_cast<GameObject*>(objectsList.at(i))->getCollision()) {
+				int resultCol = player->detectCollisionAABB(objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), abs(objectsList.at(i)->getsizeY()), objectsList.at(i)->getsizeX());
+				if (resultCol == COLLISION_BOTTOM)
+				{
+					//game logic here
+					player->setGround(true);
+					player->velocity.y = 0;
+
+				}
+				if (resultCol == COLLISION_RIGHT)
+				{
+					//game logic here
+					player->Translate(glm::vec3(-0.4, 0, 0));
+				}
+
+				//collision value
+				//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
 			}
 			
-			//collision value
-			//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
 		}
-		if (objectsList.at(i)->getPosX() >= GameEngine::GetInstance()->GetGameWidth()) {
-			objectsList.erase(objectsList.begin() + i);
-			
+		/*if (objectsList.at(i)->getPosX() >= GameEngine::GetInstance()->GetGameWidth()) {
+			objectsList.erase(objectsList.begin() + i);*/
 		}
 	}
 	
-
-}
 
 void Level::LevelDraw()
 {
