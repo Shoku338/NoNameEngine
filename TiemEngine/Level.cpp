@@ -23,12 +23,7 @@ void Level::LevelLoad()
 
 void Level::LevelInit()
 {
-	ImageObject* bullet = new ImageObject();
-	bullet->SetTexture("../Resource/Texture/LaserB.png");
-	bullet->SetSize(32.0f, -32.0f);
-	bullet->SetPosition(glm::vec3(200, 200, 0));
-	objectsList.push_back(bullet);
-	//objectsList.at(0)->rotate(60);
+	
 
 	GameObject* other = new GameObject();
 	other->SetTexture("../Resource/Texture/MOTIVATED.png");
@@ -37,7 +32,12 @@ void Level::LevelInit()
 	objectsList.push_back(other);
 	//objectsList.at(0)->rotate(60);
 
-	
+	Bullet* bullet = new Bullet();
+	bullet->SetTexture("../Resource/Texture/LaserB.png");
+	bullet->SetSize(32.0f, -32.0f);
+	bullet->SetPosition(glm::vec3(200, 200, 0));
+	objectsList.push_back(bullet);
+	//objectsList.at(0)->rotate(60);
 
 
 	//Game object
@@ -67,8 +67,13 @@ void Level::LevelUpdate(float dt)
 	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
 	//objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
 	for (int i = 0; i < objectsList.size(); i ++) {
-		
+		if ((dynamic_cast<Bullet*>(objectsList.at(i)))) {
+			objectsList.at(i)->Translate(objectsList.at(i)->velocity * dt);
+		}
 		if (objectsList.at(i) != player) {
+			if (dynamic_cast<GameObject*>(objectsList.at(i))) {
+				objectsList.at(i)->velocity.x += 80;
+			}
 			GameObject* gameObject = dynamic_cast<GameObject*>(objectsList.at(i));
 			if (gameObject) {
 				if (gameObject->getCollision()) {
@@ -125,7 +130,8 @@ void Level::HandleKey(char key)
 	switch (key)
 	{
 		case ' ':
-		case 'w': if (player->getGrounded()) {
+		case 'w': 
+			if (player->getGrounded()) {
 			cout << "Rising hopper" << endl;
 			player->velocity.y = 50.0f;
 		}

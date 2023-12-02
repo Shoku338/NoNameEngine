@@ -15,7 +15,7 @@ protected:
 
 public:
 	glm::mat4 getTransform();
-	glm::vec3 velocity;
+	glm::vec3 velocity = glm::vec3(0, 0, 0);
 	DrawableObject();
 	~DrawableObject();
 	virtual void Render(glm::mat4 globalModelTransform) = 0;

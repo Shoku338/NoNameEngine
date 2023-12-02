@@ -6,6 +6,7 @@
 #include "Tile.h"
 #include "Tilemap.h"
 #include "Player.h"
+#include "Bullet.h"
 
 class Level
 {
