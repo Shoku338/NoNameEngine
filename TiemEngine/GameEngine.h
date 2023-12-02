@@ -4,7 +4,9 @@
 #include "DrawableObject.h"
 #include "GLRenderer.h"
 #include "GameStateController.h"
+#include "Bullet.h"
 #include "Tile.h"
+#include "glm.hpp"
 
 using namespace std;
 class GameEngine
@@ -31,4 +33,6 @@ public:
 	int GetWindowHeight();
 	int GetGameWidth();
 	int GetGameHeight();
+	Bullet* instantiateObject(float width, float height, glm::vec3 velocity, glm::vec3 position);
+
 };

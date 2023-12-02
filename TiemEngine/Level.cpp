@@ -140,8 +140,8 @@ void Level::HandleKey(char key)
 		case 'a': player->velocity.x = -50.f; break;//move velocity value
 		case 'd': player->velocity.x = 50.f; break;//move velocity value
 			//need spacebar
-		
-		
+		case 'g': objectsList.push_back(GameEngine::GetInstance()->instantiateObject(20.0f, 20.0f, glm::vec3(0, 0, 0), glm::vec3(player->getPosX(), player->getPosY(), 0)));
+			break;		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 		case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ; break;

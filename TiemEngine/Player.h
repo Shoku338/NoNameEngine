@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include <GL/glew.h>
 
 class Player :public GameObject {
 	float health;

@@ -89,3 +89,10 @@ int GameEngine::GetGameHeight()
 {
 	return heightGame;
 }
+
+Bullet* GameEngine::instantiateObject(float width, float height, glm::vec3 velocity, glm::vec3 position) {
+	Bullet* bulet = new Bullet;
+	bulet->SetPosition(position);
+	bulet->SetSize(width, height);
+	return bulet;
+}

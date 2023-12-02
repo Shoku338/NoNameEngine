@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CombineObject.cpp" />
     <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="GameEngine.cpp" />
