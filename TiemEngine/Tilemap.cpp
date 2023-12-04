@@ -142,3 +142,8 @@ void Tilemap::calculateUV(float MaxCol, float MaxRow, float CurrentCol, float Cu
 
    
 }
+
+vector<Tile*> Tilemap::getTilemap()
+{
+    return TileList;
+}
