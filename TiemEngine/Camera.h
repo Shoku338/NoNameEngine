@@ -5,7 +5,7 @@
 
 class Camera2D {
 public:
-    Camera2D(float width, float height)
+    Camera2D(int width, int height)
         : m_Position(0.0f, 0.0f), m_ZoomLevel(1.0f), m_Width(width), m_Height(height) {}
 
     void MoveLeft(float delta) { m_Position.x -= delta; }
@@ -24,11 +24,10 @@ public:
 
     void UpdateCameraPosition(const glm::vec2& newPosition) {
         m_Position = newPosition;
-        // Optionally add smoothing or other adjustments here
     }
 
 private:
     glm::vec2 m_Position;
     float m_ZoomLevel;
-    float m_Width, m_Height;
+    int m_Width, m_Height;
 }; 

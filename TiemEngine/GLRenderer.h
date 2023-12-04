@@ -37,8 +37,8 @@ protected:
 	void SetMeshAttribId(MeshVbo * shape);
 
 public:
-	void Render(vector <DrawableObject*> & objList);
-	void RenderTile(vector <Tile*>& tileList);
+	void Render(vector <DrawableObject*> & objList, const glm::mat4& viewMatrix);
+	void RenderTile(vector <Tile*>& tileList, const glm::mat4& viewMatrix);
 	GLRenderer(int w, int h);
 	bool InitGL(string vertexShaderFile, string fragmentShaderFile);
 

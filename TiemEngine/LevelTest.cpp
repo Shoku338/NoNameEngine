@@ -37,7 +37,17 @@ void LevelTest::LevelUpdate()
 
 void LevelTest::LevelDraw()
 {
-	GameEngine::GetInstance()->Render(objectsList);
+	//GameEngine::GetInstance()->Render(objectsList);
+
+	if (camera)
+	{
+		glm::mat4 viewMatrix = camera->GetViewMatrix();
+		GameEngine::GetInstance()->Render(objectsList, viewMatrix);
+	}
+	else
+	{
+		GameEngine::GetInstance()->Render(objectsList, glm::mat4(1.0));
+	}
 	//cout << "Draw Level" << endl;
 }
 

@@ -50,9 +50,9 @@ void Tilemap::LoadMapFromFile(const std::string& filePath) {
 
 }
 
-void Tilemap::Render() 
+void Tilemap::Render(const glm::mat4& viewMatrix)
 {
-    GameEngine::GetInstance()->RenderTile(TileList);
+    GameEngine::GetInstance()->RenderTile(TileList,viewMatrix);
 }
 
 int Tilemap::GetTileType(int x, int y)

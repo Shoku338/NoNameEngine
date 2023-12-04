@@ -27,8 +27,8 @@ public:
 	void SetBackgroundColor(float r, float g, float b);
 	void AddMesh(string name, MeshVbo* mesh);
 	void ClearMesh();
-	void Render(vector<DrawableObject*> renderObjects);
-	void RenderTile(vector<Tile*> renderTile);
+	void Render(vector<DrawableObject*> renderObjects, const glm::mat4& viewMatrix);
+	void RenderTile(vector<Tile*> renderTile,const glm::mat4& viewMatrix);
 	int GetWindowWidth();
 	int GetWindowHeight();
 	int GetGameWidth();

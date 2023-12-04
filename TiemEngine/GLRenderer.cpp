@@ -123,7 +123,7 @@ bool GLRenderer::Initialize(string vertexShaderFile, string fragmentShaderFile)
 
 }
 
-void GLRenderer::Render(vector <DrawableObject*> & objList)
+void GLRenderer::Render(vector <DrawableObject*> & objList, const glm::mat4& viewMatrix)
 {
 	// Clear color buffer
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -137,17 +137,21 @@ void GLRenderer::Render(vector <DrawableObject*> & objList)
 		glUniformMatrix4fv(pMatrixId, 1, GL_FALSE, glm::value_ptr(this->projectionMatrix));
 	}
 
-	glm::mat4 camera = glm::mat4(1.0);
+	//printf("View Matrix: \n");
+	//for (int i = 0; i < 4; i++) {
+	//	printf("%f %f %f %f\n", viewMatrix[i][0], viewMatrix[i][1], viewMatrix[i][2], viewMatrix[i][3]);
+	//}
 
-	for (DrawableObject *obj : objList) {
-		obj->Render(camera);
+	for (DrawableObject* obj : objList) {
+		obj->Render(viewMatrix);
 	}
+
 
 	//Unbind program
 	glUseProgram(NULL);
 }
 
-void GLRenderer::RenderTile(vector <Tile*>& tileList)
+void GLRenderer::RenderTile(vector <Tile*>& tileList,const glm::mat4& viewMatrix)
 {
 	// Clear color buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -161,10 +165,10 @@ void GLRenderer::RenderTile(vector <Tile*>& tileList)
 		glUniformMatrix4fv(pMatrixId, 1, GL_FALSE, glm::value_ptr(this->projectionMatrix));
 	}
 
-	glm::mat4 camera = glm::mat4(1.0);
+	
 
 	for (Tile* tile : tileList) {
-		tile->Render(camera);
+		tile->Render(viewMatrix);
 	}
 
 	//Unbind program

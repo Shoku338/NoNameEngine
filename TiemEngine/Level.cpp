@@ -23,8 +23,7 @@ void Level::LevelLoad()
 
 void Level::LevelInit()
 {
-	
-
+	camera = new Camera2D(GameEngine::GetInstance()->GetWindowWidth() , GameEngine::GetInstance()->GetWindowHeight());
 	GameObject* other = new GameObject();
 	other->SetTexture("../Resource/Texture/MOTIVATED.png");
 	other->SetSize(128.0f, -128.0f);
@@ -67,10 +66,12 @@ void Level::LevelUpdate(float dt)
 
 	// Update camera position based on player's new position
 	if (camera) {
-		float playerPosX = player->getPosX();
-		float playerPosY = player->getPosY();
-		camera->UpdateCameraPosition(glm::vec2(playerPosX, playerPosY));
+		camera->UpdateCameraPosition(glm::vec2(player->getPosX()- GameEngine::GetInstance()->GetGameWidth()/2, player->getPosY()- GameEngine::GetInstance()->GetGameHeight()/2));
+		//printf("Window Width : %d, Window Height: %d\n", GameEngine::GetInstance()->GetWindowWidth(), GameEngine::GetInstance()->GetWindowHeight());
+		//printf("PLayer position: %f, %f\n", player->getPosX(), player->getPosY());
 	}
+
+	
 
 
 	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
@@ -112,8 +113,22 @@ void Level::LevelUpdate(float dt)
 
 void Level::LevelDraw()
 {
-	tilemap->Render();
-	GameEngine::GetInstance()->Render(objectsList);
+
+	glm::mat4 viewMatrix = camera->GetViewMatrix();
+	tilemap->Render(viewMatrix);
+	//GameEngine::GetInstance()->Render(objectsList);
+
+	if (camera) 
+	{
+		
+		GameEngine::GetInstance()->Render(objectsList, viewMatrix);
+		
+		
+	}
+	else 
+	{
+		GameEngine::GetInstance()->Render(objectsList, glm::mat4(1.0));
+	}
 	
 	//cout << "Draw Level" << endl;
 }
@@ -143,6 +158,7 @@ void Level::HandleKey(char key)
 			if (player->getGrounded()) {
 			cout << "Rising hopper" << endl;
 			player->velocity.y = 50.0f;
+			
 		}
 			player->setGround(false);
 			break; // jumping

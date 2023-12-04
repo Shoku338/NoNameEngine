@@ -1,5 +1,6 @@
 
 #include "GameEngine.h"
+#include "Camera.h"
 
 GameEngine* GameEngine::instance = nullptr;
 
@@ -39,14 +40,14 @@ void GameEngine::Init(int width, int height)
 	stateController->Init(GameState::GS_LEVEL1);
 }
 
-void GameEngine::Render(vector<DrawableObject*> renderObjects)
+void GameEngine::Render(vector<DrawableObject*> renderObjects, const glm::mat4& viewMatrix)
 {
-	this->GetRenderer()->Render(renderObjects);
+	this->GetRenderer()->Render(renderObjects, viewMatrix);
 }
 
-void GameEngine::RenderTile(vector<Tile*> renderTile)
+void GameEngine::RenderTile(vector<Tile*> renderTile, const glm::mat4& viewMatrix)
 {
-	this->GetRenderer()->RenderTile(renderTile);
+	this->GetRenderer()->RenderTile(renderTile,viewMatrix);
 }
 
 void GameEngine::SetDrawArea(float left, float right, float bottom, float top)

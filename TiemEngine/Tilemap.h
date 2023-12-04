@@ -12,7 +12,7 @@ public:
     Tilemap(int width, int height, int tileSize);
     ~Tilemap();
     void LoadMapFromFile(const std::string& filePath); // New function for loading from a file
-    void Render();
+    void Render(const glm::mat4& viewMatrix);
     int GetTileType(int x, int y);
     unsigned int getTexture(int index);
     int getWidth();
