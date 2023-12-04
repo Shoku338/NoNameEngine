@@ -16,6 +16,7 @@ public:
 
 	MeshVbo();
 	virtual void LoadData() = 0;
+	virtual void LoadDataTile(float* uv) = 0;
 	virtual string GetMeshName() = 0;
 	GLuint GetPosId();
 	GLuint GetTexId();

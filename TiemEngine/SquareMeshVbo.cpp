@@ -1,5 +1,6 @@
 
 #include "SquareMeshVbo.h"
+#include <iostream>
 
 string const SquareMeshVbo::MESH_NAME = "square";
 
@@ -56,7 +57,7 @@ void SquareMeshVbo::Render()
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
 
-void SquareMeshVbo::LoadData(float * uv)
+void SquareMeshVbo::LoadDataTile(float * uv)
 {
 	//VBO data
 	GLfloat vertexData[] =
@@ -69,12 +70,15 @@ void SquareMeshVbo::LoadData(float * uv)
 
 	GLfloat texData[] =
 	{
-	  uv[0],uv[1],
+		uv[6],uv[7],
+	  uv[4],uv[5], 
+	 
 	  uv[2],uv[3],
-	  uv[4],uv[5],
-	  uv[6],uv[7]
+	   uv[0],uv[1]
+	  
 	};
 
+	
 	//Create VBO
 	glGenBuffers(1, &(this->posVboId));
 	glBindBuffer(GL_ARRAY_BUFFER, this->posVboId);

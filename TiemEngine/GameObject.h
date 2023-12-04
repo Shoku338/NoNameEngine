@@ -17,7 +17,7 @@ public:
 	void SetTexture(string path);
 	bool getCollision();
 	void setCollision(bool have);
-	void Render(glm::mat4 globalModelTransform);
+	virtual void Render(glm::mat4 globalModelTransform);
 	int detectCollisionAABB(float bx, float by, float bh, float bw);
 	
 };
