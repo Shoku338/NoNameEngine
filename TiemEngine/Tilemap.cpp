@@ -116,6 +116,10 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
                 list->push_back(zelda);
 
             }
+            else if (tileType == 0)
+            {
+                tile->setCollision(true);
+            }
             
 
             TileList.push_back(tile);

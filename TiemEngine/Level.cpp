@@ -14,7 +14,7 @@ void Level::LevelLoad()
 
 	//Added by Kapom
 
-	tilemap = new Tilemap(16, 9, 64 ,8,4, "../Resource/Texture/tile_atlas.png", "../Resource/Texture/map.txt");
+	tilemap = new Tilemap(16, 9, 64 ,6,3, "../Resource/Texture/Map_with_grid.png", "../Resource/Texture/map.txt");
 	tilemap->setTile(&objectsList);
 
 	//cout << "Load Level" << endl;
@@ -71,6 +71,7 @@ void Level::LevelUpdate(float dt)
 		camera->UpdateCameraPosition(glm::vec2(playerPosX, playerPosY));
 	}
 
+	
 
 	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
 	//objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
