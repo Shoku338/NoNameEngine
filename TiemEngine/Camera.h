@@ -22,7 +22,10 @@ public:
         return translateMatrix * scaleMatrix; // Note the order of multiplication
     }
 
-
+    void UpdateCameraPosition(const glm::vec2& newPosition) {
+        m_Position = newPosition;
+        // Optionally add smoothing or other adjustments here
+    }
 
 private:
     glm::vec2 m_Position;

@@ -7,6 +7,8 @@
 #include "Tilemap.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Camera.h"
+
 
 class Level
 {
@@ -15,6 +17,7 @@ private:
 	Player * player;
 	float overlapX, overlapY;
 	Tilemap * tilemap;
+	Camera2D* camera;
 
 public:
 	virtual void LevelLoad();
