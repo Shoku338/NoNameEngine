@@ -63,6 +63,15 @@ void Level::LevelUpdate(float dt)
 		//cout << "add grav" << endl;
 		player->velocity.y += GRAVITY * dt; //Gravity
 	}
+
+	// Update camera position based on player's new position
+	if (camera) {
+		float playerPosX = player->getPosX();
+		float playerPosY = player->getPosY();
+		camera->UpdateCameraPosition(glm::vec2(playerPosX, playerPosY));
+	}
+
+
 	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
 	//objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
 	for (int i = 0; i < objectsList.size(); i ++) {
