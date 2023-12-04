@@ -8,7 +8,7 @@ class GameObject :public DrawableObject
 protected:
 	glm::vec3 color;
 	unsigned int texture = -1;
-	bool haveCollision = true;
+	bool haveCollision = false;
 
 public:
 	GameObject();

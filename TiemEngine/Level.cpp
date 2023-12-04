@@ -29,6 +29,7 @@ void Level::LevelInit()
 	other->SetSize(128.0f, -128.0f);
 	other->SetPosition(glm::vec3(200, 200, 0));
 	objectsList.push_back(other);
+	other->setCollision(true);
 	//objectsList.at(0)->rotate(60);
 
 	Bullet* bullet = new Bullet();
@@ -45,7 +46,7 @@ void Level::LevelInit()
 	ply->SetTexture("../Resource/Texture/penguin.png");
 	ply->SetSize(96.0f, -96.0f);
 	objectsList.push_back(ply);
-
+	ply->setCollision(true);
 	player = ply;
 	player->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
 	//cout << "Init Level" << endl;
@@ -70,7 +71,28 @@ void Level::LevelUpdate(float dt)
 		float playerPosY = player->getPosY();
 		camera->UpdateCameraPosition(glm::vec2(playerPosX, playerPosY));
 	}
-
+	for (int i = 0; i < tilemap->getTilemap().size(); i++)
+	{
+		GameObject* gameObject = dynamic_cast<GameObject*>(tilemap->getTilemap().at(i));
+		if (gameObject) {
+			if (gameObject->getCollision()) {
+				int resultCol = player->detectCollisionAABB(gameObject->getPosX(), gameObject->getPosY(), abs(gameObject->getsizeY()), gameObject->getsizeX());
+				if (resultCol == COLLISION_BOTTOM)
+				{
+					//game logic here
+					player->setGround(true);
+					player->velocity.y = 0;
+				}
+				if (resultCol == COLLISION_RIGHT)
+				{
+					//game logic here
+					player->Translate(glm::vec3(-0.4, 0, 0));
+				}
+				//collision value
+				//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
+			}
+		}
+	}
 	
 
 	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
