@@ -3,10 +3,26 @@
 #include <fstream>
 #include <sstream>
 
-Tilemap::Tilemap(int width, int height, int tileSize) : mapWidth(width), mapHeight(height), tileSize(tileSize) {
+Tilemap::Tilemap(int width, int height, int tileSize, int tileSetWidth, int tileSetHeight, string tileSet,string mapFile) : mapWidth(width), mapHeight(height), tileSize(tileSize) {
     // Initialize tileMap with default values or load it from a file
-    textures.push_back(GameEngine::GetInstance()->GetRenderer()->LoadTexture("../Resource/Texture/water.jpg"));
-    textures.push_back(GameEngine::GetInstance()->GetRenderer()->LoadTexture("../Resource/Texture/grass.png"));
+    texture = GameEngine::GetInstance()->GetRenderer()->LoadTexture(tileSet);
+    for (int i = 0; i < tileSetHeight; i++)
+    {   
+        for (int j = 0; j < tileSetWidth; j++)
+        {
+            float newUv[8];
+            calculateUV(tileSetWidth, tileSetHeight,j,i,newUv );
+            SquareMeshVbo* square = new SquareMeshVbo();
+            square->LoadDataTile(newUv);
+            cout << to_string((tileSetWidth * i) + j) << " ";
+            GameEngine::GetInstance()->AddMesh(to_string((tileSetWidth*i)+j), square);
+        }
+        
+    }
+
+
+    // Load map data from TXT file
+    LoadMapFromFile(mapFile);
 }
 
 
@@ -64,9 +80,9 @@ int Tilemap::GetTileType(int x, int y)
     return 0;
 }
 
-unsigned int Tilemap::getTexture(int index)
+unsigned int Tilemap::getTexture()
 {
-    return textures[index];
+    return texture;
 }
 
 int Tilemap::getWidth()
@@ -85,13 +101,10 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
         for (int x = 0; x < mapWidth; ++x) {
             int tileType = tileMap[y][x];
 
-            Tile* tile = new Tile(64.0f, x, y, tileType);
+            Tile* tile = new Tile(64.0f, x, y,texture ,tileType);
 
             // Set the texture based on the tile type
-            if (tileType == 1) {
-                tile->setTextureID(textures[1]);
-            }
-            else if (tileType == 2)
+            if (tileType == 2)
             {
                 //tile->setTextureID(textures[1]);
              
@@ -105,8 +118,9 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
             }
             else if (tileType == 0)
             {
-                tile->setTextureID(textures[0]);
+                tile->setCollision(true);
             }
+            
 
             TileList.push_back(tile);
             //cout << "push back tile " << endl;
@@ -114,21 +128,26 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
     }
 }
 
-float* Tilemap::calculateUV(float MaxRow, float MaxCol, float CurrentRow, float CurrentCol)
+void Tilemap::calculateUV(float MaxCol, float MaxRow, float CurrentCol, float CurrentRow, float* newUV)
 {
     // Calculate UV coordinates starting from bottom-left in counter-clockwise order
-    float uv[8];
-    uv[0] = CurrentCol / MaxCol;               // bottom left x
-    uv[1] = 1.0f - ((CurrentRow + 1.0f) / MaxRow);  // bottom left y
 
-    uv[2] = (CurrentCol + 1.0f) / MaxCol;       // bottom right x
-    uv[3] = 1.0f - ((CurrentRow + 1.0f) / MaxRow);  // bottom right y
+    newUV[0] = CurrentCol / MaxCol;               // bottom left x
+    newUV[1] = CurrentRow  / MaxRow;  // bottom left y
 
-    uv[4] = (CurrentCol + 1.0f) / MaxCol;       // top right x
-    uv[5] = 1.0f - (CurrentRow / MaxRow);       // top right y
+    newUV[2] = (CurrentCol + 1.0f) / MaxCol;       // bottom right x
+    newUV[3] = CurrentRow / MaxRow;  // bottom right y
 
-    uv[6] = CurrentCol / MaxCol;               // top left x
-    uv[7] = 1.0f - (CurrentRow / MaxRow);       // top left y
+    newUV[4] = (CurrentCol + 1.0f) / MaxCol;       // top right x
+    newUV[5] = (1.0f + CurrentRow) / MaxRow;       // top right y
 
-    return uv;
+    newUV[6] = CurrentCol / MaxCol;               // top left x
+    newUV[7] = (1.0f + CurrentRow) / MaxRow;
+
+   
+}
+
+vector<Tile*> Tilemap::getTilemap()
+{
+    return TileList;
 }

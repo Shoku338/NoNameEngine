@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include "MeshVbo.h"
+#include "SquareMeshVbo.h"
 #include "glm.hpp"
 #include "DrawableObject.h"
 #include "Tile.h"

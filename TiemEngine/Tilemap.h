@@ -9,22 +9,24 @@
 
 class Tilemap {
 public:
-    Tilemap(int width, int height, int tileSize);
+    Tilemap(int width, int height, int tileSize, int tileSetWidth,int tileSetHeight, string tileSet, string mapFile);
     ~Tilemap();
     void LoadMapFromFile(const std::string& filePath); // New function for loading from a file
     void Render(const glm::mat4& viewMatrix);
     int GetTileType(int x, int y);
-    unsigned int getTexture(int index);
+    unsigned int getTexture();
     int getWidth();
     int getHeight();
+    vector<Tile*> getTilemap();
     void setTile(vector<DrawableObject*> * list);
-    float* calculateUV(float MaxRow, float MaxCol, float CurrentRow, float CurrentCol);
+    void calculateUV(float MaxCol, float MaxRow, float CurrentCol, float CurrentRow, float* newUV);
 
 private:
     int mapWidth;
     int mapHeight;
     int tileSize;
     vector<Tile*> TileList;
-    vector<unsigned int> textures;
+    unsigned int texture;
     std::vector<std::vector<int>> tileMap; // 2D vector representing the tile IDs
+
 };
