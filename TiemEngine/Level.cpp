@@ -102,38 +102,39 @@ void Level::LevelUpdate(float dt)
 
 	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
 	//objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
-	for (int i = 0; i < objectsList.size(); i ++) {
-		if ((dynamic_cast<Bullet*>(objectsList.at(i)))) {
-			objectsList.at(i)->Translate(objectsList.at(i)->velocity * dt);
-		}
-		if (objectsList.at(i) != player) {
-			if (dynamic_cast<GameObject*>(objectsList.at(i))) {
-				objectsList.at(i)->velocity.x += 80;
+	for (auto it = objectsList.begin(); it != objectsList.end();) {
+		if (Bullet* bullet = dynamic_cast<Bullet*>(*it)) {
+			bullet->update(dt);
+			if (bullet->timesUp()) {
+				it = objectsList.erase(it);
+				continue;  // Skip the rest of the loop for this iteration
 			}
-			GameObject* gameObject = dynamic_cast<GameObject*>(objectsList.at(i));
-			if (gameObject) {
-				if (gameObject->getCollision()) {
-				int resultCol = player->detectCollisionAABB(objectsList.at(i)->getPosX(), objectsList.at(i)->getPosY(), abs(objectsList.at(i)->getsizeY()), objectsList.at(i)->getsizeX());
-				if (resultCol == COLLISION_BOTTOM)
-				{
-					//game logic here
+		}
+		
+		if (GameObject* gameObject = dynamic_cast<GameObject*>(*it)) {
+			//gameObject->Translate(gameObject->velocity);
+			if (gameObject->getCollision()) {
+				int resultCol = player->detectCollisionAABB(
+					gameObject->getPosX(), gameObject->getPosY(),
+					abs(gameObject->getsizeY()), gameObject->getsizeX());
+
+				if (resultCol == COLLISION_BOTTOM) {
+					// Game logic for collision at the bottom
 					player->setGround(true);
 					player->velocity.y = 0;
-
 				}
-				if (resultCol == COLLISION_RIGHT)
-				{
-					//game logic here
+				else if (resultCol == COLLISION_RIGHT) {
+					// Game logic for collision on the right
 					player->Translate(glm::vec3(-0.4, 0, 0));
 				}
 
-				//collision value
-				//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
+				// Additional collision handling logic can be added here
 			}
-			}
-			
 		}
+
+		++it;  // Increment the iterator for the next iteration
 	}
+
 }
 	
 
@@ -188,11 +189,9 @@ void Level::HandleKey(char key)
 		}
 			player->setGround(false);
 			break; // jumping
-		case 'a': player->velocity.x = -50.f; break;//move velocity value
-		case 'd': player->velocity.x = 50.f; break;//move velocity value
-			//need spacebar
-		case 'g': objectsList.push_back(GameEngine::GetInstance()->instantiateObject(20.0f, 20.0f, glm::vec3(0, 0, 0), glm::vec3(player->getPosX(), player->getPosY(), 0)));
-			break;		
+		case 'a': player->velocity.x = -100.f; break;//move velocity value
+		case 'd': player->velocity.x = 100.f; break;//move velocity value
+			//need spacebar		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 		case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ; break;
@@ -218,6 +217,6 @@ void Level::HandleMouse(int type, int x, int y)
 	realY = hg - (y / (h / hg));
 	cout << realX << ',' << realY << endl;
 	
-
-	player->SetPosition(glm::vec3(realX, realY, 0));
+	objectsList.push_back(GameEngine::GetInstance()->instantiateObject(20.0f, 20.0f, glm::vec3(0, 0, 0), glm::vec3(player->getPosX(), player->getPosY(), 0)));
+	//player->SetPosition(glm::vec3(realX, realY, 0));
 }

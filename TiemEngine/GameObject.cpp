@@ -12,6 +12,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+
 }
 
 void GameObject::SetColor(float r, float g, float b)
@@ -75,17 +76,17 @@ int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw) {
 	float aPoints[8][2] = {
 		{pos.x - aQuatWidth, pos.y + aHalfHeight},   // half top left
 		{pos.x + aQuatWidth, pos.y + aHalfHeight},    // half top right
-		{pos.x + aHalfWidth, pos.y + aQuatHeight},   // upper mid right
-		{pos.x + aHalfWidth, pos.y - aQuatHeight},    // lower mid right
+		{pos.x + aHalfWidth, pos.y + aQuatHeight},   // upper right
+		{pos.x + aHalfWidth, pos.y - aQuatHeight},    // lower right
 		{pos.x - aQuatWidth, pos.y - aHalfHeight},     // half bottom left
 		{pos.x + aQuatWidth, pos.y - aHalfHeight},   // half bottom right
-		{pos.x - aHalfWidth, pos.y + aQuatHeight},   // upper mid left
-		{pos.x - aHalfWidth, pos.y - aQuatHeight}    // lower mid left
+		{pos.x - aHalfWidth, pos.y + aQuatHeight},   // upper left
+		{pos.x - aHalfWidth, pos.y - aQuatHeight}    // lower left
 	};
 
 	//collision logic
 	int collisionResult = 0;
-	if (aPoints[0][1] >= bBot && (aPoints[0][0] <= bLef && aPoints[1][0] >= bRig) && aPoints[0][1] < by) {
+	if (aPoints[0][1] >= bBot - 5.f && (aPoints[0][0] <= bLef && aPoints[1][0] >= bRig) && aPoints[0][1] < by) {
 		cout << "TOP" << endl;
 		return 4;
 	}
@@ -93,7 +94,7 @@ int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw) {
 		cout << "BOTTOM" << endl;
 		return 3;
 	}
-	else if (aPoints[2][0] >= bLef && (aPoints[2][1] < bTop && aPoints[3][1] > bBot) && aPoints[2][0] <= bx) {
+	else if (aPoints[2][0] >= bLef && (aPoints[2][1] >= bBot && aPoints[3][1] < bTop) && aPoints[2][0] <= bx) {
 		cout << "RIGHT" << endl;
 		return 2;
 	}	
