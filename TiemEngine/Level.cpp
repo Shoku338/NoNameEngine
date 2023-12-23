@@ -49,6 +49,19 @@ void Level::LevelInit()
 	player = ply;
 	player->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
 	//cout << "Init Level" << endl;
+
+
+	//Sound System Added by Kapom
+	soundEngine = irrklang::createIrrKlangDevice();
+
+	if (!soundEngine)
+	{
+		// Handle initialization error
+		return;
+	}
+
+	// Load and play music (adjust the file path accordingly)
+	soundEngine->play2D("../Resource/Sound/TestZelda.mp3", true);
 }
 
 
@@ -167,12 +180,21 @@ void Level::LevelFree()
 		delete obj;
 	}
 	objectsList.clear();
+
+	//Sound System
+	if (soundEngine)
+	{
+		soundEngine->drop();
+		soundEngine = nullptr;
+	}
 }
 
 void Level::LevelUnload()
 {
 	GameEngine::GetInstance()->ClearMesh();
-	//cout << "Unload Level" << endl;
+	cout << "Unload Level" << endl;
+
+	
 }
 
 void Level::HandleKey(char key)

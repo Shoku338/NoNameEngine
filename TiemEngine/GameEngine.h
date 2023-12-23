@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include "Tile.h"
 #include "glm.hpp"
+#include "irrKlang.h"
 
 using namespace std;
 class GameEngine

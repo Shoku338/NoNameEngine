@@ -18,6 +18,7 @@ private:
 	float overlapX, overlapY;
 	Tilemap * tilemap;
 	Camera2D* camera;
+	irrklang::ISoundEngine* soundEngine;
 
 public:
 	virtual void LevelLoad();
