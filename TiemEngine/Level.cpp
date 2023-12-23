@@ -216,7 +216,17 @@ void Level::HandleMouse(int type, int x, int y)
 	realX = (x) / (w /wg);
 	realY = hg - (y / (h / hg));
 	cout << realX << ',' << realY << endl;
-	
-	objectsList.push_back(GameEngine::GetInstance()->instantiateObject(20.0f, 20.0f, glm::vec3(0, 0, 0), glm::vec3(player->getPosX(), player->getPosY(), 0)));
+    glm::vec2 playerPos = glm::vec2(player->getPosX(), player->getPosY());
+
+	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 0.0f, 0.0f); // Adjust the offset as needed
+
+	// Create a new bullet and set its direction
+	Bullet* newBullet = new Bullet(bulletStartPosition);
+	newBullet->SetSize(20.f, 20.f);
+	// Calculate direction from player position to mouse position
+	glm::vec2 direction = glm::vec2(realX, realY) - glm::vec2(player->getPosX(), player->getPosY());
+	// Shoot the bullet in the calculated direction
+	newBullet->shootAt(direction, newBullet->getVelocity().x);
+	objectsList.push_back(newBullet);
 	//player->SetPosition(glm::vec3(realX, realY, 0));
 }

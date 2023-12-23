@@ -87,19 +87,19 @@ int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw) {
 	//collision logic
 	int collisionResult = 0;
 	if (aPoints[0][1] >= bBot - 5.f && (aPoints[0][0] <= bLef && aPoints[1][0] >= bRig) && aPoints[0][1] < by) {
-		cout << "TOP" << endl;
+		//cout << "TOP" << endl;
 		return 4;
 	}
 	else if (aPoints[4][1] <= bTop && (aPoints[4][0] <= bRig && aPoints[5][0] >= bLef) && aPoints[4][1] >= by) {
-		cout << "BOTTOM" << endl;
+		//cout << "BOTTOM" << endl;
 		return 3;
 	}
 	else if (aPoints[2][0] >= bLef && (aPoints[2][1] >= bBot && aPoints[3][1] < bTop) && aPoints[2][0] <= bx) {
-		cout << "RIGHT" << endl;
+		//cout << "RIGHT" << endl;
 		return 2;
 	}	
 	else if (aPoints[6][0] <= bRig && (aPoints[6][1] < bTop && aPoints[6][1] > bBot) && aPoints[6][0] > bx) {
-		cout << "LEFT" << endl;
+		//cout << "LEFT" << endl;
 		return 1;
 	}
 

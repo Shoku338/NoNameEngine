@@ -23,6 +23,8 @@ public:
 	void SetPosition(glm::vec3 newPosition);
 	void Translate(glm::vec3 moveDistance);
 	float getPosX();
+	glm::vec3 getPosition();
+	glm::vec3 getVelocity();
 	float getPosY();
 	float getsizeX();
 	float getsizeY();

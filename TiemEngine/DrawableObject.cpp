@@ -46,6 +46,12 @@ void DrawableObject::Translate(glm::vec3 moveDistance)
 float DrawableObject::getPosX() {
 	return pos.x;
 }
+glm::vec3 DrawableObject::getPosition() {
+	return pos;
+}
+glm::vec3 DrawableObject::getVelocity() {
+	return velocity;
+}
 float DrawableObject::getPosY() {
 	return pos.y;
 }
