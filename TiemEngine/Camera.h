@@ -25,7 +25,9 @@ public:
     void UpdateCameraPosition(const glm::vec2& newPosition) {
         m_Position = newPosition;
     }
-
+    glm::vec2 getPosition(){
+        return m_Position;
+    }
 private:
     glm::vec2 m_Position;
     float m_ZoomLevel;

@@ -29,14 +29,13 @@ void Level::LevelInit()
 	other->SetPosition(glm::vec3(200, 200, 0));
 	objectsList.push_back(other);
 	other->setCollision(true);
-	//objectsList.at(0)->rotate(60);
 
 	Bullet* bullet = new Bullet();
 	bullet->SetTexture("../Resource/Texture/LaserB.png");
 	bullet->SetSize(32.0f, -32.0f);
 	bullet->SetPosition(glm::vec3(200, 200, 0));
 	objectsList.push_back(bullet);
-	//objectsList.at(0)->rotate(60);
+	//bullet->rotateDegree(60);
 
 
 	//Game object
@@ -237,18 +236,19 @@ void Level::HandleMouse(int type, int x, int y)
 	cout << "mouse x,y " << x << ',' << y << endl;
 	realX = (x) / (w /wg);
 	realY = hg - (y / (h / hg));
+	glm::vec2 offset = camera->getPosition();
+	realX = realX + offset.x;
+	realY = realY + offset.y;
 	cout << realX << ',' << realY << endl;
     glm::vec2 playerPos = glm::vec2(player->getPosX(), player->getPosY());
-
+	cout << "player pos :" << playerPos.x << ',' << playerPos.y << endl;
 	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 0.0f, 0.0f); // Adjust the offset as needed
 
 	// Create a new bullet and set its direction
 	Bullet* newBullet = new Bullet(bulletStartPosition);
 	newBullet->SetSize(20.f, 20.f);
-	// Calculate direction from player position to mouse position
-	glm::vec2 direction = glm::vec2(realX, realY) - glm::vec2(player->getPosX(), player->getPosY());
 	// Shoot the bullet in the calculated direction
-	newBullet->shootAt(direction, newBullet->getVelocity().x);
+	newBullet->shootAt(glm::vec2(realX, realY), newBullet->getVelocity().x);
 	objectsList.push_back(newBullet);
 	//player->SetPosition(glm::vec3(realX, realY, 0));
 }

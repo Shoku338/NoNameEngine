@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include <iostream>
 
 Bullet::Bullet() {
     this->SetTexture("../Resource/Texture/LaserB.png"); // change to (name of bullet sprite)
@@ -6,7 +7,7 @@ Bullet::Bullet() {
 }
 Bullet::Bullet(glm::vec3 startPosition) : startPosition(startPosition), timer(0.0f)
 {
-    this->SetTexture("../Resource/Texture/LaserB.png"); // change to (name of bullet sprite)
+    this->SetTexture("../Resource/Texture/bullet3.png"); // change to (name of bullet sprite)
     this->velocity = glm::vec3(0.0f, 0.0f, 0.0f); // Initialize velocity to zero
     this->velocity.x = 100;
 }
@@ -18,10 +19,12 @@ void Bullet::shootAt(glm::vec2 targetMousePos, float speed)
 {
     // Calculate direction from start position to target mouse position
     glm::vec2 direction = glm::normalize(targetMousePos - glm::vec2(startPosition.x, startPosition.y));
-
+    //rotate to the direction
+    float degree = glm::degrees(atan2(direction.y, direction.x));
+    cout << "degree to rotate : " << degree << endl;
+    this->rotateDegree(degree);
     // Set velocity based on direction and speed
     this->velocity = glm::vec3(direction * speed, 0.0f);
-
     // Set the initial position of the bullet
     this->SetPosition(glm::vec3(startPosition.x, startPosition.y, startPosition.z));
 }
