@@ -41,7 +41,7 @@ void Level::LevelInit()
 	//Game object
 
 	Player * ply = new Player();
-	ply->SetTexture("../Resource/Texture/penguin.png");
+	ply->SetTexture("../Resource/Texture/Body.png");
 	ply->SetSize(96.0f, -96.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(true);
@@ -137,7 +137,7 @@ void Level::LevelUpdate(float dt)
 				}
 				else if (resultCol == COLLISION_RIGHT) {
 					// Game logic for collision on the right
-					player->Translate(glm::vec3(-0.4, 0, 0));
+					player->Translate(glm::vec3(-0.7, 0, 0));
 				}
 
 				// Additional collision handling logic can be added here
@@ -159,10 +159,7 @@ void Level::LevelDraw()
 
 	if (camera) 
 	{
-		
 		GameEngine::GetInstance()->Render(objectsList, viewMatrix);
-		
-		
 	}
 	else 
 	{
@@ -242,7 +239,7 @@ void Level::HandleMouse(int type, int x, int y)
 	cout << realX << ',' << realY << endl;
     glm::vec2 playerPos = glm::vec2(player->getPosX(), player->getPosY());
 	cout << "player pos :" << playerPos.x << ',' << playerPos.y << endl;
-	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 0.0f, 0.0f); // Adjust the offset as needed
+	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
 
 	// Create a new bullet and set its direction
 	Bullet* newBullet = new Bullet(bulletStartPosition);
@@ -250,5 +247,4 @@ void Level::HandleMouse(int type, int x, int y)
 	// Shoot the bullet in the calculated direction
 	newBullet->shootAt(glm::vec2(realX, realY), newBullet->getVelocity().x);
 	objectsList.push_back(newBullet);
-	//player->SetPosition(glm::vec3(realX, realY, 0));
 }
