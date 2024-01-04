@@ -11,8 +11,7 @@ protected:
 	
 	glm::vec3 pos;
 	glm::vec3 size;
-	glm::vec3 rotation;
-
+	float degree;
 public:
 	glm::mat4 getTransform();
 	glm::vec3 velocity = glm::vec3(0, 0, 0);
@@ -28,7 +27,7 @@ public:
 	float getPosY();
 	float getsizeX();
 	float getsizeY();
-	glm::mat4 rotateDegree(float degree);
+	void rotateDegree(float degree);
 	//Rotate, Scale ???
 	//add rotate
 
