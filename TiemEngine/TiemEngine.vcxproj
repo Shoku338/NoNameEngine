@@ -33,6 +33,7 @@
     <ClCompile Include="MeshVbo.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SquareMeshVbo.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tilemap.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="GameStateList.h" />
     <ClInclude Include="GLRenderer.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="ImageObject.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelTest.h" />

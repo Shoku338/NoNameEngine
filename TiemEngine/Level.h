@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Camera.h"
+#include "SoundManager.h"
 
 
 class Level
@@ -18,7 +19,8 @@ private:
 	float overlapX, overlapY;
 	Tilemap * tilemap;
 	Camera2D* camera;
-	irrklang::ISoundEngine* soundEngine;
+	//irrklang::ISoundEngine* soundEngine;
+	SoundManager* soundManager;
 
 public:
 	virtual void LevelLoad();

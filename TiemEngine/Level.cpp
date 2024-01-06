@@ -50,17 +50,13 @@ void Level::LevelInit()
 	//cout << "Init Level" << endl;
 
 
-	//Sound System Added by Kapom
-	soundEngine = irrklang::createIrrKlangDevice();
+	// Initialize the sound manager and load/play music
+	soundManager = new SoundManager();
+	irrklang::ISoundSource* Zelda = soundManager->engine()->addSoundSourceFromFile("../Resource/Sound/TestZelda.mp3");
+	soundManager->engine()->play2D(Zelda,true);
 
-	if (!soundEngine)
-	{
-		// Handle initialization error
-		return;
-	}
-
-	// Load and play music (adjust the file path accordingly)
-	soundEngine->play2D("../Resource/Sound/TestZelda.mp3", true);
+	//soundManager->loadSound("Zelda", "../Resource/Sound/TestZelda.mp3");
+	//soundManager->playSound(Zelda, true);
 }
 
 
@@ -177,12 +173,6 @@ void Level::LevelFree()
 	}
 	objectsList.clear();
 
-	//Sound System
-	if (soundEngine)
-	{
-		soundEngine->drop();
-		soundEngine = nullptr;
-	}
 }
 
 void Level::LevelUnload()
