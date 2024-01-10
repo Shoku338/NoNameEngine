@@ -1,5 +1,5 @@
 #include "Level.h"
-#define GRAVITY -40.0f
+#define GRAVITY -100.0f
 #define	COLLISION_LEFT				1
 #define	COLLISION_RIGHT				2
 #define	COLLISION_TOP				4
@@ -41,13 +41,14 @@ void Level::LevelInit()
 
 	//Game object
 
-	Player * ply = new Player();
+	Player* ply = new Player();
 	ply->SetTexture("../Resource/Texture/Body.png");
 	ply->SetSize(96.0f, -96.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(true);
 	player = ply;
 	player->SetPosition(glm::vec3(100.0f, 150.0f, 0.0f));
+	player->setWeapon("../Resource/Texture/Proto_plasma.png");
 	//cout << "Init Level" << endl;
 
 
@@ -69,6 +70,7 @@ void Level::LevelUpdate(float dt)
 	
 	player->Translate(player->velocity * dt);
 	player->velocity.x *= (1.0f - 0.1f); //0.3 is friction for now
+	player->update();
 	if (player->velocity.y >= -50.0f) {
 		//cout << "add grav" << endl;
 		player->velocity.y += GRAVITY * dt; //Gravity
@@ -148,7 +150,6 @@ void Level::LevelUpdate(float dt)
 	}
 
 }
-	
 
 void Level::LevelDraw()
 {
