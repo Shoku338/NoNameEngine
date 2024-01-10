@@ -209,6 +209,8 @@ void Level::HandleKey(char key)
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 		case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ; break;
+		case '1': player->setWeapon("../Resource/Texture/Proto_plasma.png"); break;
+		case '2': player->setWeapon("../Resource/Texture/Tier2_rapid machinegun.png"); break;
 		
 	}
 	
