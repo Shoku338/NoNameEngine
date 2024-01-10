@@ -38,6 +38,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TriangleMeshVbo.cpp" />
+    <ClCompile Include="weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -59,6 +60,7 @@
     <ClInclude Include="SquareMeshVbo.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TriangleMeshVbo.h" />
+    <ClInclude Include="weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resource\Shader\fragment.shd" />

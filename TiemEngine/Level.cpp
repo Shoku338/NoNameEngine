@@ -4,6 +4,7 @@
 #define	COLLISION_RIGHT				2
 #define	COLLISION_TOP				4
 #define	COLLISION_BOTTOM			3
+#define MAXX_JUMP 2
 
 
 void Level::LevelLoad()
@@ -46,8 +47,9 @@ void Level::LevelInit()
 	objectsList.push_back(ply);
 	ply->setCollision(true);
 	player = ply;
-	player->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
+	player->SetPosition(glm::vec3(100.0f, 150.0f, 0.0f));
 	//cout << "Init Level" << endl;
+
 
 
 	// Initialize the sound manager and load/play music
@@ -93,6 +95,7 @@ void Level::LevelUpdate(float dt)
 				{
 					//game logic here
 					player->setGround(true);
+					player->setJump(0);
 					player->velocity.y = 0;
 				}
 				if (resultCol == COLLISION_RIGHT)
@@ -129,6 +132,7 @@ void Level::LevelUpdate(float dt)
 				if (resultCol == COLLISION_BOTTOM) {
 					// Game logic for collision at the bottom
 					player->setGround(true);
+					player->setJump(0);
 					player->velocity.y = 0;
 				}
 				else if (resultCol == COLLISION_RIGHT) {
@@ -190,9 +194,10 @@ void Level::HandleKey(char key)
 	{
 		case ' ':
 		case 'w': 
-			if (player->getGrounded()) {
+			if (player->getJump() < MAXX_JUMP) {
 			cout << "Rising hopper" << endl;
 			player->velocity.y = 50.0f;
+			player->setJump(player->getJump() + 1);
 			
 		}
 			player->setGround(false);

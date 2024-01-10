@@ -12,3 +12,10 @@ void Player::setGround(bool state) {
 bool Player::getGrounded() {
 	return grounded;
 }
+
+int Player::getJump() {
+	return jumpCount;
+}
+void Player::setJump(int count) {
+	jumpCount = count;
+}
