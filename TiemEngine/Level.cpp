@@ -140,6 +140,7 @@ void Level::LevelUpdate(float dt)
 				else if (resultCol == COLLISION_RIGHT) {
 					// Game logic for collision on the right
 					player->Translate(glm::vec3(-0.7, 0, 0));
+					player->velocity.x = 0;
 				}
 
 				// Additional collision handling logic can be added here
@@ -203,8 +204,24 @@ void Level::HandleKey(char key)
 		}
 			player->setGround(false);
 			break; // jumping
-		case 'a': player->velocity.x = -100.f; break;//move velocity value
-		case 'd': player->velocity.x = 100.f; break;//move velocity value
+		case 'a': 
+			if(player->getVelocity().x <= 100)
+			{
+				player->velocity.x += -20.f; 
+			}
+			break;//move velocity value
+		case 'd':
+			if (player->getVelocity().x >= -100)
+			{
+				player->velocity.x += 20.f;
+			}
+			break;//move velocity value
+		case 'C'://dashing
+			if (player->velocity.x < 0)
+				player->velocity.x -= 500.f; 
+			else if(player->velocity.x >= 0)
+				player->velocity.x += 500.f;
+			break;
 			//need spacebar		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
