@@ -112,3 +112,11 @@ bool  GameObject::getCollision() {
 void  GameObject::setCollision(bool have) {
 	haveCollision = have;
 }
+
+void GameObject::SmoothTranslate(const glm::vec3& targetPosition, float deltaTime, float speed) {
+	glm::vec3 position = this->getPosition();
+	glm::vec3 translationVector = targetPosition - position;
+	float interpolationFactor = speed * deltaTime;
+	glm::vec3 intermediatePosition = position + interpolationFactor * translationVector;
+	this->SetPosition(intermediatePosition);
+}

@@ -26,6 +26,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStateController.cpp" />
     <ClCompile Include="GLRenderer.cpp" />
+    <ClCompile Include="Grapple.cpp" />
     <ClCompile Include="ImageObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelTest.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="GameStateList.h" />
     <ClInclude Include="GLRenderer.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Grapple.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="ImageObject.h" />
     <ClInclude Include="Level.h" />

@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Camera.h"
+#include "Grapple.h"
 #include "SoundManager.h"
 
 

@@ -27,7 +27,7 @@ void Level::LevelInit()
 	GameObject* other = new GameObject();
 	other->SetTexture("../Resource/Texture/MOTIVATED.png");
 	other->SetSize(128.0f, -128.0f);
-	other->SetPosition(glm::vec3(200, 200, 0));
+	other->SetPosition(glm::vec3(500, 250, 0));
 	objectsList.push_back(other);
 	other->setCollision(true);
 
@@ -57,6 +57,7 @@ void Level::LevelInit()
 	soundManager = new SoundManager();
 	irrklang::ISoundSource* Zelda = soundManager->engine()->addSoundSourceFromFile("../Resource/Sound/TestZelda.mp3");
 	soundManager->engine()->play2D(Zelda,true);
+	soundManager->engine()->setSoundVolume(0.4);
 
 	//soundManager->loadSound("Zelda", "../Resource/Sound/TestZelda.mp3");
 	//soundManager->playSound(Zelda, true);
@@ -71,7 +72,7 @@ void Level::LevelUpdate(float dt)
 	player->Translate(player->velocity * dt);
 	player->velocity.x *= (1.0f - 0.1f); //0.3 is friction for now
 	player->update();
-	if (player->velocity.y >= -50.0f) {
+	if (player->velocity.y >= -100.0f) {
 		//cout << "add grav" << endl;
 		player->velocity.y += GRAVITY * dt; //Gravity
 	}
@@ -82,9 +83,6 @@ void Level::LevelUpdate(float dt)
 		//printf("Window Width : %d, Window Height: %d\n", GameEngine::GetInstance()->GetWindowWidth(), GameEngine::GetInstance()->GetWindowHeight());
 		//printf("PLayer position: %f, %f\n", player->getPosX(), player->getPosY());
 	}
-
-
-	
 
 
 	for (int i = 0; i < tilemap->getTilemap().size(); i++)
@@ -103,15 +101,14 @@ void Level::LevelUpdate(float dt)
 				if (resultCol == COLLISION_RIGHT)
 				{
 					//game logic here
-					player->Translate(glm::vec3(-0.4, 0, 0));
+					player->Translate(glm::vec3(-0.7, 0, 0));
+					player->velocity.x = 0;
 				}
 				//collision value
 				//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
 			}
 		}
 	}
-	
-
 
 	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
 	//objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
@@ -123,7 +120,25 @@ void Level::LevelUpdate(float dt)
 				continue;  // Skip the rest of the loop for this iteration
 			}
 		}
-		
+		if (Grapple* grapple = dynamic_cast<Grapple*>(*it)) {
+			// Check for collision with other GameObjects
+			for (auto otherIt = objectsList.begin(); otherIt != objectsList.end(); ++otherIt) {
+				if (GameObject* gameObject = dynamic_cast<GameObject*>(*otherIt)) {
+					if (gameObject->getCollision()) {
+						cout << "PULL" << endl;
+						int resultCol = grapple->detectCollisionAABB(
+							gameObject->getPosX(), gameObject->getPosY(),
+							abs(gameObject->getsizeY()), gameObject->getsizeX());
+						if (resultCol != 0) {
+							// Collision detected, execute pull function
+							//grapple->velocity = glm::vec3(0, 0, 0);
+							//grapple->pull(*player, dt, 70);
+							// Handle other logic if needed
+						}
+					}
+				}
+			}
+		}
 		if (GameObject* gameObject = dynamic_cast<GameObject*>(*it)) {
 			//gameObject->Translate(gameObject->velocity);
 			if (gameObject->getCollision()) {
@@ -146,7 +161,6 @@ void Level::LevelUpdate(float dt)
 				// Additional collision handling logic can be added here
 			}
 		}
-
 		++it;  // Increment the iterator for the next iteration
 	}
 
@@ -198,22 +212,21 @@ void Level::HandleKey(char key)
 		case 'w': 
 			if (player->getJump() < MAXX_JUMP) {
 			cout << "Rising hopper" << endl;
-			player->velocity.y = 50.0f;
+			player->velocity.y = 100.0f;
 			player->setJump(player->getJump() + 1);
-			
 		}
 			player->setGround(false);
 			break; // jumping
 		case 'a': 
-			if(player->getVelocity().x <= 100)
+			if(player->getVelocity().x <= 70)
 			{
-				player->velocity.x += -20.f; 
+				player->velocity.x += -10.f; 
 			}
 			break;//move velocity value
 		case 'd':
-			if (player->getVelocity().x >= -100)
+			if (player->getVelocity().x >= -70)
 			{
-				player->velocity.x += 20.f;
+				player->velocity.x += 10.f;
 			}
 			break;//move velocity value
 		case 'C'://dashing
@@ -225,7 +238,8 @@ void Level::HandleKey(char key)
 			//need spacebar		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
-		case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ; break;
+		case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ;
+			break;
 		case '1': player->setWeapon("../Resource/Texture/Proto_plasma.png"); break;
 		case '2': player->setWeapon("../Resource/Texture/Tier2_rapid machinegun.png"); break;
 		
@@ -255,11 +269,21 @@ void Level::HandleMouse(int type, int x, int y)
     glm::vec2 playerPos = glm::vec2(player->getPosX(), player->getPosY());
 	cout << "player pos :" << playerPos.x << ',' << playerPos.y << endl;
 	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
-
-	// Create a new bullet and set its direction
-	Bullet* newBullet = new Bullet(bulletStartPosition);
-	newBullet->SetSize(20.f, 20.f);
-	// Shoot the bullet in the calculated direction
-	newBullet->shootAt(glm::vec2(realX, realY), newBullet->getVelocity().x);
-	objectsList.push_back(newBullet);
+	if (type == 0) {
+		// Create a new bullet and set its direction
+		Bullet* newBullet = new Bullet(bulletStartPosition, "../Resource/Texture/bullet3.png",150.f);
+		newBullet->SetSize(20.f, 20.f);
+		// Shoot the bullet in the calculated direction
+		newBullet->shootAt(glm::vec2(realX, realY), newBullet->getVelocity().x);
+		objectsList.push_back(newBullet);
+	}
+	else if (type == 1) {
+		Grapple* grapple = new Grapple(bulletStartPosition, "../Resource/Texture/temp-grapple.png",75.f);
+		grapple->SetSize(20.f, 20.f);
+		// Shoot the bullet in the calculated direction
+		grapple->shootAt(glm::vec2(realX, realY), grapple->getVelocity().x);
+		objectsList.push_back(grapple);
+		cout << "SUCC" << endl;
+	}
+	
 }

@@ -3,13 +3,12 @@
 
 Bullet::Bullet() {
     this->SetTexture("../Resource/Texture/LaserB.png"); // change to (name of bullet sprite)
-    this->velocity.x = 100;
+    //this->velocity.x = 100;
 }
-Bullet::Bullet(glm::vec3 startPosition) : startPosition(startPosition), timer(0.0f)
+Bullet::Bullet(glm::vec3 startPosition,const string texture,float speed) : startPosition(startPosition), timer(0.0f)
 {
-    this->SetTexture("../Resource/Texture/bullet3.png"); // change to (name of bullet sprite)
-    this->velocity = glm::vec3(0.0f, 0.0f, 0.0f); // Initialize velocity to zero
-    this->velocity.x = 100;
+    this->SetTexture(texture); // change to (name of bullet sprite)
+    this->velocity.x = speed;
 }
 void Bullet::update(float dt) {
     timer += dt;

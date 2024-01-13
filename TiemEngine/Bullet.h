@@ -9,7 +9,7 @@ class Bullet:public GameObject {
 public:	
 	//Bullet(float width,float height,glm::vec3 velocity,glm::vec3 position);
 	Bullet();
-	Bullet(glm::vec3 startPosition);
+	Bullet(glm::vec3 startPosition,const string texture, float speed);
 	void update(float dt);
 	void shootAt(glm::vec2 targetMousePos, float speed);
 	bool timesUp();

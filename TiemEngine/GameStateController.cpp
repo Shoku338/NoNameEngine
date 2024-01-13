@@ -73,3 +73,4 @@ void GameStateController::HandleMouseLevel(int type, int x, int y)
 {
 	currentLevel->HandleMouse(type, x, y);
 }
+
