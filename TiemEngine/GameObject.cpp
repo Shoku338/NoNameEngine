@@ -62,48 +62,51 @@ void GameObject::Render(glm::mat4 globalModelTransform)
 }
 
 int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw) {
-	float aHalfWidth = abs(size.x / 2.0f);
-	float aHalfHeight = abs(size.y / 2.0f);
-	float aQuatWidth = abs(size.x / 4.0f);
-	float aQuatHeight = abs(size.y / 4.0f);
+	
+	if(haveCollision){
+		float aHalfWidth = abs(size.x / 2.0f);
+		float aHalfHeight = abs(size.y / 2.0f);
+		float aQuatWidth = abs(size.x / 4.0f);
+		float aQuatHeight = abs(size.y / 4.0f);
 
-	float bTop = abs(by + (bh / 2));
-	float bBot = abs(by - (bh / 2));
-	float bRig = abs(bx + (bw / 2));
-	float bLef = abs(bx - (bw / 2));
+		float bTop = abs(by + (bh / 2));
+		float bBot = abs(by - (bh / 2));
+		float bRig = abs(bx + (bw / 2));
+		float bLef = abs(bx - (bw / 2));
 
-	// Calculate the eight points for each object
-	float aPoints[8][2] = {
-		{pos.x - aQuatWidth, pos.y + aHalfHeight},   // half top left
-		{pos.x + aQuatWidth, pos.y + aHalfHeight},    // half top right
-		{pos.x + aHalfWidth, pos.y + aQuatHeight},   // upper right
-		{pos.x + aHalfWidth, pos.y - aQuatHeight},    // lower right
-		{pos.x - aQuatWidth, pos.y - aHalfHeight},     // half bottom left
-		{pos.x + aQuatWidth, pos.y - aHalfHeight},   // half bottom right
-		{pos.x - aHalfWidth, pos.y + aQuatHeight},   // upper left
-		{pos.x - aHalfWidth, pos.y - aQuatHeight}    // lower left
-	};
+		// Calculate the eight points for each object
+		float aPoints[8][2] = {
+			{this->pos.x - aQuatWidth, this->pos.y + aHalfHeight},   // half top left
+			{this->pos.x + aQuatWidth, this->pos.y + aHalfHeight},    // half top right
+			{this->pos.x + aHalfWidth, this->pos.y + aQuatHeight},   // upper right
+			{this->pos.x + aHalfWidth, this->pos.y - aQuatHeight},    // lower right
+			{this->pos.x - aQuatWidth, this->pos.y - aHalfHeight},     // half bottom left
+			{this->pos.x + aQuatWidth, this->pos.y - aHalfHeight},   // half bottom right
+			{this->pos.x - aHalfWidth, this->pos.y + aQuatHeight},   // upper left
+			{this->pos.x - aHalfWidth, this->pos.y - aQuatHeight}    // lower left
+		};
 
-	//collision logic
-	int collisionResult = 0;
-	if (aPoints[0][1] >= bBot - 5.f && (aPoints[0][0] <= bLef && aPoints[1][0] >= bRig) && aPoints[0][1] < by) {
-		//cout << "TOP" << endl;
-		return 4;
+		//collision logic
+		
+		if (aPoints[0][1] >= bBot && (aPoints[0][0] <= bRig && aPoints[1][0] >= bLef) && aPoints[0][1] < by) {
+			//cout << "TOP" << endl;
+			return 4;
+		}
+		else if (aPoints[4][1] <= bTop  && (aPoints[4][0] <= bRig && aPoints[5][0] >= bLef) && aPoints[4][1] >= by) {
+			//cout << "BOTTOM" << endl;
+			return 3;
+		}
+		else if (aPoints[2][0] >= bLef && (aPoints[2][1] >= bBot && aPoints[3][1] < bTop) && aPoints[2][0] <= bx) {
+			//cout << "RIGHT" << endl;
+			return 2;
+		}
+		else if (aPoints[6][0] <= bRig && (aPoints[6][1] < bTop && aPoints[6][1] > bBot) && aPoints[6][0] > bx) {
+			//cout << "LEFT" << endl;
+			return 1;
+		}
 	}
-	else if (aPoints[4][1] <= bTop && (aPoints[4][0] <= bRig && aPoints[5][0] >= bLef) && aPoints[4][1] >= by) {
-		//cout << "BOTTOM" << endl;
-		return 3;
-	}
-	else if (aPoints[2][0] >= bLef && (aPoints[2][1] >= bBot && aPoints[3][1] < bTop) && aPoints[2][0] <= bx) {
-		//cout << "RIGHT" << endl;
-		return 2;
-	}	
-	else if (aPoints[6][0] <= bRig && (aPoints[6][1] < bTop && aPoints[6][1] > bBot) && aPoints[6][0] > bx) {
-		//cout << "LEFT" << endl;
-		return 1;
-	}
 
-	return collisionResult;
+	return 0;
 }
 
 bool  GameObject::getCollision() {
