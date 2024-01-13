@@ -208,6 +208,12 @@ void Level::LevelFree()
 	}
 	objectsList.clear();
 
+	if (soundManager) {
+		soundManager->stopAllSounds();
+		delete soundManager;
+		soundManager = nullptr; // Ensure the pointer is set to nullptr after deletion
+	}
+
 }
 
 void Level::LevelUnload()

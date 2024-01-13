@@ -25,6 +25,7 @@ void SoundManager::playSound(const char* name, bool loop) {
 
 void SoundManager::stopAllSounds() {
     soundEngine->stopAllSounds();
+    cout << "Sound stop" << endl;
 }
 
 void SoundManager::setVolume(float volume) {
