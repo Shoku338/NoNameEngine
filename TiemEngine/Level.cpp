@@ -141,7 +141,7 @@ void Level::LevelUpdate(float dt)
 								// Collision detected, execute pull function
 								//cout << "boop" << endl;
 								grapple->velocity = glm::vec3(0, 0, 0);
-								grapple->pull(*player, dt, 150);
+								grapple->pull(*player, dt*2, 150);
 								// Handle other logic if needed
 							}
 						}
