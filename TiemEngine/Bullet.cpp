@@ -34,3 +34,7 @@ bool Bullet::timesUp() {
     else
         return false;
 }
+
+void Bullet::setTimer(float time) {
+    TimeTD = time;
+}

@@ -13,4 +13,5 @@ public:
 	void update(float dt);
 	void shootAt(glm::vec2 targetMousePos, float speed);
 	bool timesUp();
+	void setTimer(float time);
 };

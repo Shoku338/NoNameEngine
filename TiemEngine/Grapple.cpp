@@ -15,4 +15,7 @@ void Grapple::pull(Player& player,float dt,float speed) {
     if (abs(this->getPosition().x - player.getPosition().x) >= 10) {
         player.SmoothTranslate(this->getPosition(), dt, speed);
     }
+    else {
+        this->setTimer(0);
+    }
 }
