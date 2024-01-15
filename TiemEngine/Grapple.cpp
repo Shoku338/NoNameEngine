@@ -10,7 +10,9 @@ Grapple::Grapple(glm::vec3 startPosition, const string texture, float speed) : B
 }
 
 void Grapple::pull(Player& player,float dt,float speed) {
-
+    
     // Apply the translation to the object
-    player.SmoothTranslate(this->getPosition(),dt,speed);
+    if (abs(this->getPosition().x - player.getPosition().x) >= 10) {
+        player.SmoothTranslate(this->getPosition(), dt, speed);
+    }
 }
