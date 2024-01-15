@@ -55,12 +55,10 @@ void Level::LevelInit()
 
 	// Initialize the sound manager and load/play music
 	soundManager = new SoundManager();
-	irrklang::ISoundSource* Zelda = soundManager->engine()->addSoundSourceFromFile("../Resource/Sound/TestZelda.mp3");
-	soundManager->engine()->play2D(Zelda,true);
-	soundManager->engine()->setSoundVolume(0.4);
-
-	//soundManager->loadSound("Zelda", "../Resource/Sound/TestZelda.mp3");
-	//soundManager->playSound(Zelda, true);
+	soundManager->loadSound("Zelda", "../Resource/Sound/TestZelda.mp3");
+	soundManager->loadSound("Blaster", "../Resource/Sound/Blaster.mp3");
+	soundManager->playSound("Zelda", true);
+	soundManager->getSound("Zelda")->setDefaultVolume(0.4);
 }
 
 
@@ -298,6 +296,9 @@ void Level::HandleMouse(int type, int x, int y)
 		// Shoot the bullet in the calculated direction
 		newBullet->shootAt(glm::vec2(realX, realY), newBullet->getVelocity().x);
 		objectsList.push_back(newBullet);
+		
+		//SoundEffect
+		soundManager->playSound("Blaster", false);
 	}
 	else if (type == 1) {
 		Grapple* grapple = new Grapple(bulletStartPosition, "../Resource/Texture/temp-grapple.png",75.f);

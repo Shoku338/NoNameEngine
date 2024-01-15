@@ -1,22 +1,27 @@
 #pragma once
 #include "irrKlang.h"
 #include <iostream>
+#include <map>
 
 using namespace std;
 
 class SoundManager {
 private:
     irrklang::ISoundEngine* soundEngine;
+    map<string,irrklang::ISoundSource*> soundSources;
 
 public:
     SoundManager();
     ~SoundManager();
 
     // Load a sound source from file with a given name
-    irrklang::ISoundSource* loadSound(const char* name, const char* filePath);
+    bool loadSound(string name, const char* filePath);
+
+    // Get sound source from the map
+    irrklang::ISoundSource* getSound(string name);
 
     // Play a sound effect by name
-    void playSound(const char* name, bool loop = false);
+    void playSound(string name, bool loop = false);
 
     // Stop all playing sounds
     void stopAllSounds();
@@ -30,5 +35,5 @@ public:
     // Check if a sound is currently playing by name
     bool isSoundPlaying(const char* name) const;
 
-    irrklang::ISoundEngine* engine();
+    irrklang::ISoundEngine* returnEngine();
 };

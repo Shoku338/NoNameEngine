@@ -11,16 +11,45 @@ SoundManager::~SoundManager() {
     }
 }
 
-irrklang::ISoundSource* SoundManager::loadSound(const char* name, const char* filePath) {
-    irrklang::ISoundSource* soundSource = soundEngine->addSoundSourceFromFile(filePath);
-    //soundSource->setName(name);
-    cout << "Loaded sound: " << name << " from file: " << filePath << endl;
-    return soundSource;
+bool SoundManager::loadSound(string name, const char* filePath) {
+    if (soundSources.find(name) != soundSources.end())
+    {
+        return false;
+    }
+    else
+    {
+        irrklang::ISoundSource* soundSource = soundEngine->addSoundSourceFromFile(filePath);
+        soundSources.insert({ name,soundSource });
+        cout << "Loaded sound: " << name << " from file: " << filePath << endl;
+        return true;
+    }
+    
+    
 }
 
-void SoundManager::playSound(const char* name, bool loop) {
-    soundEngine->play2D(name, loop);
-    cout << "Playing sound: " << name << endl;
+irrklang::ISoundSource* SoundManager::getSound(string name) {
+    if (soundSources.find(name) != soundSources.end())
+    {
+        return soundSources[name];
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+void SoundManager::playSound(string name, bool loop) {
+    if (soundSources.find(name) != soundSources.end())
+    {
+        soundEngine->play2D(soundSources[name], loop);
+        cout << "Playing sound: " << name << endl;
+    }
+    else
+    {
+        cout << "Error : Failed to load sound" << endl;
+    }
+    
+    
 }
 
 void SoundManager::stopAllSounds() {
@@ -43,7 +72,7 @@ bool SoundManager::isSoundPlaying(const char* name) const {
     return false;
 }
 
-irrklang::ISoundEngine* SoundManager::engine()
+irrklang::ISoundEngine* SoundManager::returnEngine()
 {
     return soundEngine;
 }
