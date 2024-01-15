@@ -45,7 +45,7 @@ void Level::LevelInit()
 	ply->SetTexture("../Resource/Texture/Body.png");
 	ply->SetSize(96.0f, -96.0f);
 	objectsList.push_back(ply);
-	ply->setCollision(true);
+	ply->setCollision(false);
 	player = ply;
 	player->SetPosition(glm::vec3(100.0f, 150.0f, 0.0f));
 	player->setWeapon("../Resource/Texture/Proto_plasma.png");
@@ -127,53 +127,62 @@ void Level::LevelUpdate(float dt)
 				it = objectsList.erase(it);
 				continue;  // Skip the rest of the loop for this iteration
 			}
-		}
-		else if (Grapple* grapple = dynamic_cast<Grapple*>(*it)) {
-			// Check for collision with other GameObjects
-			for (auto otherIt = objectsList.begin(); otherIt != objectsList.end(); ++otherIt) 
-			{
-				if (GameObject* gameObject = dynamic_cast<GameObject*>(*otherIt)) {
-					if (grapple->detectCollisionAABB(
-						gameObject->getPosX(), gameObject->getPosY(),
-						abs(gameObject->getsizeY()), gameObject->getsizeX()) != 0) {
-						// Collision detected, execute pull function
-						grapple->velocity = glm::vec3(0, 0, 0);
-						//grapple->pull(*player, dt, 70);
-						// Handle other logic if needed
+			if (Grapple* grapple = dynamic_cast<Grapple*>(*it)) {
+				// Check for collision with other GameObjects
+				for (auto otherIt = objectsList.begin(); otherIt != objectsList.end(); )
+				{
+					if (GameObject* gameObject2 = dynamic_cast<GameObject*>(*otherIt)) {
+						if(gameObject2->getCollision()){
+							int colG = grapple->detectCollisionAABB(
+								gameObject2->getPosX(), gameObject2->getPosY(),
+								abs(gameObject2->getsizeY()), gameObject2->getsizeX());
+							//cout << "colresult:" << colG << endl;
+							if (colG != 0) {
+								// Collision detected, execute pull function
+								//cout << "boop" << endl;
+								grapple->velocity = glm::vec3(0, 0, 0);
+								grapple->pull(*player, dt, 150);
+								// Handle other logic if needed
+							}
+						}
 					}
+					++otherIt;
 				}
 			}
 		}
-		else if (GameObject* gameObject = dynamic_cast<GameObject*>(*it)) {
+		
+		 if (GameObject* gameObject = dynamic_cast<GameObject*>(*it)) {
 			//gameObject->Translate(gameObject->velocity);
-			int resultCol = player->detectCollisionAABB(
-				gameObject->getPosX(), gameObject->getPosY(),
-				abs(gameObject->getsizeY()), gameObject->getsizeX());
-				if (resultCol == COLLISION_BOTTOM) {
-					// Game logic for collision at the bottom of player
-					player->setGround(true);
-					player->setJump(0);
-					player->velocity.y = 0;
-				}
-				else if (resultCol == COLLISION_RIGHT) {
-					// Game logic for collision on the right of player
-					player->Translate(glm::vec3(-0.5, 0, 0));
-					player->velocity.x = 0;
-				}
-				else if (resultCol == COLLISION_LEFT) {
-					// Game logic for collision on the left of player
-					player->Translate(glm::vec3(0.5, 0, 0));
-					player->velocity.x = 0;
-				}
-				else if (resultCol == COLLISION_TOP) {
-					// Game logic for collision at the Top of player
-					player->Translate(glm::vec3(0, -0.5, 0));
-					player->velocity.y = 0;
-				}
+			 if(gameObject->getCollision()){
+				 int resultCol = player->detectCollisionAABB(
+					 gameObject->getPosX(), gameObject->getPosY(),
+					 abs(gameObject->getsizeY()), gameObject->getsizeX());
+				 if (resultCol == COLLISION_BOTTOM) {
+					 // Game logic for collision at the bottom of player
+					 player->setGround(true);
+					 player->setJump(0);
+					 player->velocity.y = 0;
+				 }
+				 else if (resultCol == COLLISION_RIGHT) {
+					 // Game logic for collision on the right of player
+					 player->Translate(glm::vec3(-0.5, 0, 0));
+					 player->velocity.x = 0;
+				 }
+				 else if (resultCol == COLLISION_LEFT) {
+					 // Game logic for collision on the left of player
+					 player->Translate(glm::vec3(0.5, 0, 0));
+					 player->velocity.x = 0;
+				 }
+				 else if (resultCol == COLLISION_TOP) {
+					 // Game logic for collision at the Top of player
+					 player->Translate(glm::vec3(0, -0.5, 0));
+					 player->velocity.y = 0;
+				 }
+			 }
 
 				// Additional collision handling logic can be added here
 			
-		}
+		 }
 		++it;  // Increment the iterator for the next iteration
 	}
 
@@ -292,7 +301,7 @@ void Level::HandleMouse(int type, int x, int y)
 		// Create a new bullet and set its direction
 		Bullet* newBullet = new Bullet(bulletStartPosition, "../Resource/Texture/bullet3.png",150.f);
 		newBullet->SetSize(20.f, 20.f);
-		newBullet->setCollision(false);
+		//newBullet->setCollision(false);
 		// Shoot the bullet in the calculated direction
 		newBullet->shootAt(glm::vec2(realX, realY), newBullet->getVelocity().x);
 		objectsList.push_back(newBullet);
@@ -303,7 +312,7 @@ void Level::HandleMouse(int type, int x, int y)
 	else if (type == 1) {
 		Grapple* grapple = new Grapple(bulletStartPosition, "../Resource/Texture/temp-grapple.png",75.f);
 		grapple->SetSize(20.f, 20.f);
-		grapple->setCollision(false);
+		//grapple->setCollision(false);
 		// Shoot the bullet in the calculated direction
 		grapple->shootAt(glm::vec2(realX, realY), grapple->getVelocity().x);
 		objectsList.push_back(grapple);
