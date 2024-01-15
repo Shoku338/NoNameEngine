@@ -21,6 +21,7 @@ bool SoundManager::loadSound(string name, const char* filePath) {
         irrklang::ISoundSource* soundSource = soundEngine->addSoundSourceFromFile(filePath);
         soundSources.insert({ name,soundSource });
         cout << "Loaded sound: " << name << " from file: " << filePath << endl;
+        soundSource
         return true;
     }
     
