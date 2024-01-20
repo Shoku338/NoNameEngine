@@ -1,7 +1,6 @@
 
 #include "GameObject.h"
-#include "GameEngine.h"
-#include "SquareMeshVbo.h"
+
 
 
 GameObject::GameObject()

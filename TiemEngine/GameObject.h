@@ -3,6 +3,9 @@
 #include "DrawableObject.h"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+#include "GameEngine.h"
+#include "SquareMeshVbo.h"
+
 class GameObject :public DrawableObject
 {
 protected:
