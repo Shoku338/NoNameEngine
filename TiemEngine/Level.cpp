@@ -63,7 +63,7 @@ void Level::LevelInit()
 	soundManager->loadSound("Zelda", "../Resource/Sound/TestZelda.mp3");
 	soundManager->loadSound("Blaster", "../Resource/Sound/Blaster.mp3");
 	soundManager->playSound("Zelda", true);
-	soundManager->getSound("Zelda")->setDefaultVolume(0.4);
+	soundManager->getSound("Zelda")->setDefaultVolume(0.3);
 
 	//Test Animated Object
 	TestA = new AnimatedObject("../Resource/Texture/photo.png", 1, 4);
@@ -84,6 +84,7 @@ void Level::LevelUpdate(float dt)
 	player->Translate(player->velocity * dt);
 	player->velocity.x *= (1.0f - 0.1f); //0.3 is friction for now
 	player->update();
+	//cout << "player grav: " << player->getGrounded() << endl;
 	if (!player->getGrounded()) {
 		//cout << "add grav" << endl;
 		if(player->velocity.y >= -200)
@@ -107,10 +108,12 @@ void Level::LevelUpdate(float dt)
 				if (resultCol == COLLISION_BOTTOM)
 				{
 					//game logic here
-					player->setGround(true);
 					player->setJump(0);
 					player->velocity.y = 0;
-					player->SetPosition(player->getPosition() + glm::vec3(0, 0.2, 0));
+					//player->SetPosition(player->getPosition() + glm::vec3(0, 0.2, 0));
+					player->setGround(true);
+					
+
 				}
 				else if (resultCol == COLLISION_RIGHT)
 				{
@@ -175,9 +178,10 @@ void Level::LevelUpdate(float dt)
 					 abs(gameObject->getsizeY()), gameObject->getsizeX());
 				 if (resultCol == COLLISION_BOTTOM) {
 					 // Game logic for collision at the bottom of player
-					 player->setGround(true);
 					 player->setJump(0);
 					 player->velocity.y = 0;
+					 //player->SetPosition(player->getPosition() + glm::vec3(0, 0.2, 0));
+					 player->setGround(true);
 				 }
 				 else if (resultCol == COLLISION_RIGHT) {
 					 // Game logic for collision on the right of player
@@ -267,10 +271,10 @@ void Level::HandleKey(char key)
 		case 'w': 
 			player->setGround(false);
 			if (player->getJump() < MAXX_JUMP) {
-			cout << "Rising hopper" << endl;
-			player->velocity.y += 90.0f;
-			player->setJump(player->getJump() + 1);
-		}
+			//cout << "Rising hopper" << endl;
+				player->velocity.y += 90.0f;
+				player->setJump(player->getJump() + 1);
+			}
 			
 			break; // jumping
 		case 'a': 
@@ -315,7 +319,7 @@ void Level::HandleMouse(int type, int x, int y)
 	float wg = GameEngine::GetInstance()->GetGameWidth();
 	
 	//cout << h << ',' << w << endl;
-	cout << "mouse x,y " << x << ',' << y << endl;
+	//cout << "mouse x,y " << x << ',' << y << endl;
 	realX = (x) / (w /wg);
 	realY = hg - (y / (h / hg));
 	glm::vec2 offset = camera->getPosition();
@@ -323,7 +327,7 @@ void Level::HandleMouse(int type, int x, int y)
 	realY = realY + offset.y;
 	cout << realX << ',' << realY << endl;
     glm::vec2 playerPos = glm::vec2(player->getPosX(), player->getPosY());
-	cout << "player pos :" << playerPos.x << ',' << playerPos.y << endl;
+	//cout << "player pos :" << playerPos.x << ',' << playerPos.y << endl;
 	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
 	if (type == 0) {
 		// Create a new bullet and set its direction
@@ -344,7 +348,7 @@ void Level::HandleMouse(int type, int x, int y)
 		// Shoot the bullet in the calculated direction
 		grapple->shootAt(glm::vec2(realX, realY), grapple->getVelocity().x);
 		objectsList.push_back(grapple);
-		cout << "SUCC" << endl;
+		//cout << "SUCC" << endl;
 	}
 	
 }
@@ -365,17 +369,17 @@ void Level::ArmToMouse(int x, int y) {
 	//cout << "mouse x,y " << realX << ',' << realY << endl;
 	glm::vec2 direction = glm::normalize(glm::vec2(realX, realY) - glm::vec2(player->getPosX(), player->getPosY()));
 	float degree = glm::degrees(atan2(direction.y, direction.x));
-	cout << "rotate by " << degree << endl;
+	//cout << "rotate by " << degree << endl;
 	if (degree < 90 && degree >= -90) {
 		player->setFaceRight(true);
 		player->checkFace();
 		player->getWeapon()->rotateDegree(degree);
-		cout << "degree:" << degree << endl;
+		//cout << "degree:" << degree << endl;
 	}
 	else {
 		player->setFaceRight(false);
 		player->checkFace();
 		player->getWeapon()->rotateDegree(degree - 180);
-		cout << "degree:" << degree << endl;
+		//cout << "degree:" << degree << endl;
 	}
 }
