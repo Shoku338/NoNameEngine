@@ -3,14 +3,17 @@
 #include "SquareMeshVbo.h"
 #include "GameObject.h"
 #include "ImageObject.h"
-#include "Tile.h"
-#include "Tilemap.h"
 #include "Player.h"
 #include "Bullet.h"
 #include "Camera.h"
 #include "Grapple.h"
-#include "SoundManager.h"
 
+//Added by Kapom
+#include "Tile.h"
+#include "Tilemap.h"
+#include "SoundManager.h"
+#include "AnimatedObject.h"
+#include "AnimateMeshVbo.h"
 
 class Level
 {
@@ -22,6 +25,9 @@ private:
 	Camera2D* camera;
 	//irrklang::ISoundEngine* soundEngine;
 	SoundManager* soundManager;
+
+	AnimatedObject* TestA;
+	AnimateMeshVbo* Animate;
 
 public:
 	virtual void LevelLoad();

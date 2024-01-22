@@ -37,6 +37,7 @@ void SquareMeshVbo::LoadData()
 
 SquareMeshVbo::SquareMeshVbo()
 {
+	//cout << " New Square Mesh" << endl;
 }
 
 string SquareMeshVbo::GetMeshName()

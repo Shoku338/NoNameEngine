@@ -11,33 +11,31 @@ AnimatedObject::AnimatedObject(const char* path, int MaxR, int MaxC) {
 	MaxCol = MaxC;
 	texture = GameEngine::GetInstance()->GetRenderer()->LoadTexture(path);
 	CalculateUV(0, 0);
+	this->SetSize(96.0f, -96.0f);
+
 }
 
 
 float* AnimatedObject::CalculateUV(int r, int c) {
 
-	float texData[8];
 	float rows = r;
 	float column = c;
 
-	// HARD CODING FOR NOW
-	// CALCULATING 4 COORDINATES
-	// #1
-	texData[0] = column / MaxCol, texData[1] = ((MaxRow - rows) + 1) / MaxRow;
-	// #2
-	texData[2] = (column + 1.0f) / MaxCol, texData[3] = ((MaxRow - rows) + 1) / MaxRow;
-	// #3
-	texData[4] = (column + 1.0f) / MaxCol, texData[5] = (MaxRow - rows) / MaxRow;
-	// #4
-	texData[6] = column / MaxCol, texData[7] = (MaxRow - rows) / MaxRow;
+	
+	newUV[0] = c / (MaxCol*1.0f);               // bottom left x
+	newUV[1] = r / (MaxRow * 1.0f);  // bottom left y
+
+	newUV[2] = (c + 1.0f) / (MaxCol * 1.0f);       // bottom right x
+	newUV[3] = r / (MaxRow * 1.0f);  // bottom right y
+
+	newUV[4] = (c + 1.0f) / (MaxCol * 1.0f);       // top right x
+	newUV[5] = (1.0f + r) / (MaxRow * 1.0f);       // top right y
+
+	newUV[6] = c / (MaxCol * 1.0f);               // top left x
+	newUV[7] = (1.0f + r) / (MaxRow * 1.0f);
 
 
-	/*for (int i = 0; i < 8; i++)
-	{
-		newUV[i] = texData[i];
-	}*/
-
-	return texData;
+	return newUV;
 }
 
 void AnimatedObject::UpdateFrame() {
@@ -47,14 +45,17 @@ void AnimatedObject::UpdateFrame() {
 		frames = 0;
 
 		col++;
-		CalculateUV(row, col);
+		//CalculateUV(row, col);
 	}
 
 }
 
 void AnimatedObject::Render(glm::mat4 globalModelTransform)
 {
+
 	AnimateMeshVbo* spriteMesh = dynamic_cast<AnimateMeshVbo*> (GameEngine::GetInstance()->GetRenderer()->GetMesh(AnimateMeshVbo::MESH_NAME));
+
+	
 
 	GLuint modelMatixId = GameEngine::GetInstance()->GetRenderer()->GetModelMatrixAttrId();
 	GLuint colorId = GameEngine::GetInstance()->GetRenderer()->GetColorUniformId();
@@ -86,4 +87,20 @@ void AnimatedObject::Render(glm::mat4 globalModelTransform)
 		spriteMesh->Render();
 
 	}
+	
+}
+
+int AnimatedObject::getCol()
+{
+	return col;
+}
+
+int AnimatedObject::getRow()
+{
+	return row;
+}
+
+int AnimatedObject::getFrames()
+{
+	return frames;
 }

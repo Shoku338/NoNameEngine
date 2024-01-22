@@ -15,9 +15,14 @@ void Level::LevelLoad()
 
 	//Added by Kapom
 
-	tilemap = new Tilemap(16, 9, 64 ,6,3, "../Resource/Texture/Map_with_grid.png", "../Resource/Texture/map.txt");
+	tilemap = new Tilemap(33, 11, 64 ,6,3, "../Resource/Texture/Map_with_grid.png", "../Resource/Texture/map.txt");
 	tilemap->setTile(&objectsList);
 
+	Animate = new AnimateMeshVbo();
+	Animate->LoadData();
+	GameEngine::GetInstance()->AddMesh(AnimateMeshVbo::MESH_NAME, Animate);
+	cout << AnimateMeshVbo::MESH_NAME << endl;
+		
 	//cout << "Load Level" << endl;
 }
 
@@ -49,7 +54,7 @@ void Level::LevelInit()
 	player = ply;
 	player->SetPosition(glm::vec3(100.0f, 150.0f, 0.0f));
 	player->setWeapon("../Resource/Texture/Proto_plasma.png");
-	//cout << "Init Level" << endl;
+	
 
 
 
@@ -59,6 +64,15 @@ void Level::LevelInit()
 	soundManager->loadSound("Blaster", "../Resource/Sound/Blaster.mp3");
 	soundManager->playSound("Zelda", true);
 	soundManager->getSound("Zelda")->setDefaultVolume(0.4);
+
+	//Test Animated Object
+	TestA = new AnimatedObject("../Resource/Texture/photo.png", 1, 4);
+	TestA->SetPosition(glm::vec3(200.0f, 150.0f, 0.0f));
+	TestA->setCollision(true);
+	objectsList.push_back(TestA);
+	
+
+	//cout << "Init Level" << endl;
 }
 
 
@@ -186,6 +200,13 @@ void Level::LevelUpdate(float dt)
 		++it;  // Increment the iterator for the next iteration
 	}
 
+
+
+	// Test animation Update
+	TestA->UpdateFrame();
+	Animate->UpdateUV(TestA->CalculateUV(TestA->getRow(), TestA->getCol()));
+	cout << TestA->getFrames() << endl;
+
 }
 
 void Level::LevelDraw()
@@ -240,19 +261,19 @@ void Level::HandleKey(char key)
 		case 'w': 
 			if (player->getJump() < MAXX_JUMP) {
 			cout << "Rising hopper" << endl;
-			player->velocity.y = 100.0f;
+			player->velocity.y = 200.0f;
 			player->setJump(player->getJump() + 1);
 		}
 			player->setGround(false);
 			break; // jumping
 		case 'a': 
-			if(player->getVelocity().x <= 70)
+			if(player->getVelocity().x <= 120)
 			{
 				player->velocity.x += -10.f; 
 			}
 			break;//move velocity value
 		case 'd':
-			if (player->getVelocity().x >= -70)
+			if (player->getVelocity().x >= -120)
 			{
 				player->velocity.x += 10.f;
 			}

@@ -20,5 +20,8 @@ public:
 	float* CalculateUV(int r, int c);
 	void Render(glm::mat4 globalModelTransform);
 	void UpdateFrame();
+	int getRow();
+	int getCol();
+	int getFrames();
 
 };
