@@ -70,6 +70,11 @@ void Level::LevelInit()
 	TestA->SetPosition(glm::vec3(200.0f, 150.0f, 0.0f));
 	TestA->setCollision(true);
 	objectsList.push_back(TestA);
+
+	TestB = new AnimatedObject("../Resource/Texture/photo.png", 1, 4);
+	TestB->SetPosition(glm::vec3(400.0f, 150.0f, 0.0f));
+	TestB->setCollision(true);
+	objectsList.push_back(TestB);
 	
 
 	//cout << "Init Level" << endl;
@@ -204,8 +209,7 @@ void Level::LevelUpdate(float dt)
 
 	// Test animation Update
 	TestA->UpdateFrame();
-	Animate->UpdateUV(TestA->CalculateUV(TestA->getRow(), TestA->getCol()));
-	cout << TestA->getFrames() << endl;
+	
 
 }
 

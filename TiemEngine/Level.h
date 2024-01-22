@@ -27,6 +27,7 @@ private:
 	SoundManager* soundManager;
 
 	AnimatedObject* TestA;
+	AnimatedObject* TestB;
 	AnimateMeshVbo* Animate;
 
 public:

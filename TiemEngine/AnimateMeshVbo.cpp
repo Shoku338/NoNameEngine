@@ -15,10 +15,12 @@ void AnimateMeshVbo::UpdateUV(float* newUV)
 
 	GLfloat texData[] =
 	{
+		newUV[0],newUV[1],
 		newUV[2],newUV[3],
-	   newUV[0],newUV[1],
-		newUV[6],newUV[7],
-	  newUV[4],newUV[5]
+	   
+		
+	  newUV[4],newUV[5],
+	  newUV[6],newUV[7]
 
 	  
 

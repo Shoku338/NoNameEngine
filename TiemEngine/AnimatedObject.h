@@ -17,7 +17,7 @@ private:
 public:
 	AnimatedObject(const char* path, int MaxR, int MaxC);
 	~AnimatedObject();
-	float* CalculateUV(int r, int c);
+	void CalculateUV(int r, int c);
 	void Render(glm::mat4 globalModelTransform);
 	void UpdateFrame();
 	int getRow();

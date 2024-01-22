@@ -16,7 +16,7 @@ AnimatedObject::AnimatedObject(const char* path, int MaxR, int MaxC) {
 }
 
 
-float* AnimatedObject::CalculateUV(int r, int c) {
+void AnimatedObject::CalculateUV(int r, int c) {
 
 	float rows = r;
 	float column = c;
@@ -35,17 +35,34 @@ float* AnimatedObject::CalculateUV(int r, int c) {
 	newUV[7] = (1.0f + r) / (MaxRow * 1.0f);
 
 
-	return newUV;
+	
 }
 
 void AnimatedObject::UpdateFrame() {
 
 	frames++;
-	if (frames > speed) {
+	if (frames > speed) 
+	{
 		frames = 0;
 
-		col++;
-		//CalculateUV(row, col);
+		
+		if (col > MaxCol)
+		{
+			row++;
+			col = 0;
+		}
+		else if (row > MaxRow)
+		{
+			col++;
+			row = 0;
+		}
+		else
+		{
+			col++;
+		}
+		cout << col << endl;
+
+		CalculateUV(row, col);
 	}
 
 }
@@ -84,6 +101,7 @@ void AnimatedObject::Render(glm::mat4 globalModelTransform)
 		glUniform3f(colorId, color.x, color.y, color.z);
 		glUniform1i(renderModeId, 1);
 		glBindTexture(GL_TEXTURE_2D, texture);
+		spriteMesh->UpdateUV(newUV);
 		spriteMesh->Render();
 
 	}
