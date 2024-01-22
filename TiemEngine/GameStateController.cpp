@@ -72,5 +72,9 @@ void GameStateController::HandleKeyLevel(char key)
 void GameStateController::HandleMouseLevel(int type, int x, int y)
 {
 	currentLevel->HandleMouse(type, x, y);
+
+}
+void  GameStateController::HandleMousePos(int x, int y) {
+	currentLevel->ArmToMouse(x, y);
 }
 

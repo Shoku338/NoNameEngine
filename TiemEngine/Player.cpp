@@ -6,7 +6,7 @@ Player::Player() {
 	health = 10;
 	shield = 10;
 	jumpCount = 0;
-	grounded = true;
+	grounded = false;
 }
 
 float Player::getHealth() {
@@ -28,9 +28,8 @@ int Player::getJump() {
 void Player::setJump(int count) {
 	jumpCount = count;
 }
-
 void Player::update() {
-	currentWeapon.update(this->pos); 
+	currentWeapon.update(this->getPosition()); 
 }
 
 void Player::Render(glm::mat4 globalModelTransform)
@@ -58,7 +57,6 @@ void Player::Render(glm::mat4 globalModelTransform)
 	glm::mat4 currentMatrix = this->getTransform();
 
 	if (squareMesh != nullptr) {
-
 		currentMatrix = globalModelTransform * currentMatrix;
 		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
 		glUniform3f(colorId, color.x, color.y, color.z);
@@ -70,6 +68,29 @@ void Player::Render(glm::mat4 globalModelTransform)
 	
 }
 
+void Player::setFaceRight(bool fliping) {
+	isFaceRight = fliping;
+}
+
+void Player::checkFace() {
+	if (isFaceRight && !hasFlippedRight) {
+		flip();
+		currentWeapon.flip();
+		hasFlippedRight = true;
+		hasFlippedLeft = false;  // Reset the flag for the other direction
+	}
+	else if (!isFaceRight && !hasFlippedLeft) {
+		flip();
+		currentWeapon.flip();
+		hasFlippedLeft = true;
+		hasFlippedRight = false;  // Reset the flag for the other direction
+	}
+}
+
+Weapon * Player::getWeapon()
+{
+	return &currentWeapon;
+}
 void Player::setWeapon(string weaponTexture) {
 	currentWeapon.SetTexture(weaponTexture);
 	currentWeapon.SetSize(this->getsizeX(),this->getsizeY());

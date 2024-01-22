@@ -15,6 +15,11 @@ GameObject::~GameObject()
 {
 
 }
+void GameObject::flip() 
+{
+	glm::vec3 flipSize = glm::vec3(-this->getsizeX(), this->getsizeY(), 1);
+	this->SetSize(flipSize.x, flipSize.y);
+}
 
 void GameObject::SetColor(float r, float g, float b)
 {
