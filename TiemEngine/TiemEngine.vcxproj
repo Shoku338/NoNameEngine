@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedObject.cpp" />
     <ClCompile Include="AnimateMeshVbo.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CombineObject.cpp" />
@@ -43,6 +44,7 @@
     <ClCompile Include="weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedObject.h" />
     <ClInclude Include="AnimateMeshVbo.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CombineObject.h" />
@@ -62,6 +64,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SquareMeshVbo.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TriangleMeshVbo.h" />
     <ClInclude Include="weapon.h" />

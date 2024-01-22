@@ -2,7 +2,7 @@
 #include "AnimateMeshVbo.h"
 #include <iostream>
 
-string const SquareMeshVbo::MESH_NAME = "AnimateSquare";
+string const AnimateMeshVbo::MESH_NAME = "AnimateSquare";
 
 
 void AnimateMeshVbo::UpdateUV(float* newUV)
