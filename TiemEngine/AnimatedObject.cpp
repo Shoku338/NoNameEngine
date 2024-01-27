@@ -41,28 +41,24 @@ void AnimatedObject::CalculateUV(int r, int c) {
 void AnimatedObject::UpdateFrame() {
 
 	frames++;
-	if (frames > speed) 
-	{
+
+	if (frames > speed) {
 		frames = 0;
 
-		
-		if (col > MaxCol)
-		{
-			row++;
+		if (col >= MaxCol) {
 			col = 0;
+			row++;
+
+			if (row >= MaxRow) {
+				row = 0;
+			}
 		}
-		else if (row > MaxRow)
-		{
+		else {
 			col++;
-			row = 0;
 		}
-		else
-		{
-			col++;
-		}
-		cout << col << endl;
 
 		CalculateUV(row, col);
+		cout << "Row: " << row << ", Col: " << col << endl;
 	}
 
 }
