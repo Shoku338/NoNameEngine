@@ -14,6 +14,7 @@ protected:
 public:
 	GameObject();
 	~GameObject();
+	void flip();
 	void SetColor(float r, float g, float b);
 	void SetTexture(string path);
 	bool getCollision();

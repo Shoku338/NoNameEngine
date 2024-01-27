@@ -40,4 +40,5 @@ public:
 
 	virtual void HandleKey(char key);
 	virtual void HandleMouse(int type, int x, int y);
+	virtual void ArmToMouse(int x, int y);
 };

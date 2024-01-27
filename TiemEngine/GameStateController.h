@@ -27,5 +27,6 @@ public:
 	void UnloadLevel();
 	void HandleKeyLevel(char key);
 	void HandleMouseLevel(int type, int x, int y);
+	void HandleMousePos(int x, int y);
 
 };
