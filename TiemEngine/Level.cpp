@@ -71,7 +71,7 @@ void Level::LevelInit()
 	TestA->setCollision(true);
 	objectsList.push_back(TestA);
 
-	TestB = new AnimatedObject("../Resource/Texture/photo.png", 1, 4);
+	TestB = new AnimatedObject("../Resource/Texture/Link.png", 8, 10);
 	TestB->SetPosition(glm::vec3(400.0f, 150.0f, 0.0f));
 	TestB->setCollision(true);
 	objectsList.push_back(TestB);
@@ -219,8 +219,8 @@ void Level::LevelUpdate(float dt)
 
 	// Test animation Update
 	TestA->UpdateFrame();
-
-	Animate->UpdateUV(TestA->CalculateUV(TestA->getRow(), TestA->getCol()));
+	TestB->UpdateFrame();
+	//Animate->UpdateUV(TestA->CalculateUV(TestA->getRow(), TestA->getCol()));
 	//cout << TestA->getFrames() << endl;
 
 }
