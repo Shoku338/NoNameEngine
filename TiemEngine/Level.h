@@ -23,12 +23,12 @@ private:
 	float overlapX, overlapY;
 	Tilemap * tilemap;
 	Camera2D* camera;
-	//irrklang::ISoundEngine* soundEngine;
 	SoundManager* soundManager;
 
 	AnimatedObject* TestA;
 	AnimatedObject* TestB;
 	AnimateMeshVbo* Animate;
+	vector<DrawableObject*> backGroundObjects;
 
 public:
 	virtual void LevelLoad();

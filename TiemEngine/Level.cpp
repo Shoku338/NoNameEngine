@@ -72,6 +72,8 @@ void Level::LevelInit()
 	objectsList.push_back(TestA);
 
 	TestB = new AnimatedObject("../Resource/Texture/Link.png", 8, 10);
+	//TestB = new AnimatedObject("../Resource/Texture/girl.png", 4, 10);
+	//TestB->SetSize(64.0f, -128.0f);
 	TestB->SetPosition(glm::vec3(400.0f, 150.0f, 0.0f));
 	TestB->setCollision(true);
 	objectsList.push_back(TestB);
