@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include "Camera.h"
 #include "Grapple.h"
+#include "GrappleLine.h"
 
 //Added by Kapom
 #include "Tile.h"

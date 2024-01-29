@@ -55,8 +55,11 @@ void Level::LevelInit()
 	player->SetPosition(glm::vec3(100.0f, 150.0f, 0.0f));
 	player->setWeapon("../Resource/Texture/Proto_plasma.png");
 	
-
-
+	GrapleLine* grappleline = new GrapleLine();
+	grappleline->SetSize(128.0f, -2.0f);
+	grappleline->SetPosition(glm::vec3(0, 0, 0));
+	objectsList.push_back(grappleline);
+	//grappleline->SetTexture("../Resource/Texture/Grass.png");
 
 	// Initialize the sound manager and load/play music
 	soundManager = new SoundManager();
@@ -78,6 +81,7 @@ void Level::LevelInit()
 	TestB->setCollision(true);
 	objectsList.push_back(TestB);
 	
+
 
 	//cout << "Init Level" << endl;
 }
