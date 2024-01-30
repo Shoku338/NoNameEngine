@@ -55,10 +55,10 @@ void Level::LevelInit()
 	player->SetPosition(glm::vec3(100.0f, 150.0f, 0.0f));
 	player->setWeapon("../Resource/Texture/Proto_plasma.png");
 	
-	GrapleLine* grappleline = new GrapleLine();
-	grappleline->SetSize(128.0f, -2.0f);
-	grappleline->SetPosition(glm::vec3(0, 0, 0));
-	objectsList.push_back(grappleline);
+	//GrapleLine* grappleline = new GrapleLine();
+	//grappleline->SetSize(128.0f, -2.0f);
+	//grappleline->SetPosition(glm::vec3(0, 0, 0));
+	//objectsList.push_back(grappleline);
 	//grappleline->SetTexture("../Resource/Texture/Grass.png");
 
 	// Initialize the sound manager and load/play music
@@ -356,6 +356,7 @@ void Level::HandleMouse(int type, int x, int y)
 	else if (type == 1) {
 		Grapple* grapple = new Grapple(bulletStartPosition, "../Resource/Texture/temp-grapple.png",75.f);
 		grapple->SetSize(20.f, 20.f);
+		grapple->setTimer(30.f);
 		//grapple->setCollision(false);
 		// Shoot the bullet in the calculated direction
 		grapple->shootAt(glm::vec2(realX, realY), grapple->getVelocity().x);

@@ -20,7 +20,7 @@ void Bullet::shootAt(glm::vec2 targetMousePos, float speed)
     glm::vec2 direction = glm::normalize(targetMousePos - glm::vec2(startPosition.x, startPosition.y));
     //rotate to the direction
     float degree = glm::degrees(atan2(direction.y, direction.x));
-    cout << "degree to rotate : " << degree << endl;
+    //cout << "degree to rotate : " << degree << endl;
     this->rotateDegree(degree);
     // Set velocity based on direction and speed
     this->velocity = glm::vec3(direction * speed, 0.0f);

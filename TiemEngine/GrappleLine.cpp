@@ -2,6 +2,11 @@
 #include "GameEngine.h"
 #include "SquareMeshVbo.h"
 
+GrapleLine::GrapleLine(glm::vec3 startPos) {
+	this->SetPosition(startPos);
+	this->SetSize(1.0f, 1.0f);
+}
+
 void GrapleLine::Render(glm::mat4 globalModelTransform) {
 	SquareMeshVbo* squareMesh = dynamic_cast<SquareMeshVbo*> (GameEngine::GetInstance()->GetRenderer()->GetMesh(SquareMeshVbo::MESH_NAME));
 
@@ -37,4 +42,18 @@ void GrapleLine::Render(glm::mat4 globalModelTransform) {
 		squareMesh->Render();
 
 	}
+}
+
+void GrapleLine::updateCurrent(glm::vec3 playerPos,glm::vec3 headPos) {
+	
+	glm::vec3 currVec = headPos - playerPos;
+	glm::vec2 direction = glm::normalize(glm::vec2(currVec.x, currVec.y));
+	float magnitude = glm::length(glm::vec2(currVec.x, currVec.y));
+
+	SetSize(magnitude, 1.0f);
+	SetPosition(playerPos);
+
+	// Rotate to the direction
+	float degree = glm::degrees(atan2(direction.y, direction.x));
+	this->rotateDegree(degree);
 }
