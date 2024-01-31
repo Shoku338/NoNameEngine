@@ -1,5 +1,6 @@
 #include "Level.h"
-#define GRAVITY -75.0f
+#define GRAVITY -100.0f
+#define FRACTION .1f
 #define	COLLISION_LEFT				1
 #define	COLLISION_RIGHT				2
 #define	COLLISION_TOP				4
@@ -93,7 +94,7 @@ void Level::LevelUpdate(float dt)
 	//cout << "Update Level" << endl;
 	
 	player->Translate(player->velocity * dt);
-	player->velocity.x *= (1.0f - 0.1f); //0.3 is friction for now
+	player->velocity.x *= (1.0f - FRACTION); //friction
 	player->update();
 	//cout << "player grav: " << player->getGrounded() << endl;
 	if (!player->getGrounded()) {
@@ -123,8 +124,9 @@ void Level::LevelUpdate(float dt)
 					player->velocity.y = 0;
 					//player->SetPosition(player->getPosition() + glm::vec3(0, 0.2, 0));
 					player->setGround(true);
-					
-
+					float offsetY = (gameObject->getPosition().y + abs(gameObject->getsizeY() / 2)) - (player->getPosition().y - abs(player->getsizeY() / 2));
+					cout << offsetY << endl;
+					player->Translate(glm::vec3(0.0f, offsetY, 0.0f));
 				}
 				else if (resultCol == COLLISION_RIGHT)
 				{
@@ -178,6 +180,26 @@ void Level::LevelUpdate(float dt)
 					}
 					++otherIt;
 				}
+				for (int i = 0; i < tilemap->getTilemap().size(); i++)
+				{
+					GameObject* otherIt = dynamic_cast<GameObject*>(tilemap->getTilemap().at(i));
+					if (GameObject* gameObject2 = dynamic_cast<GameObject*>(otherIt)) {
+						if (gameObject2->getCollision()) {
+							int colG = grapple->detectCollisionAABB(
+								gameObject2->getPosX(), gameObject2->getPosY(),
+								abs(gameObject2->getsizeY()), gameObject2->getsizeX());
+							//cout << "colresult:" << colG << endl;
+							if (colG != 0) {
+								// Collision detected, execute pull function
+								//cout << "boop" << endl;
+								grapple->velocity = glm::vec3(0, 0, 0);
+								grapple->pull(*player, dt * 2, 150);
+								// Handle other logic if needed
+							}
+						}
+					}
+					++otherIt;
+				}
 			}
 		}
 		
@@ -188,11 +210,15 @@ void Level::LevelUpdate(float dt)
 					 gameObject->getPosX(), gameObject->getPosY(),
 					 abs(gameObject->getsizeY()), gameObject->getsizeX());
 				 if (resultCol == COLLISION_BOTTOM) {
-					 // Game logic for collision at the bottom of player
+					 //game logic here
 					 player->setJump(0);
 					 player->velocity.y = 0;
 					 //player->SetPosition(player->getPosition() + glm::vec3(0, 0.2, 0));
 					 player->setGround(true);
+					 float offsetY = (gameObject->getPosition().y + abs(gameObject->getsizeY() / 2)) - (player->getPosition().y - abs(player->getsizeY() / 2));
+					 cout << offsetY << endl;
+					 player->Translate(glm::vec3(0.0f, offsetY, 0.0f));
+
 				 }
 				 else if (resultCol == COLLISION_RIGHT) {
 					 // Game logic for collision on the right of player
@@ -284,7 +310,7 @@ void Level::HandleKey(char key)
 			player->setGround(false);
 			if (player->getJump() < MAXX_JUMP) {
 			//cout << "Rising hopper" << endl;
-				player->velocity.y += 90.0f;
+				player->velocity.y = 120.0f;
 				player->setJump(player->getJump() + 1);
 			}
 			
@@ -292,13 +318,13 @@ void Level::HandleKey(char key)
 		case 'a': 
 			if(player->getVelocity().x <= 120)
 			{
-				player->velocity.x += -10.f; 
+				player->velocity.x += -20.f; 
 			}
 			break;//move velocity value
 		case 'd':
 			if (player->getVelocity().x >= -120)
 			{
-				player->velocity.x += 10.f;
+				player->velocity.x += 20.f;
 			}
 			break;//move velocity value
 		case 'C'://dashing
@@ -310,7 +336,7 @@ void Level::HandleKey(char key)
 			//need spacebar		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
-		case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ;
+		//case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ;
 			break;
 		case '1': player->setWeapon("../Resource/Texture/Proto_plasma.png"); break;
 		case '2': player->setWeapon("../Resource/Texture/Tier2_rapid machinegun.png"); break;
@@ -356,7 +382,6 @@ void Level::HandleMouse(int type, int x, int y)
 	else if (type == 1) {
 		Grapple* grapple = new Grapple(bulletStartPosition, "../Resource/Texture/temp-grapple.png",75.f);
 		grapple->SetSize(20.f, 20.f);
-		grapple->setTimer(30.f);
 		//grapple->setCollision(false);
 		// Shoot the bullet in the calculated direction
 		grapple->shootAt(glm::vec2(realX, realY), grapple->getVelocity().x);
