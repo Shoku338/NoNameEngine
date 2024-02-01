@@ -23,6 +23,9 @@ void Level::LevelLoad()
 	Animate->LoadData();
 	GameEngine::GetInstance()->AddMesh(AnimateMeshVbo::MESH_NAME, Animate);
 	cout << AnimateMeshVbo::MESH_NAME << endl;
+
+	ImageObject* BG = new ImageObject("../Resource/Texture/MOTIVATED.png");
+	backGroundObjects.push_back(BG);
 		
 	//cout << "Load Level" << endl;
 }
@@ -261,8 +264,16 @@ void Level::LevelUpdate(float dt)
 void Level::LevelDraw()
 {
 
+	//SetViewMatrix
 	glm::mat4 viewMatrix = camera->GetViewMatrix();
+
+	//Background
+	GameEngine::GetInstance()->Render(backGroundObjects, viewMatrix);
+
+	//Tilemap
 	tilemap->Render(viewMatrix);
+	
+	//Object and Camera
 	//GameEngine::GetInstance()->Render(objectsList);
 
 	if (camera) 
@@ -273,6 +284,7 @@ void Level::LevelDraw()
 	{
 		GameEngine::GetInstance()->Render(objectsList, glm::mat4(1.0));
 	}
+	
 	
 	//cout << "Draw Level" << endl;
 }

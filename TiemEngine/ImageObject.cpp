@@ -4,8 +4,11 @@
 #include "SquareMeshVbo.h"
 
 
-ImageObject::ImageObject()
+ImageObject::ImageObject(const char* path)
 {
+	texture = GameEngine::GetInstance()->GetRenderer()->LoadTexture(path);
+	SetSize(1000, -1000);
+	SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 
 }
 

@@ -10,7 +10,7 @@ class ImageObject :public DrawableObject
 	unsigned int texture;
 
 public:
-	ImageObject();
+	ImageObject(const char* path);
 	~ImageObject();
 	void SetTexture(string path);
 	void Render(glm::mat4 globalModelTransform);
