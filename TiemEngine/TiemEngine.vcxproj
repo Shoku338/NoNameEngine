@@ -24,6 +24,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CombineObject.cpp" />
     <ClCompile Include="DrawableObject.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStateController.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CombineObject.h" />
     <ClInclude Include="DrawableObject.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStateController.h" />

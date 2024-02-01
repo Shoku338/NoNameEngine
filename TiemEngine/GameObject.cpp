@@ -126,3 +126,8 @@ void GameObject::SmoothTranslate(const glm::vec3& targetPosition, float deltaTim
 	float interpolationFactor = speed * deltaTime;
 	this->Translate(normalVelVec * interpolationFactor);
 }
+
+void GameObject::Update()
+{
+
+}

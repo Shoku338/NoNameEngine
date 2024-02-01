@@ -68,8 +68,6 @@ void AnimatedObject::Render(glm::mat4 globalModelTransform)
 
 	AnimateMeshVbo* spriteMesh = dynamic_cast<AnimateMeshVbo*> (GameEngine::GetInstance()->GetRenderer()->GetMesh(AnimateMeshVbo::MESH_NAME));
 
-	
-
 	GLuint modelMatixId = GameEngine::GetInstance()->GetRenderer()->GetModelMatrixAttrId();
 	GLuint colorId = GameEngine::GetInstance()->GetRenderer()->GetColorUniformId();
 	GLuint renderModeId = GameEngine::GetInstance()->GetRenderer()->GetModeUniformId();
@@ -117,4 +115,19 @@ int AnimatedObject::getRow()
 int AnimatedObject::getFrames()
 {
 	return frames;
+}
+
+float* AnimatedObject::getNewUV()
+{
+	return newUV;
+}
+
+void AnimatedObject::Update()
+{
+	UpdateFrame();
+}
+
+AnimatedObject::~AnimatedObject()
+{
+
 }

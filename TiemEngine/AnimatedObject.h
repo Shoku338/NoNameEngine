@@ -23,5 +23,7 @@ public:
 	int getRow();
 	int getCol();
 	int getFrames();
+	void Update();
+	float* getNewUV();
 
 };

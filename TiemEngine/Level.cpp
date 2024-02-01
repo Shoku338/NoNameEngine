@@ -47,8 +47,8 @@ void Level::LevelInit()
 
 	//Game object
 
-	Player* ply = new Player();
-	ply->SetTexture("../Resource/Texture/Body.png");
+	Player* ply = new Player("../Resource/Texture/photo.png", 1, 4);
+	//ply->SetTexture("../Resource/Texture/Body.png");
 	ply->SetSize(96.0f, -96.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(false);
@@ -252,6 +252,7 @@ void Level::LevelUpdate(float dt)
 	// Test animation Update
 	TestA->UpdateFrame();
 	TestB->UpdateFrame();
+	player->UpdateFrame();
 	//Animate->UpdateUV(TestA->CalculateUV(TestA->getRow(), TestA->getCol()));
 	//cout << TestA->getFrames() << endl;
 

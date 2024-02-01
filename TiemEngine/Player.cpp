@@ -1,8 +1,9 @@
 #include "Player.h"
 #include "GameEngine.h"
 #include "SquareMeshVbo.h"
+#include "AnimateMeshVbo.h"
 
-Player::Player() {
+Player::Player(const char* path, int MaxR, int MaxC):AnimatedObject(path,MaxR,MaxC) {
 	health = 10;
 	shield = 10;
 	jumpCount = 0;
@@ -34,7 +35,7 @@ void Player::update() {
 
 void Player::Render(glm::mat4 globalModelTransform)
 {
-	SquareMeshVbo* squareMesh = dynamic_cast<SquareMeshVbo*> (GameEngine::GetInstance()->GetRenderer()->GetMesh(SquareMeshVbo::MESH_NAME));
+	AnimateMeshVbo* spriteMesh = dynamic_cast<AnimateMeshVbo*> (GameEngine::GetInstance()->GetRenderer()->GetMesh(AnimateMeshVbo::MESH_NAME));
 
 	GLuint modelMatixId = GameEngine::GetInstance()->GetRenderer()->GetModelMatrixAttrId();
 	GLuint colorId = GameEngine::GetInstance()->GetRenderer()->GetColorUniformId();
@@ -56,13 +57,15 @@ void Player::Render(glm::mat4 globalModelTransform)
 
 	glm::mat4 currentMatrix = this->getTransform();
 
-	if (squareMesh != nullptr) {
+	if (spriteMesh != nullptr) {
+
 		currentMatrix = globalModelTransform * currentMatrix;
 		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
 		glUniform3f(colorId, color.x, color.y, color.z);
 		glUniform1i(renderModeId, 1);
 		glBindTexture(GL_TEXTURE_2D, texture);
-		squareMesh->Render();
+		spriteMesh->UpdateUV(getNewUV());
+		spriteMesh->Render();
 		currentWeapon.Render(globalModelTransform);
 	}
 	
