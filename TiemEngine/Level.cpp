@@ -1,5 +1,5 @@
 #include "Level.h"
-#define GRAVITY -100.0f
+#define GRAVITY -120.0f
 #define FRACTION .1f
 #define	COLLISION_LEFT				1
 #define	COLLISION_RIGHT				2
@@ -99,7 +99,7 @@ void Level::LevelUpdate(float dt)
 	//cout << "player grav: " << player->getGrounded() << endl;
 	if (!player->getGrounded()) {
 		//cout << "add grav" << endl;
-		if(player->velocity.y >= -200)
+		if(player->velocity.y >= -400)
 			player->velocity.y += GRAVITY * dt; //Gravity
 	}
 
@@ -125,7 +125,7 @@ void Level::LevelUpdate(float dt)
 					//player->SetPosition(player->getPosition() + glm::vec3(0, 0.2, 0));
 					player->setGround(true);
 					float offsetY = (gameObject->getPosition().y + abs(gameObject->getsizeY() / 2)) - (player->getPosition().y - abs(player->getsizeY() / 2));
-					cout << offsetY << endl;
+					//cout << offsetY << endl;
 					player->Translate(glm::vec3(0.0f, offsetY, 0.0f));
 				}
 				else if (resultCol == COLLISION_RIGHT)
@@ -216,7 +216,7 @@ void Level::LevelUpdate(float dt)
 					 //player->SetPosition(player->getPosition() + glm::vec3(0, 0.2, 0));
 					 player->setGround(true);
 					 float offsetY = (gameObject->getPosition().y + abs(gameObject->getsizeY() / 2)) - (player->getPosition().y - abs(player->getsizeY() / 2));
-					 cout << offsetY << endl;
+					 //cout << offsetY << endl;
 					 player->Translate(glm::vec3(0.0f, offsetY, 0.0f));
 
 				 }
