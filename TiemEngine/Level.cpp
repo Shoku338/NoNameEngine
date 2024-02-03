@@ -1,5 +1,5 @@
 #include "Level.h"
-#define GRAVITY -120.0f
+#define GRAVITY -250.0f
 #define FRACTION .1f
 #define	COLLISION_LEFT				1
 #define	COLLISION_RIGHT				2
@@ -102,7 +102,7 @@ void Level::LevelUpdate(float dt)
 	//cout << "player grav: " << player->getGrounded() << endl;
 	if (!player->getGrounded()) {
 		//cout << "add grav" << endl;
-		if(player->velocity.y >= -400)
+		if(player->velocity.y >= -1000)
 			player->velocity.y += GRAVITY * dt; //Gravity
 	}
 
@@ -323,7 +323,7 @@ void Level::HandleKey(char key)
 			player->setGround(false);
 			if (player->getJump() < MAXX_JUMP) {
 			//cout << "Rising hopper" << endl;
-				player->velocity.y = 120.0f;
+				player->velocity.y = 180.0f;
 				player->setJump(player->getJump() + 1);
 			}
 			
