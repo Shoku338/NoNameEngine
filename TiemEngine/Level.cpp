@@ -106,11 +106,18 @@ void Level::LevelUpdate(float dt)
 			player->velocity.y += GRAVITY * dt; //Gravity
 	}
 
-	// Update camera position based on player's new position
-	if (camera) {
-		camera->UpdateCameraPosition(glm::vec2(player->getPosX()- GameEngine::GetInstance()->GetGameWidth()/2, player->getPosY()- GameEngine::GetInstance()->GetGameHeight()/2));
-		//printf("Window Width : %d, Window Height: %d\n", GameEngine::GetInstance()->GetWindowWidth(), GameEngine::GetInstance()->GetWindowHeight());
-		//printf("PLayer position: %f, %f\n", player->getPosX(), player->getPosY());
+	// Update camera position with an offset
+	if (camera && player) {
+		glm::vec2 playerPosition(player->getPosX(), player->getPosY());
+
+		// Example: Set an offset to move the player to the left and lower the camera
+		glm::vec2 offset(-50.0f, -100.0f); // Adjust the x and y coordinates as needed
+		camera->UpdateCameraPosition(playerPosition, offset);
+
+
+		// Print camera position (optional for debugging)
+		glm::vec2 cameraPosition = camera->getPosition();
+		std::cout << "Camera Position: (" << cameraPosition.x << ", " << cameraPosition.y << ")" << std::endl;
 	}
 
 
