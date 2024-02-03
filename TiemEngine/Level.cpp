@@ -16,7 +16,8 @@ void Level::LevelLoad()
 
 	//Added by Kapom
 
-	tilemap = new Tilemap(33, 11, 64 ,6,3, "../Resource/Texture/Map_with_grid.png", "../Resource/Texture/map.txt");
+	//tilemap = new Tilemap(19, 7, 64 ,8,4, "../Resource/Texture/tile_atlas.png", "../Resource/Texture/map.txt");
+	tilemap = new Tilemap(19, 7, 128, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/map.txt");
 	tilemap->setTile(&objectsList);
 
 	Animate = new AnimateMeshVbo();
@@ -50,9 +51,9 @@ void Level::LevelInit()
 
 	//Game object
 
-	Player* ply = new Player("../Resource/Texture/photo.png", 1, 4);
+	Player* ply = new Player("../Resource/Texture/Idle.png", 1, 4);
 	//ply->SetTexture("../Resource/Texture/Body.png");
-	ply->SetSize(96.0f, -96.0f);
+	ply->SetSize(48.0f, -96.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(false);
 	player = ply;
@@ -73,7 +74,7 @@ void Level::LevelInit()
 	soundManager->getSound("Zelda")->setDefaultVolume(0.3);
 
 	//Test Animated Object
-	TestA = new AnimatedObject("../Resource/Texture/photo.png", 1, 4);
+	TestA = new AnimatedObject("../Resource/Texture/Idle.png", 1, 4);
 	TestA->SetPosition(glm::vec3(200.0f, 150.0f, 0.0f));
 	TestA->setCollision(true);
 	objectsList.push_back(TestA);
@@ -255,7 +256,7 @@ void Level::LevelUpdate(float dt)
 	// Test animation Update
 	TestA->UpdateFrame();
 	TestB->UpdateFrame();
-	player->UpdateFrame();
+	//player->UpdateFrame();
 	//Animate->UpdateUV(TestA->CalculateUV(TestA->getRow(), TestA->getCol()));
 	//cout << TestA->getFrames() << endl;
 
@@ -267,11 +268,15 @@ void Level::LevelDraw()
 	//SetViewMatrix
 	glm::mat4 viewMatrix = camera->GetViewMatrix();
 
+	//Clear Buffer
+	ClearBuffer();
+
 	//Background
 	GameEngine::GetInstance()->Render(backGroundObjects, viewMatrix);
 
 	//Tilemap
-	tilemap->Render(viewMatrix);
+	GameEngine::GetInstance()->RenderTile(tilemap->getTilemap(), viewMatrix);
+	
 	
 	//Object and Camera
 	//GameEngine::GetInstance()->Render(objectsList);
@@ -433,4 +438,10 @@ void Level::ArmToMouse(int x, int y) {
 		player->getWeapon()->rotateDegree(degree - 180);
 		//cout << "degree:" << degree << endl;
 	}
+}
+
+void Level::ClearBuffer()
+{
+	// Clear color buffer and depth buffer once per frame
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

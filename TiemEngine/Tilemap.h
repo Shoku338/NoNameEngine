@@ -5,6 +5,7 @@
 #include "GLRenderer.h" // Assuming you have a GLRenderer class
 #include "GameEngine.h"
 #include "GameObject.h"
+#include "Enemy.h"
 
 
 class Tilemap {

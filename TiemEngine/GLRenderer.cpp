@@ -154,7 +154,7 @@ void GLRenderer::Render(vector <DrawableObject*> & objList, const glm::mat4& vie
 void GLRenderer::RenderTile(vector <Tile*>& tileList,const glm::mat4& viewMatrix)
 {
 	// Clear color buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Update window with OpenGL rendering
 

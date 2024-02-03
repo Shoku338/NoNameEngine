@@ -109,14 +109,14 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
                 //tile->setTextureID(textures[1]);
              
 
-                GameObject* zelda = new GameObject();
-                zelda->SetTexture("../Resource/Texture/Zelda.png");
-                zelda->SetSize(128.0f, -96.0f);
-                zelda->SetPosition(tile->getPosition());
-                list->push_back(zelda);
+                //Enemy* zelda = new Enemy();
+                //zelda->SetTexture("../Resource/Texture/Zelda.png");
+                //zelda->SetSize(128.0f, -96.0f);
+                //zelda->SetPosition(tile->getPosition());
+                //list->push_back(zelda);
 
             }
-            else if (tileType == 0)
+            else if (tileType != 2)
             {
                 tile->setCollision(true);
             }

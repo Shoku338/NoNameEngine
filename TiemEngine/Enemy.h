@@ -18,7 +18,6 @@ public:
 	void setFaceRight(bool fliping);
 	void checkFace();
 	float getHealth();
-	float getShield();
 	void setGround(bool state);
 	bool getGrounded();
 	
