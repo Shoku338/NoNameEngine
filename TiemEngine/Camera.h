@@ -22,9 +22,10 @@ public:
         return translateMatrix * scaleMatrix; // Note the order of multiplication
     }
 
-    void UpdateCameraPosition(const glm::vec2& newPosition) {
-        m_Position = newPosition;
+    void UpdateCameraPosition(const glm::vec2& newPosition, const glm::vec2& offset = glm::vec2(0.0f, 0.0f)) {
+        m_Position = newPosition + offset;
     }
+
     glm::vec2 getPosition(){
         return m_Position;
     }

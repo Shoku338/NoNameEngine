@@ -58,7 +58,7 @@ void AnimatedObject::UpdateFrame() {
 		}
 
 		CalculateUV(row, col);
-		cout << "Row: " << row << ", Col: " << col << endl;
+		//cout << "Row: " << row << ", Col: " << col << endl;
 	}
 
 }
