@@ -116,7 +116,7 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
                 //list->push_back(zelda);
 
             }
-            else if (tileType != 2)
+            else if (tileType != 11)
             {
                 tile->setCollision(true);
             }

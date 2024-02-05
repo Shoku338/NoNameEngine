@@ -131,3 +131,8 @@ AnimatedObject::~AnimatedObject()
 {
 
 }
+
+void AnimatedObject::setSpeed(int newSpeed)
+{
+	speed = newSpeed;
+}

@@ -24,6 +24,7 @@ public:
 	int getCol();
 	int getFrames();
 	void Update();
+	void setSpeed(int newSpeed);
 	float* getNewUV();
 
 };

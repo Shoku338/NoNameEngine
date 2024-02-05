@@ -17,7 +17,7 @@ void Level::LevelLoad()
 	//Added by Kapom
 
 	//tilemap = new Tilemap(19, 7, 64 ,8,4, "../Resource/Texture/tile_atlas.png", "../Resource/Texture/map.txt");
-	tilemap = new Tilemap(19, 7, 128, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/map.txt");
+	tilemap = new Tilemap(19, 9, 128, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/map.txt");
 	tilemap->setTile(&objectsList);
 
 	Animate = new AnimateMeshVbo();
@@ -53,7 +53,7 @@ void Level::LevelInit()
 
 	Player* ply = new Player("../Resource/Texture/Idle.png", 1, 4);
 	//ply->SetTexture("../Resource/Texture/Body.png");
-	ply->SetSize(48.0f, -96.0f);
+	ply->SetSize(64.0f, -64.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(false);
 	player = ply;
@@ -76,10 +76,11 @@ void Level::LevelInit()
 	//Test Animated Object
 	TestA = new AnimatedObject("../Resource/Texture/Idle.png", 1, 4);
 	TestA->SetPosition(glm::vec3(200.0f, 150.0f, 0.0f));
-	TestA->setCollision(true);
+	TestA->SetSize(128.0f, -128.0f);
+	TestA->setSpeed(18);		
 	objectsList.push_back(TestA);
 
-	TestB = new AnimatedObject("../Resource/Texture/Link.png", 8, 10);
+	TestB = new AnimatedObject("../Resource/Texture/enemy_lootdrone_idle_sprite.png", 1, 10);
 	//TestB = new AnimatedObject("../Resource/Texture/girl.png", 4, 10);
 	//TestB->SetSize(64.0f, -128.0f);
 	TestB->SetPosition(glm::vec3(400.0f, 150.0f, 0.0f));
