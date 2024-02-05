@@ -22,6 +22,7 @@
     <ClCompile Include="AnimatedObject.cpp" />
     <ClCompile Include="AnimateMeshVbo.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="CombineObject.cpp" />
     <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -48,6 +49,7 @@
   <ItemGroup>
     <ClInclude Include="AnimatedObject.h" />
     <ClInclude Include="AnimateMeshVbo.h" />
+    <ClInclude Include="BulletPool.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CombineObject.h" />
     <ClInclude Include="DrawableObject.h" />
