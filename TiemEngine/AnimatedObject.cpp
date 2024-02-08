@@ -45,11 +45,11 @@ void AnimatedObject::UpdateFrame() {
 	if (frames > speed) {
 		frames = 0;
 
-		if (col >= MaxCol) {
+		if (col >= MaxCol-1) {
 			col = 0;
 			row++;
 
-			if (row >= MaxRow) {
+			if (row >= MaxRow-1) {
 				row = 0;
 			}
 		}

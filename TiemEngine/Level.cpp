@@ -16,8 +16,8 @@ void Level::LevelLoad()
 
 	//Added by Kapom
 
-	//tilemap = new Tilemap(19, 7, 64 ,8,4, "../Resource/Texture/tile_atlas.png", "../Resource/Texture/map.txt");
-	tilemap = new Tilemap(19, 9, 128, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/map.txt");
+	//tilemap = new Tilemap(1, 1, 64 ,1,1, "../Resource/Texture/TestTile.png", "../Resource/Texture/TestMap.txt");
+	tilemap = new Tilemap(19, 9, 64, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/map.txt");
 	tilemap->setTile(&objectsList);
 
 	Animate = new AnimateMeshVbo();
@@ -25,7 +25,9 @@ void Level::LevelLoad()
 	GameEngine::GetInstance()->AddMesh(AnimateMeshVbo::MESH_NAME, Animate);
 	cout << AnimateMeshVbo::MESH_NAME << endl;
 
-	ImageObject* BG = new ImageObject("../Resource/Texture/MOTIVATED.png");
+	ImageObject* BG = new ImageObject("../Resource/Texture/Desert.jpg");
+	BG->SetSize(3760.0f, -576.0f);
+	BG->SetPosition(glm::vec3(1880.0f, 288.0f, 0));
 	backGroundObjects.push_back(BG);
 		
 	//cout << "Load Level" << endl;
@@ -41,23 +43,23 @@ void Level::LevelInit()
 	objectsList.push_back(other);
 	other->setCollision(true);
 
-	Bullet* bullet = new Bullet();
-	bullet->SetTexture("../Resource/Texture/LaserB.png");
-	bullet->SetSize(32.0f, -32.0f);
-	bullet->SetPosition(glm::vec3(200, 200, 0));
-	objectsList.push_back(bullet);
-	//bullet->rotateDegree(60);
+	//Bullet* bullet = new Bullet();
+	//bullet->SetTexture("../Resource/Texture/LaserB.png");
+	//bullet->SetSize(32.0f, -32.0f);
+	//bullet->SetPosition(glm::vec3(200, 200, 0));
+	//objectsList.push_back(bullet);
+	////bullet->rotateDegree(60);
 
 
 	//Game object
 
 	Player* ply = new Player("../Resource/Texture/Idle.png", 1, 4);
-	//ply->SetTexture("../Resource/Texture/Body.png");
-	ply->SetSize(64.0f, -64.0f);
+
+	ply->SetSize(52.0f, -90.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(false);
 	player = ply;
-	player->SetPosition(glm::vec3(100.0f, 150.0f, 0.0f));
+	player->SetPosition(glm::vec3(99.0f, 150.0f, 0.0f));
 	player->setWeapon("../Resource/Texture/Proto_plasma.png");
 	
 	//GrapleLine* grappleline = new GrapleLine();
@@ -97,6 +99,7 @@ void Level::LevelUpdate(float dt)
 {
 	
 	//cout << "Update Level" << endl;
+	
 	
 	player->Translate(player->velocity * dt);
 	player->velocity.x *= (1.0f - FRACTION); //friction
@@ -264,7 +267,7 @@ void Level::LevelUpdate(float dt)
 	// Test animation Update
 	TestA->UpdateFrame();
 	TestB->UpdateFrame();
-	//player->UpdateFrame();
+	player->UpdateFrame();
 	//Animate->UpdateUV(TestA->CalculateUV(TestA->getRow(), TestA->getCol()));
 	//cout << TestA->getFrames() << endl;
 
@@ -328,6 +331,8 @@ void Level::LevelUnload()
 
 void Level::HandleKey(char key)
 {
+
+	
 	 
 	switch (key)
 	{
@@ -374,6 +379,8 @@ void Level::HandleKey(char key)
 
 void Level::HandleMouse(int type, int x, int y)
 {
+
+	
 	float realX, realY;
 
 	// Calculate Real X Y 

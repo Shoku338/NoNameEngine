@@ -12,9 +12,18 @@ Tilemap::Tilemap(int width, int height, int tileSize, int tileSetWidth, int tile
         {
             float newUv[8];
             calculateUV(tileSetWidth, tileSetHeight,j,i,newUv );
+            if (i==0&&j==0)
+            {
+         
+                for (int a = 0; a < 8; a++)
+                {
+                    cout << endl << newUv[a];
+                }
+            }
+            
             SquareMeshVbo* square = new SquareMeshVbo();
             square->LoadDataTile(newUv);
-            cout << to_string((tileSetWidth * i) + j) << " ";
+            //cout << to_string((tileSetWidth * i) + j) << " ";
             GameEngine::GetInstance()->AddMesh(to_string((tileSetWidth*i)+j), square);
         }
         
@@ -139,12 +148,12 @@ void Tilemap::calculateUV(float MaxCol, float MaxRow, float CurrentCol, float Cu
     newUV[3] = CurrentRow / MaxRow;  // bottom right y
 
     newUV[4] = (CurrentCol + 1.0f) / MaxCol;       // top right x
-    newUV[5] = (1.0f + CurrentRow) / MaxRow;       // top right y
+    newUV[5] = (CurrentRow + 1) / MaxRow;       // top right y
 
     newUV[6] = CurrentCol / MaxCol;               // top left x
-    newUV[7] = (1.0f + CurrentRow) / MaxRow;
+    newUV[7] = (CurrentRow + 1) / MaxRow;
 
-   
+    
 }
 
 vector<Tile*> Tilemap::getTilemap()
