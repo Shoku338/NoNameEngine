@@ -28,6 +28,7 @@ public:
 	float getsizeX();
 	float getsizeY();
 	void rotateDegree(float degree);
+	virtual void Update();
 	//Rotate, Scale ???
 	//add rotate
 

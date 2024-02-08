@@ -19,7 +19,7 @@ public:
 	void SetTexture(string path);
 	bool getCollision();
 	void setCollision(bool have);
-	virtual void Update();
+	void Update();
 	virtual void Render(glm::mat4 globalModelTransform);
 	int detectCollisionAABB(float bx, float by, float bh, float bw);
 	void SmoothTranslate(const glm::vec3& targetPosition, float deltaTime, float speed);

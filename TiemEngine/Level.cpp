@@ -76,19 +76,19 @@ void Level::LevelInit()
 	soundManager->getSound("Zelda")->setDefaultVolume(0.3);
 
 	//Test Animated Object
-	TestA = new AnimatedObject("../Resource/Texture/Idle.png", 1, 4);
+	/*TestA = new AnimatedObject("../Resource/Texture/Idle.png", 1, 4);
 	TestA->SetPosition(glm::vec3(200.0f, 150.0f, 0.0f));
 	TestA->SetSize(128.0f, -128.0f);
 	TestA->setSpeed(18);		
-	objectsList.push_back(TestA);
+	objectsList.push_back(TestA);*/
 
-	TestB = new AnimatedObject("../Resource/Texture/enemy_lootdrone_idle_sprite.png", 1, 10);
+	/*TestB = new Enemy("../Resource/Texture/enemy_lootdrone_idle_sprite.png", 1, 10);*/
 	//TestB = new AnimatedObject("../Resource/Texture/girl.png", 4, 10);
 	//TestB->SetSize(64.0f, -128.0f);
-	TestB->SetPosition(glm::vec3(400.0f, 150.0f, 0.0f));
+	/*TestB->SetPosition(glm::vec3(400.0f, 150.0f, 0.0f));
 	TestB->setCollision(true);
 	objectsList.push_back(TestB);
-	
+	*/
 
 
 	//cout << "Init Level" << endl;
@@ -122,7 +122,7 @@ void Level::LevelUpdate(float dt)
 
 		// Print camera position (optional for debugging)
 		glm::vec2 cameraPosition = camera->getPosition();
-		std::cout << "Camera Position: (" << cameraPosition.x << ", " << cameraPosition.y << ")" << std::endl;
+		//std::cout << "Camera Position: (" << cameraPosition.x << ", " << cameraPosition.y << ")" << std::endl;
 	}
 
 
@@ -264,12 +264,14 @@ void Level::LevelUpdate(float dt)
 
 
 
-	// Test animation Update
-	TestA->UpdateFrame();
-	TestB->UpdateFrame();
-	player->UpdateFrame();
-	//Animate->UpdateUV(TestA->CalculateUV(TestA->getRow(), TestA->getCol()));
-	//cout << TestA->getFrames() << endl;
+	// Update Animation
+	//TestA->UpdateFrame();
+	/*TestB->UpdateFrame();
+	player->UpdateFrame();*/
+	for (DrawableObject* i :objectsList)
+	{
+		i->Update();
+	}
 
 }
 

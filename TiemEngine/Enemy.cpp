@@ -6,6 +6,7 @@
 Enemy::Enemy(const char* path, int MaxR, int MaxC) :AnimatedObject(path, MaxR, MaxC) {
 	health = 10;
 	grounded = true;
+	setCollision(false);
 }
 
 Enemy::Enemy(const char* path, int MaxR, int MaxC, int Health) :AnimatedObject(path, MaxR, MaxC) {

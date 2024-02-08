@@ -2,6 +2,8 @@
 #include "GLRenderer.h"
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
+#include <ctime>
 
 Tilemap::Tilemap(int width, int height, int tileSize, int tileSetWidth, int tileSetHeight, string tileSet,string mapFile) : mapWidth(width), mapHeight(height), tileSize(tileSize) {
     // Initialize tileMap with default values or load it from a file
@@ -109,10 +111,28 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
     for (int y = 0; y < mapHeight; ++y) {
         for (int x = 0; x < mapWidth; ++x) {
             int tileType = tileMap[y][x];
+            
 
-            Tile* tile = new Tile(64.0f, x, y,texture ,tileType);
-
-            // Set the texture based on the tile type
+            if (tileType == 20)
+            {
+                // Enemy Spawn Tile
+                Tile* tile = new Tile(64.0f, x, y, texture, 11);
+                Enemy* lootDrone = new Enemy("../Resource/Texture/enemy_lootdrone_idle_sprite.png", 1, 10);
+                lootDrone->SetPosition(tile->getPosition());
+                list->push_back(lootDrone);
+                TileList.push_back(tile);
+            }
+            else
+            {
+                // Set the texture based on the tile type
+                Tile* tile = new Tile(64.0f, x, y, texture, tileType);
+                if (tileType != 11)
+                {
+                    tile->setCollision(true);
+                }
+                TileList.push_back(tile);
+            }
+            
             if (tileType == 2)
             {
                 //tile->setTextureID(textures[1]);
@@ -125,14 +145,10 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
                 //list->push_back(zelda);
 
             }
-            else if (tileType != 11)
-            {
-                tile->setCollision(true);
-            }
             
 
-            TileList.push_back(tile);
-            //cout << "push back tile " << endl;
+            
+          
         }
     }
 }
