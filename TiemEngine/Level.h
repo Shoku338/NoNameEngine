@@ -8,6 +8,8 @@
 #include "Camera.h"
 #include "Grapple.h"
 #include "GrappleLine.h"
+#include "ProtoPlasma.h"
+#include "RapidMachineGun.h"
 
 //Added by Kapom
 #include "Tile.h"

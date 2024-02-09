@@ -9,7 +9,7 @@ class Player :public AnimatedObject {
 	float shield = 10;
 	int jumpCount = 0;
 	bool grounded = true;
-	Weapon currentWeapon;
+	Weapon* currentWeapon;
 	bool isFaceRight = true;
 	bool hasFlippedRight = true;
 	bool hasFlippedLeft = false;
@@ -26,6 +26,6 @@ public:
 	void setGround(bool state);
 	bool getGrounded();
 	void Render(glm::mat4 globalModelTransform);
-	void setWeapon(string weaponTexture);
+	void setWeapon(Weapon* weapon);
 };
 

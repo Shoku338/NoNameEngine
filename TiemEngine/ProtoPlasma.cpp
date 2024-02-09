@@ -2,9 +2,10 @@
 
 ProtoPlasma::ProtoPlasma() {
     this->SetTexture("../Resource/Texture/Proto_plasma.png");
+    this->SetSize(90.0f, -90.0f);
 }
 void ProtoPlasma::update(glm::vec3 Playerpos) {
-    this->pos = Playerpos + glm::vec3(15.0f,10.0f,0.0f);
+    this->pos = Playerpos + glm::vec3(10.0f,0.0f,0.0f);
 }
 void ProtoPlasma::Fire(glm::vec2 targetPosition, vector<DrawableObject*>& objectsList, SoundManager* soundManager) {
     glm::vec3 bulletStartPosition = this->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed

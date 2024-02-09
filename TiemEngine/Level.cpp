@@ -49,7 +49,9 @@ void Level::LevelInit()
 	//bullet->SetPosition(glm::vec3(200, 200, 0));
 	//objectsList.push_back(bullet);
 	////bullet->rotateDegree(60);
-
+	
+	//declear weapon
+	
 
 	//Game object
 
@@ -60,7 +62,7 @@ void Level::LevelInit()
 	ply->setCollision(false);
 	player = ply;
 	player->SetPosition(glm::vec3(99.0f, 150.0f, 0.0f));
-	player->setWeapon("../Resource/Texture/Proto_plasma.png");
+	player->setWeapon(new ProtoPlasma);
 	
 	//GrapleLine* grappleline = new GrapleLine();
 	//grappleline->SetSize(128.0f, -2.0f);
@@ -97,7 +99,6 @@ void Level::LevelInit()
 
 void Level::LevelUpdate(float dt)
 {
-	
 	//cout << "Update Level" << endl;
 	
 	
@@ -380,8 +381,8 @@ void Level::HandleKey(char key)
 		case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 		//case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; ;
 			break;
-		case '1': player->setWeapon("../Resource/Texture/Proto_plasma.png"); break;
-		case '2': player->setWeapon("../Resource/Texture/Tier2_rapid machinegun.png"); break;
+		case '1': player->setWeapon(new ProtoPlasma); break;
+		case '2': player->setWeapon(new RapidMachineGun); break;
 		
 	}
 	

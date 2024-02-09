@@ -30,7 +30,7 @@ void Player::setJump(int count) {
 	jumpCount = count;
 }
 void Player::update() {
-	currentWeapon.update(this->getPosition()); 
+	currentWeapon->update(this->getPosition()); 
 }
 
 void Player::Render(glm::mat4 globalModelTransform)
@@ -66,7 +66,7 @@ void Player::Render(glm::mat4 globalModelTransform)
 		glBindTexture(GL_TEXTURE_2D, texture);
 		spriteMesh->UpdateUV(getNewUV());
 		spriteMesh->Render();
-		currentWeapon.Render(globalModelTransform);
+		currentWeapon->Render(globalModelTransform);
 	}
 	
 }
@@ -78,13 +78,13 @@ void Player::setFaceRight(bool fliping) {
 void Player::checkFace() {
 	if (isFaceRight && !hasFlippedRight) {
 		flip();
-		currentWeapon.flip();
+		currentWeapon->flip();
 		hasFlippedRight = true;
 		hasFlippedLeft = false;  // Reset the flag for the other direction
 	}
 	else if (!isFaceRight && !hasFlippedLeft) {
 		flip();
-		currentWeapon.flip();
+		currentWeapon->flip();
 		hasFlippedLeft = true;
 		hasFlippedRight = false;  // Reset the flag for the other direction
 	}
@@ -92,10 +92,9 @@ void Player::checkFace() {
 
 Weapon * Player::getWeapon()
 {
-	return &currentWeapon;
+	return currentWeapon;
 }
-void Player::setWeapon(string weaponTexture) {
-	currentWeapon.SetTexture(weaponTexture);
-	currentWeapon.SetSize(90.0f,-90.0f);
-	//currentWeapon.SetPosition(this->pos);
+void Player::setWeapon(Weapon* weapon) {
+	delete currentWeapon;
+	currentWeapon = weapon;
 }

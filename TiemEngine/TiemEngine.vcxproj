@@ -39,6 +39,7 @@
     <ClCompile Include="MeshVbo.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProtoPlasma.cpp" />
+    <ClCompile Include="RapidMachineGun.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SquareMeshVbo.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Grapple.h" />
     <ClInclude Include="ProtoPlasma.h" />
+    <ClInclude Include="RapidMachineGun.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="ImageObject.h" />
     <ClInclude Include="Level.h" />

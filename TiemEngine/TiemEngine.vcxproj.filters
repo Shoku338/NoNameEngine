@@ -96,6 +96,9 @@
     <ClCompile Include="weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RapidMachineGun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CombineObject.h">
@@ -180,6 +183,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProtoPlasma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RapidMachineGun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
