@@ -237,12 +237,14 @@ void Level::LevelUpdate(float dt)
 				 }
 				 else if (resultCol == COLLISION_RIGHT) {
 					 // Game logic for collision on the right of player
-					 player->Translate(glm::vec3(-0.5, 0, 0));
+					 float offsetX = (gameObject->getPosition().x - abs(gameObject->getsizeX() / 2)) - (player->getPosition().x + abs(player->getsizeX() / 2));
+					 player->Translate(glm::vec3(offsetX, 0, 0));
 					 player->velocity.x = 0;
 				 }
 				 else if (resultCol == COLLISION_LEFT) {
 					 // Game logic for collision on the left of player
-					 player->Translate(glm::vec3(0.5, 0, 0));
+					 float offsetX = (gameObject->getPosition().x + abs(gameObject->getsizeX() / 2)) - (player->getPosition().x - abs(player->getsizeX() / 2));
+					 player->Translate(glm::vec3(offsetX, 0, 0));
 					 player->velocity.x = 0;
 				 }
 				 else if (resultCol == COLLISION_TOP) {
@@ -346,7 +348,14 @@ void Level::HandleKey(char key)
 				player->velocity.y = 180.0f;
 				player->setJump(player->getJump() + 1);
 			}
-			
+			for (auto it = objectsList.begin(); it != objectsList.end(); ++it) {
+				if (Grapple* grapple = dynamic_cast<Grapple*>(*it)) {
+					// Remove the grapple from the objects list
+					delete grapple; // Delete the grapple object
+					objectsList.erase(it);
+					break; // Exit the loop after removing the grapple
+				}
+			}
 			break; // jumping
 		case 'a': 
 			if(player->getVelocity().x <= 120)
@@ -403,19 +412,10 @@ void Level::HandleMouse(int type, int x, int y)
 	//cout << "player pos :" << playerPos.x << ',' << playerPos.y << endl;
 	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
 	if (type == 0) {
-		// Create a new bullet and set its direction
-		Bullet* newBullet = new Bullet(bulletStartPosition, "../Resource/Texture/bullet3.png",150.f);
-		newBullet->SetSize(20.f, 20.f);
-		//newBullet->setCollision(false);
-		// Shoot the bullet in the calculated direction
-		newBullet->shootAt(glm::vec2(realX, realY), newBullet->getVelocity().x);
-		objectsList.push_back(newBullet);
-		
-		//SoundEffect
-		soundManager->playSound("Blaster", false);
+		player->getWeapon()->Fire(glm::vec2(realX,realY), objectsList, soundManager);
 	}
 	else if (type == 1) {
-		Grapple* grapple = new Grapple(bulletStartPosition, "../Resource/Texture/temp-grapple.png",75.f);
+		Grapple* grapple = new Grapple(bulletStartPosition, "../Resource/Texture/Hook.png",150.f);
 		grapple->SetSize(20.f, 20.f);
 		//grapple->setCollision(false);
 		// Shoot the bullet in the calculated direction

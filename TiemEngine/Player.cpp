@@ -96,6 +96,6 @@ Weapon * Player::getWeapon()
 }
 void Player::setWeapon(string weaponTexture) {
 	currentWeapon.SetTexture(weaponTexture);
-	currentWeapon.SetSize(this->getsizeX(),this->getsizeY());
-	currentWeapon.SetPosition(this->pos);
+	currentWeapon.SetSize(90.0f,-90.0f);
+	//currentWeapon.SetPosition(this->pos);
 }
