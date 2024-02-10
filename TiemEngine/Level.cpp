@@ -111,7 +111,7 @@ void Level::LevelUpdate(float dt)
 				{
 					//game logic here
 					player->setJump(0);
-					player->velocity.y = 0;
+					//player->velocity.y = 0;
 					player->setGround(true);
 					float offsetY = (gameObject->getPosition().y + abs(gameObject->getsizeY() / 2)) - (player->getPosition().y - abs(player->getsizeY() / 2));
 					//cout << offsetY << endl;
@@ -132,7 +132,7 @@ void Level::LevelUpdate(float dt)
 				else if (resultCol == COLLISION_TOP) {
 					// Game logic for collision at the Top of player
 					player->Translate(glm::vec3(0, -0.5, 0));
-					player->velocity.y = 0;
+					//player->velocity.y = 0;
 				}
 			}
 		}
@@ -358,13 +358,13 @@ void Level::HandleKey(char key)
 				}
 			}
 			break; // jumping
-		case 'a': 
+		case 'a': //move right
 			if(player->getVelocity().x <= 120)
 			{
 				player->velocity.x += -20.f; 
 			}
 			break;//move velocity value
-		case 'd':
+		case 'd': // move left
 			if (player->getVelocity().x >= -120)
 			{
 				player->velocity.x += 20.f;
