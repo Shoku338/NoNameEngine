@@ -27,9 +27,6 @@ private:
 	Tilemap * tilemap;
 	Camera2D* camera;
 	SoundManager* soundManager;
-
-	AnimatedObject* TestA;
-	AnimatedObject* TestB;
 	AnimateMeshVbo* Animate;
 	vector<DrawableObject*> backGroundObjects;
 

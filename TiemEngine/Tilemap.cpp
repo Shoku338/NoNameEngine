@@ -133,19 +133,6 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
                 TileList.push_back(tile);
             }
             
-            if (tileType == 2)
-            {
-                //tile->setTextureID(textures[1]);
-             
-
-                //Enemy* zelda = new Enemy();
-                //zelda->SetTexture("../Resource/Texture/Zelda.png");
-                //zelda->SetSize(128.0f, -96.0f);
-                //zelda->SetPosition(tile->getPosition());
-                //list->push_back(zelda);
-
-            }
-            
 
             
           

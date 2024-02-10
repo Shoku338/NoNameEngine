@@ -77,22 +77,6 @@ void Level::LevelInit()
 	soundManager->playSound("Zelda", true);
 	soundManager->getSound("Zelda")->setDefaultVolume(0.3);
 
-	//Test Animated Object
-	/*TestA = new AnimatedObject("../Resource/Texture/Idle.png", 1, 4);
-	TestA->SetPosition(glm::vec3(200.0f, 150.0f, 0.0f));
-	TestA->SetSize(128.0f, -128.0f);
-	TestA->setSpeed(18);		
-	objectsList.push_back(TestA);*/
-
-	/*TestB = new Enemy("../Resource/Texture/enemy_lootdrone_idle_sprite.png", 1, 10);*/
-	//TestB = new AnimatedObject("../Resource/Texture/girl.png", 4, 10);
-	//TestB->SetSize(64.0f, -128.0f);
-	/*TestB->SetPosition(glm::vec3(400.0f, 150.0f, 0.0f));
-	TestB->setCollision(true);
-	objectsList.push_back(TestB);
-	*/
-
-
 	//cout << "Init Level" << endl;
 }
 
@@ -278,11 +262,27 @@ void Level::LevelUpdate(float dt)
 	//TestA->UpdateFrame();
 	/*TestB->UpdateFrame();
 	player->UpdateFrame();*/
-	for (DrawableObject* i :objectsList)
+	for (DrawableObject* object : objectsList)
 	{
-		i->Update();
-	}
+		if (Enemy* enemy = dynamic_cast<Enemy*>(object)) {
+			if (enemy->handleDeath()) {
+				// Remove the enemy from the list if it's dead
+				objectsList.erase(std::remove(objectsList.begin(), objectsList.end(), object), objectsList.end());
+				delete object; // Assuming you need to delete the object from memory
+				
 
+			}
+			else
+			{
+				object->Update();
+			}
+		}
+		else 
+		{
+			object->Update();
+		}
+		
+	}
 }
 
 void Level::LevelDraw()

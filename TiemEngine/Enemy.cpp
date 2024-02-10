@@ -50,3 +50,17 @@ void Enemy::checkFace() {
 	}
 }
 
+void Enemy::applyDamage(float damage)
+{
+	health -= damage;
+}
+
+bool Enemy::handleDeath()
+{
+	if (health <= 0)
+	{
+		return true;
+	}
+	applyDamage(0.1);
+	return false;
+}

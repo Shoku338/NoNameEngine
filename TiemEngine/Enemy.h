@@ -20,6 +20,8 @@ public:
 	float getHealth();
 	void setGround(bool state);
 	bool getGrounded();
+	void applyDamage(float damage);
+	bool handleDeath();
 	
 
 };
