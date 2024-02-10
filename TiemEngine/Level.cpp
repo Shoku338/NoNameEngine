@@ -138,21 +138,21 @@ void Level::LevelUpdate(float dt)
 					//game logic here
 					player->setJump(0);
 					player->velocity.y = 0;
-					//player->SetPosition(player->getPosition() + glm::vec3(0, 0.2, 0));
 					player->setGround(true);
 					float offsetY = (gameObject->getPosition().y + abs(gameObject->getsizeY() / 2)) - (player->getPosition().y - abs(player->getsizeY() / 2));
 					//cout << offsetY << endl;
 					player->Translate(glm::vec3(0.0f, offsetY, 0.0f));
 				}
-				else if (resultCol == COLLISION_RIGHT)
-				{
-					//game logic here
-					player->Translate(glm::vec3(-0.7, 0, 0));
+				else if (resultCol == COLLISION_RIGHT) {
+					// Game logic for collision on the right of player
+					float offsetX = (gameObject->getPosition().x - abs(gameObject->getsizeX() / 2)) - (player->getPosition().x + abs(player->getsizeX() / 2));
+					player->Translate(glm::vec3(offsetX, 0, 0));
 					player->velocity.x = 0;
 				}
 				else if (resultCol == COLLISION_LEFT) {
 					// Game logic for collision on the left of player
-					player->Translate(glm::vec3(0.5, 0, 0));
+					float offsetX = (gameObject->getPosition().x + abs(gameObject->getsizeX() / 2)) - (player->getPosition().x - abs(player->getsizeX() / 2));
+					player->Translate(glm::vec3(offsetX, 0, 0));
 					player->velocity.x = 0;
 				}
 				else if (resultCol == COLLISION_TOP) {
@@ -160,24 +160,32 @@ void Level::LevelUpdate(float dt)
 					player->Translate(glm::vec3(0, -0.5, 0));
 					player->velocity.y = 0;
 				}
-				//collision value
-				//cout << player->getPosX() << ' ' << player->getPosY() << ' ' << objectsList.at(i)->getPosX() << ' ' << objectsList.at(i)->getPosY() << ' '<< resultCol << endl;
 			}
 		}
 	}
-
-	//objectsList.at(0)->velocity.x += 50.0; DON'T DO ANYTHING WITH THIS YET
-	//objectsList.at(0)->Translate(objectsList.at(0)->velocity * dt);
 	for (auto it = objectsList.begin(); it != objectsList.end();) {
 		if (Bullet* bullet = dynamic_cast<Bullet*>(*it)) {
 			bullet->update(dt);
-			if (bullet->timesUp()) {
+			bool removeBullet = false;
+			for (auto otherIt = objectsList.begin(); otherIt != objectsList.end();) {
+				if (Enemy* collidingObject = dynamic_cast<Enemy*>(*otherIt)) {
+					int colB = bullet->detectCollisionAABB(
+						collidingObject->getPosX(), collidingObject->getPosY(),
+						abs(collidingObject->getsizeY()), collidingObject->getsizeX());
+					if (colB) {
+						cout << "SUPER AMAZING EXPLOSION IS HAPPENING RN" << endl;
+						removeBullet = true;//mark to be destroy
+					}
+				}
+				++otherIt;
+			}
+			if (bullet->timesUp() || removeBullet) {
 				it = objectsList.erase(it);
 				continue;  // Skip the rest of the loop for this iteration
 			}
 			if (Grapple* grapple = dynamic_cast<Grapple*>(*it)) {
 				// Check for collision with other GameObjects
-				for (auto otherIt = objectsList.begin(); otherIt != objectsList.end(); )
+				for (auto otherIt = objectsList.begin(); otherIt != objectsList.end();)
 				{
 					if (GameObject* gameObject2 = dynamic_cast<GameObject*>(*otherIt)) {
 						if(gameObject2->getCollision()){
@@ -229,7 +237,6 @@ void Level::LevelUpdate(float dt)
 					 //game logic here
 					 player->setJump(0);
 					 player->velocity.y = 0;
-					 //player->SetPosition(player->getPosition() + glm::vec3(0, 0.2, 0));
 					 player->setGround(true);
 					 float offsetY = (gameObject->getPosition().y + abs(gameObject->getsizeY() / 2)) - (player->getPosition().y - abs(player->getsizeY() / 2));
 					 //cout << offsetY << endl;
@@ -408,9 +415,8 @@ void Level::HandleMouse(int type, int x, int y)
 	glm::vec2 offset = camera->getPosition();
 	realX = realX + offset.x;
 	realY = realY + offset.y;
-	cout << realX << ',' << realY << endl;
+	//cout << realX << ',' << realY << endl;
     glm::vec2 playerPos = glm::vec2(player->getPosX(), player->getPosY());
-	//cout << "player pos :" << playerPos.x << ',' << playerPos.y << endl;
 	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
 	if (type == 0) {
 		player->getWeapon()->Fire(glm::vec2(realX,realY), objectsList, soundManager);
