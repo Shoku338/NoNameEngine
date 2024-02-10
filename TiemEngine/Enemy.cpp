@@ -61,6 +61,5 @@ bool Enemy::handleDeath()
 	{
 		return true;
 	}
-	applyDamage(0.1);
 	return false;
 }

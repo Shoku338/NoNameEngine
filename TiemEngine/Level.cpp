@@ -16,7 +16,6 @@ void Level::LevelLoad()
 
 	//Added by Kapom
 
-	//tilemap = new Tilemap(1, 1, 64 ,1,1, "../Resource/Texture/TestTile.png", "../Resource/Texture/TestMap.txt");
 	tilemap = new Tilemap(19, 9, 64, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/map.txt");
 	tilemap->setTile(&objectsList);
 
@@ -35,24 +34,20 @@ void Level::LevelLoad()
 
 void Level::LevelInit()
 {
+	//Tilemap and Enemies
+	tilemap->setTile(&objectsList);
+
+	//Camera
 	camera = new Camera2D(GameEngine::GetInstance()->GetWindowWidth() , GameEngine::GetInstance()->GetWindowHeight());
-	GameObject* other = new GameObject();
+
+	/*GameObject* other = new GameObject();
 	other->SetTexture("../Resource/Texture/MOTIVATED.png");
 	other->SetSize(128.0f, -128.0f);
 	other->SetPosition(glm::vec3(500, 250, 0));
 	objectsList.push_back(other);
-	other->setCollision(true);
+	other->setCollision(true);*/
 
-	//Bullet* bullet = new Bullet();
-	//bullet->SetTexture("../Resource/Texture/LaserB.png");
-	//bullet->SetSize(32.0f, -32.0f);
-	//bullet->SetPosition(glm::vec3(200, 200, 0));
-	//objectsList.push_back(bullet);
-	////bullet->rotateDegree(60);
 	
-	//declear weapon
-	
-
 	//Game object
 
 	Player* ply = new Player("../Resource/Texture/Idle.png", 1, 4);
@@ -63,12 +58,7 @@ void Level::LevelInit()
 	player = ply;
 	player->SetPosition(glm::vec3(99.0f, 150.0f, 0.0f));
 	player->setWeapon(new ProtoPlasma);
-	
-	//GrapleLine* grappleline = new GrapleLine();
-	//grappleline->SetSize(128.0f, -2.0f);
-	//grappleline->SetPosition(glm::vec3(0, 0, 0));
-	//objectsList.push_back(grappleline);
-	//grappleline->SetTexture("../Resource/Texture/Grass.png");
+
 
 	// Initialize the sound manager and load/play music
 	soundManager = new SoundManager();
@@ -157,6 +147,7 @@ void Level::LevelUpdate(float dt)
 						collidingObject->getPosX(), collidingObject->getPosY(),
 						abs(collidingObject->getsizeY()), collidingObject->getsizeX());
 					if (colB) {
+						collidingObject->applyDamage(1);
 						cout << "SUPER AMAZING EXPLOSION IS HAPPENING RN" << endl;
 						removeBullet = true;//mark to be destroy
 					}
@@ -258,15 +249,12 @@ void Level::LevelUpdate(float dt)
 
 
 
-	// Update Animation
-	//TestA->UpdateFrame();
-	/*TestB->UpdateFrame();
-	player->UpdateFrame();*/
+	// Update Animation and Death
 	for (DrawableObject* object : objectsList)
 	{
 		if (Enemy* enemy = dynamic_cast<Enemy*>(object)) {
 			if (enemy->handleDeath()) {
-				// Remove the enemy from the list if it's dead
+			
 				objectsList.erase(std::remove(objectsList.begin(), objectsList.end(), object), objectsList.end());
 				delete object; // Assuming you need to delete the object from memory
 				
@@ -324,6 +312,11 @@ void Level::LevelFree()
 		delete obj;
 	}
 	objectsList.clear();
+
+	/*for (Tile* tiles : tilemap->getTilemap()) {
+		delete tiles;
+	}
+	tilemap->getTilemap().clear();*/
 
 	if (soundManager) {
 		soundManager->stopAllSounds();
