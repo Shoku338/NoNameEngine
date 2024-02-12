@@ -119,6 +119,7 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
                 Tile* tile = new Tile(64.0f, x, y, texture, 11);
                 Enemy* lootDrone = new Enemy("../Resource/Texture/enemy_lootdrone_idle_sprite.png", 1, 10);
                 lootDrone->SetPosition(tile->getPosition());
+                lootDrone->SetSize(125.0f, -64.0f);
                 list->push_back(lootDrone);
                 TileList.push_back(tile);
             }

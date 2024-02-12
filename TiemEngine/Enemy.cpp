@@ -9,6 +9,7 @@ Enemy::Enemy(const char* path, int MaxR, int MaxC) :AnimatedObject(path, MaxR, M
 	grounded = true;
 	setCollision(false);
 	SetColor(1, 0, 0);
+	
 }
 
 Enemy::Enemy(const char* path, int MaxR, int MaxC, int Health) :AnimatedObject(path, MaxR, MaxC) {

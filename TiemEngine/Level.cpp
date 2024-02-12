@@ -52,7 +52,7 @@ void Level::LevelInit()
 
 	Player* ply = new Player("../Resource/Texture/Idle.png", 1, 4);
 
-	ply->SetSize(52.0f, -90.0f);
+	ply->SetSize(78.0f, -135.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(false);
 	player = ply;
