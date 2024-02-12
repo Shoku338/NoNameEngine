@@ -106,12 +106,12 @@ void Level::LevelUpdate(float dt)
 		GameObject* gameObject = dynamic_cast<GameObject*>(tilemap->getTilemap().at(i));
 		if (gameObject) {
 			if (gameObject->getCollision()) {
-				int resultCol = player->detectCollisionAABB(gameObject->getPosX(), gameObject->getPosY(), abs(gameObject->getsizeY()), gameObject->getsizeX());
+				int resultCol = player->detectCollisionAABB(gameObject->getPosX(), gameObject->getPosY(), abs(gameObject->getsizeY()), gameObject->getsizeX(), dt);
 				if (resultCol == COLLISION_BOTTOM)
 				{
 					//game logic here
 					player->setJump(0);
-					//player->velocity.y = 0;
+					player->velocity.y = 0;
 					player->setGround(true);
 					float offsetY = (gameObject->getPosition().y + abs(gameObject->getsizeY() / 2)) - (player->getPosition().y - abs(player->getsizeY() / 2));
 					//cout << offsetY << endl;
@@ -134,6 +134,10 @@ void Level::LevelUpdate(float dt)
 					player->Translate(glm::vec3(0, -0.5, 0));
 					//player->velocity.y = 0;
 				}
+				else
+				{
+					player->setGround(false);
+				}
 			}
 		}
 	}
@@ -145,7 +149,7 @@ void Level::LevelUpdate(float dt)
 				if (Enemy* collidingObject = dynamic_cast<Enemy*>(*otherIt)) {
 					int colB = bullet->detectCollisionAABB(
 						collidingObject->getPosX(), collidingObject->getPosY(),
-						abs(collidingObject->getsizeY()), collidingObject->getsizeX());
+						abs(collidingObject->getsizeY()), collidingObject->getsizeX(), dt);
 					if (colB) {
 						collidingObject->applyDamage(1);
 						cout << "SUPER AMAZING EXPLOSION IS HAPPENING RN" << endl;
@@ -166,7 +170,7 @@ void Level::LevelUpdate(float dt)
 						if(gameObject2->getCollision()){
 							int colG = grapple->detectCollisionAABB(
 								gameObject2->getPosX(), gameObject2->getPosY(),
-								abs(gameObject2->getsizeY()), gameObject2->getsizeX());
+								abs(gameObject2->getsizeY()), gameObject2->getsizeX(), dt);
 							//cout << "colresult:" << colG << endl;
 							if (colG != 0) {
 								// Collision detected, execute pull function
@@ -186,7 +190,7 @@ void Level::LevelUpdate(float dt)
 						if (gameObject2->getCollision()) {
 							int colG = grapple->detectCollisionAABB(
 								gameObject2->getPosX(), gameObject2->getPosY(),
-								abs(gameObject2->getsizeY()), gameObject2->getsizeX());
+								abs(gameObject2->getsizeY()), gameObject2->getsizeX(),dt);
 							//cout << "colresult:" << colG << endl;
 							if (colG != 0) {
 								// Collision detected, execute pull function
@@ -207,7 +211,7 @@ void Level::LevelUpdate(float dt)
 			 if(gameObject->getCollision()){
 				 int resultCol = player->detectCollisionAABB(
 					 gameObject->getPosX(), gameObject->getPosY(),
-					 abs(gameObject->getsizeY()), gameObject->getsizeX());
+					 abs(gameObject->getsizeY()), gameObject->getsizeX(), dt);
 				 if (resultCol == COLLISION_BOTTOM) {
 					 //game logic here
 					 player->setJump(0);

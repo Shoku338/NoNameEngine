@@ -67,7 +67,7 @@ void GameObject::Render(glm::mat4 globalModelTransform)
 	}
 }
 
-int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw) {
+int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw, float dt) {
 	
 	float aHalfWidth = abs(size.x / 2.0f);
 	float aHalfHeight = abs(size.y / 2.0f);
@@ -79,16 +79,18 @@ int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw) {
 	float bRig = abs(bx + (bw / 2));
 	float bLef = abs(bx - (bw / 2));
 
+	float posX = this->getPosX() + (this->getVelocity().x * dt);
+	float posY = this->getPosY() + (this->getVelocity().y * dt);
 	// Calculate the eight points for each object
 	float aPoints[8][2] = {
-		{this->pos.x - aQuatWidth, this->pos.y + aHalfHeight},   // half top left
-		{this->pos.x + aQuatWidth, this->pos.y + aHalfHeight},    // half top right
-		{this->pos.x + aHalfWidth, this->pos.y + aQuatHeight},   // upper right
-		{this->pos.x + aHalfWidth, this->pos.y - aQuatHeight},    // lower right
-		{this->pos.x - aQuatWidth, this->pos.y - aHalfHeight},     // half bottom left
-		{this->pos.x + aQuatWidth, this->pos.y - aHalfHeight},   // half bottom right
-		{this->pos.x - aHalfWidth, this->pos.y + aQuatHeight},   // upper left
-		{this->pos.x - aHalfWidth, this->pos.y - aQuatHeight}    // lower left
+		{posX - aQuatWidth, posY + aHalfHeight},   // half top left
+		{posX + aQuatWidth, posY + aHalfHeight},    // half top right
+		{posX + aHalfWidth, posY + aQuatHeight},   // upper right
+		{posX + aHalfWidth, posY - aQuatHeight},    // lower right
+		{posX - aQuatWidth, posY - aHalfHeight},     // half bottom left
+		{posX + aQuatWidth, posY - aHalfHeight},   // half bottom right
+		{posX - aHalfWidth, posY + aQuatHeight},   // upper left
+		{posX - aHalfWidth, posY - aQuatHeight}    // lower left
 	};
 
 	//collision logic
