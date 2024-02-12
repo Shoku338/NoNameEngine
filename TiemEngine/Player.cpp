@@ -95,6 +95,5 @@ Weapon * Player::getWeapon()
 	return currentWeapon;
 }
 void Player::setWeapon(Weapon* weapon) {
-	delete currentWeapon;
 	currentWeapon = weapon;
 }

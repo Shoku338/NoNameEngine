@@ -21,7 +21,7 @@ public:
 	void setCollision(bool have);
 	void Update();
 	virtual void Render(glm::mat4 globalModelTransform);
-	int detectCollisionAABB(float bx, float by, float bh, float bw);
+	int detectCollisionAABB(float bx, float by, float bh, float bw,float dt);
 	void SmoothTranslate(const glm::vec3& targetPosition, float deltaTime, float speed);
 	
 };
