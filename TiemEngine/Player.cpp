@@ -66,7 +66,9 @@ void Player::Render(glm::mat4 globalModelTransform)
 		glBindTexture(GL_TEXTURE_2D, texture);
 		spriteMesh->UpdateUV(getNewUV());
 		spriteMesh->Render();
-		currentWeapon->Render(globalModelTransform);
+		if (currentWeapon != NULL) {
+			currentWeapon->Render(globalModelTransform);
+		}
 	}
 	
 }
