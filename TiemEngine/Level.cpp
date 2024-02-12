@@ -1,5 +1,5 @@
 #include "Level.h"
-#define GRAVITY -250.0f
+#define GRAVITY -1200.0f
 #define FRACTION .1f
 #define	COLLISION_LEFT				1
 #define	COLLISION_RIGHT				2
@@ -350,7 +350,7 @@ void Level::HandleKey(char key)
 			player->setGround(false);
 			if (player->getJump() < MAXX_JUMP) {
 			//cout << "Rising hopper" << endl;
-				player->velocity.y = 180.0f;
+				player->velocity.y = 500.0f; //[Editable] Jump velo
 				player->setJump(player->getJump() + 1);
 			}
 			for (auto it = objectsList.begin(); it != objectsList.end(); ++it) {
@@ -365,20 +365,20 @@ void Level::HandleKey(char key)
 		case 'a': //move right
 			if(player->getVelocity().x <= 120)
 			{
-				player->velocity.x += -20.f; 
+				player->velocity.x += -25.f; //[Editable] walk speed left
 			}
 			break;//move velocity value
 		case 'd': // move left
 			if (player->getVelocity().x >= -120)
 			{
-				player->velocity.x += 20.f;
+				player->velocity.x += 25.f; //[Editable] walk speed right
 			}
 			break;//move velocity value
 		case 'C'://dashing
 			if (player->velocity.x < 0)
-				player->velocity.x -= 500.f; 
+				player->velocity.x -= 5500.f; //[Editable] Dash left
 			else if(player->velocity.x >= 0)
-				player->velocity.x += 500.f;
+				player->velocity.x += 5500.f; //[Editable] Dash right
 			break;
 			//need spacebar		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
@@ -419,7 +419,7 @@ void Level::HandleMouse(int type, int x, int y)
 		player->getWeapon()->Fire(glm::vec2(realX,realY), objectsList, soundManager);
 	}
 	else if (type == 1) {
-		Grapple* grapple = new Grapple(bulletStartPosition, "../Resource/Texture/Hook.png",150.f);
+		Grapple* grapple = new Grapple(bulletStartPosition, "../Resource/Texture/Hook.png",700.f);
 		grapple->SetSize(20.f, 20.f);
 		//grapple->setCollision(false);
 		// Shoot the bullet in the calculated direction
