@@ -11,10 +11,13 @@ class Enemy :public AnimatedObject {
 	bool isFaceRight = true;
 	bool hasFlippedRight = true;
 	bool hasFlippedLeft = false;
+	int renderMode = 1;
+	int currentFrame = 0;
 public:
 	Enemy(const char* path, int MaxR, int MaxC);
 	Enemy(const char* path, int MaxR, int MaxC,int Health);
 	void Update();
+	void Render(glm::mat4 globalModelTransform);
 	void setFaceRight(bool fliping);
 	void checkFace();
 	float getHealth();

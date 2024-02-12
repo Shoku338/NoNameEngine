@@ -258,10 +258,27 @@ void Level::LevelUpdate(float dt)
 	{
 		if (Enemy* enemy = dynamic_cast<Enemy*>(object)) {
 			if (enemy->handleDeath()) {
-			
+				
+				Explosion* deathExplosion = new Explosion("../Resource/Texture/explosion.png",5,5,1);
+				deathExplosion->SetPosition(object->getPosition());
+				objectsList.push_back(deathExplosion);
 				objectsList.erase(std::remove(objectsList.begin(), objectsList.end(), object), objectsList.end());
 				delete object; // Assuming you need to delete the object from memory
 				
+
+			}
+			else
+			{
+				object->Update();
+			}
+		}
+		else if(Explosion* explosion = dynamic_cast<Explosion*>(object))
+		{
+			if (explosion->Expired()) {
+
+				objectsList.erase(std::remove(objectsList.begin(), objectsList.end(), object), objectsList.end());
+				delete object; // Assuming you need to delete the object from memory
+
 
 			}
 			else

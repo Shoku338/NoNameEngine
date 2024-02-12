@@ -17,6 +17,7 @@
 #include "SoundManager.h"
 #include "AnimatedObject.h"
 #include "AnimateMeshVbo.h"
+#include "Explosion.h"
 
 class Level
 {

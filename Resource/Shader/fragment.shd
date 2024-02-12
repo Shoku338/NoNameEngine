@@ -14,10 +14,13 @@ void main()
 	{
 		finalColor = vec4( OutColor, 1.0 ); 
 	} 
-    else
+	else if(renderMode == 1)
+	{
+		finalColor = texture(ourTexture, TexCoord);
+	}
+    else 
     {
     	finalColor = texture(ourTexture, TexCoord);
-
-
+		finalColor = vec4(OutColor.x*finalColor.x,OutColor.y*finalColor.y,OutColor.z*finalColor.z,finalColor.w);
     }
 }

@@ -26,6 +26,7 @@
     <ClCompile Include="CombineObject.cpp" />
     <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStateController.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="GLRenderer.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Grapple.h" />
+    <ClInclude Include="Explosion.h" />
     <ClInclude Include="ProtoPlasma.h" />
     <ClInclude Include="RapidMachineGun.h" />
     <ClInclude Include="SoundManager.h" />

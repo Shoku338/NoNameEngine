@@ -4,7 +4,7 @@
 
 class AnimatedObject :public GameObject
 {
-private:
+protected:
 
 	int frames = 0;
 	int speed = 10;
@@ -17,9 +17,9 @@ private:
 public:
 	AnimatedObject(const char* path, int MaxR, int MaxC);
 	~AnimatedObject();
-	void CalculateUV(int r, int c);
+	virtual void CalculateUV(int r, int c);
 	void Render(glm::mat4 globalModelTransform);
-	void UpdateFrame();
+	virtual void UpdateFrame();
 	int getRow();
 	int getCol();
 	int getFrames();
