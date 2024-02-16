@@ -394,6 +394,7 @@ void Level::HandleKey(char key)
 			}
 			break;//move velocity value
 		case 'C'://dashing
+
 			if (player->velocity.x < 0)
 				player->velocity.x -= 5500.f; //[Editable] Dash left
 			else if(player->velocity.x >= 0)
