@@ -2,7 +2,7 @@
 
 ProtoPlasma::ProtoPlasma() {
     this->SetTexture("../Resource/Texture/Proto_plasma.png");
-    this->SetSize(90.0f, -90.0f);
+    this->SetSize(135.0f, -135.0f);
 }
 void ProtoPlasma::update(glm::vec3 Playerpos) {
     this->pos = Playerpos + glm::vec3(10.0f,0.0f,0.0f);

@@ -5,6 +5,7 @@
 class Bullet:public GameObject {
 	float timer = 0.f;
 	float TimeTD = 2.f;
+	float damage = 1.0f;
 	glm::vec3 startPosition;
 public:	
 	//Bullet(float width,float height,glm::vec3 velocity,glm::vec3 position);

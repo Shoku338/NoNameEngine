@@ -10,6 +10,13 @@ Player::Player(const char* path, int MaxR, int MaxC):AnimatedObject(path,MaxR,Ma
 	grounded = false;
 }
 
+void Player::setPhysic(bool setPhysic) {
+	physic = setPhysic;
+}
+bool Player::getPhysic() {
+	return physic;
+}
+
 float Player::getHealth() {
 	return health;
 }

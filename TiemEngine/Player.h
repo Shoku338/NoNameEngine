@@ -13,13 +13,16 @@ class Player :public AnimatedObject {
 	bool isFaceRight = true;
 	bool hasFlippedRight = true;
 	bool hasFlippedLeft = false;
+	bool physic = true;
 public:
 	Player(const char* path, int MaxR, int MaxC);
 	void update();
+	void setPhysic(bool setPhysic);
 	void setFaceRight(bool fliping);
 	void checkFace();
 	float getHealth();
 	float getShield();
+	bool getPhysic();
 	int getJump();
 	Weapon * getWeapon();
 	void setJump(int count);

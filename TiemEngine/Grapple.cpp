@@ -18,12 +18,10 @@ void Grapple::pull(Player& player,float dt,float speed) {
 	this->setTimer(5.0f);
 	Granline.updateCurrent(player.getPosition() + glm::vec3(10.0f, 20.0f, 0.0f),this->getPosition());
     // Apply the translation to the object
-	if (abs(this->getPosition().x - player.getPosition().x) >= abs((player.getsizeX() - 10) / 2) || abs(this->getPosition().y - player.getPosition().y) >= abs((player.getsizeY() - 10) / 2)) {
-        player.SmoothTranslate(this->getPosition(), dt, speed);
-    }
-    else {
-        this->setTimer(0);
-    }
+	player.SmoothTranslate(this->getPosition(), dt, speed);
+	player.setPhysic(false);
+	player.setJump(0);		
+
 }
 
 void Grapple::Render(glm::mat4 globalModelTransform)
