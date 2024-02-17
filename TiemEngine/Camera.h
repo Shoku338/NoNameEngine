@@ -22,8 +22,17 @@ public:
         return translateMatrix * scaleMatrix; // Note the order of multiplication
     }
 
-    void UpdateCameraPosition(const glm::vec2& newPosition, const glm::vec2& offset = glm::vec2(0.0f, 0.0f)) {
-        m_Position = newPosition + offset;
+    void UpdateCameraPosition(const glm::vec2& playerPosition) {
+        float screenMidPoint = m_Position.x + (m_Width / 2.0f);
+
+        // Check if the player has moved past the midpoint of the screen
+        if (playerPosition.x > screenMidPoint) {
+            // The camera should move so that the player is just past the midpoint, maintaining the player's forward progression
+            // Since we want the camera to move right but not immediately with every tiny player movement beyond the midpoint,
+            // you can calculate the difference and apply it to the camera's position.
+            float moveAmount = playerPosition.x - screenMidPoint;
+            m_Position.x += moveAmount;
+        }
     }
 
     glm::vec2 getPosition(){
