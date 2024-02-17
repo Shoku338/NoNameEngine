@@ -66,6 +66,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Grapple.h" />
     <ClInclude Include="Explosion.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="ProtoPlasma.h" />
     <ClInclude Include="RapidMachineGun.h" />
     <ClInclude Include="SoundManager.h" />

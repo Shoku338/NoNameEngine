@@ -25,8 +25,9 @@ void Level::LevelLoad()
 	cout << AnimateMeshVbo::MESH_NAME << endl;
 
 	ImageObject* BG = new ImageObject("../Resource/Texture/Desert.jpg");
-	BG->SetSize(3760.0f, -576.0f);
-	BG->SetPosition(glm::vec3(1880.0f, 288.0f, 0));
+	BG->SetSize(7520.0f, -1152.0f);
+	BG->SetPosition(glm::vec3(3760.0f, 576.0f, 0));
+	//BG->SetPosition(glm::vec3(BG->getPosX() / 2, (BG->getPosY() / 2) * -1, 0));
 	backGroundObjects.push_back(BG);
 		
 	//cout << "Load Level" << endl;
@@ -50,7 +51,7 @@ void Level::LevelInit()
 	
 	//Game object
 
-	Player* ply = new Player("../Resource/Texture/Idle.png", 1, 4);
+	Player* ply = new Player("../Resource/Texture/Main_Character_Run.png", 1, 6);
 
 	ply->SetSize(78.0f, -135.0f);
 	objectsList.push_back(ply);
