@@ -99,6 +99,12 @@ void Player::checkFace() {
 	}
 }
 
+bool Player::facingRight()
+{
+	return isFaceRight;
+	
+}
+
 Weapon * Player::getWeapon()
 {
 	return currentWeapon;

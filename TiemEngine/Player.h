@@ -20,6 +20,7 @@ public:
 	void setPhysic(bool setPhysic);
 	void setFaceRight(bool fliping);
 	void checkFace();
+	bool facingRight();
 	float getHealth();
 	float getShield();
 	bool getPhysic();
