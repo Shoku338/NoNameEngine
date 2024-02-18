@@ -18,6 +18,7 @@ class ParticleSystem
 public:
 	 ParticleSystem();
 	 void OnUpdate();
+	 void Render();
 	 void Emit(const ParticleProp& particleProps);
 
 private:

@@ -115,12 +115,23 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
 
             if (tileType == 20)
             {
-                // Enemy Spawn Tile
+                // LootDrone Spawn Tile
                 Tile* tile = new Tile(64.0f, x, y, texture, 11);
                 Enemy* lootDrone = new Enemy("../Resource/Texture/enemy_lootdrone_idle_sprite.png", 1, 10);
+                //Enemy* lootDrone = new Enemy("../Resource/Texture/enemy_scout_walk_sprite.png", 2, 5);
                 lootDrone->SetPosition(tile->getPosition());
                 lootDrone->SetSize(125.0f, -64.0f);
                 list->push_back(lootDrone);
+                TileList.push_back(tile);
+            }
+            else if(tileType == 21)
+            {
+                // LootDrone Spawn Tile
+                Tile* tile = new Tile(64.0f, x, y, texture, 11);
+                Enemy* Scout = new Enemy("../Resource/Texture/enemy_scout_walk_sprite.png", 2, 5);
+                Scout->SetPosition(tile->getPosition());
+                Scout->SetSize(128.0f, -128.0f);
+                list->push_back(Scout);
                 TileList.push_back(tile);
             }
             else

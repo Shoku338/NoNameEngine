@@ -38,6 +38,7 @@ void Player::setJump(int count) {
 }
 void Player::update() {
 	currentWeapon->update(this->getPosition()); 
+	//cout << "Row: " << row << ", Col: " << col << endl;
 }
 
 void Player::Render(glm::mat4 globalModelTransform)

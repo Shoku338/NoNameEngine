@@ -13,6 +13,7 @@ class Enemy :public AnimatedObject {
 	bool hasFlippedLeft = false;
 	int renderMode = 1;
 	int currentFrame = 0;
+	
 public:
 	Enemy(const char* path, int MaxR, int MaxC);
 	Enemy(const char* path, int MaxR, int MaxC,int Health);

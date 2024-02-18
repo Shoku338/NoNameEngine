@@ -43,20 +43,20 @@ void AnimatedObject::UpdateFrame() {
 	frames++;
 
 	if (frames > speed) {
-		frames = 0;
+		
 
 		if (col >= MaxCol-1) {
 			col = 0;
 			row++;
 
-			if (row >= MaxRow-1) {
+			if (row > MaxRow-1) {
 				row = 0;
 			}
 		}
 		else {
 			col++;
 		}
-
+		frames = 0;
 		CalculateUV(row, col);
 		//cout << "Row: " << row << ", Col: " << col << endl;
 	}

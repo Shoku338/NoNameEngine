@@ -31,14 +31,16 @@ bool Enemy::getGrounded() {
 
 void Enemy::Update() {
 	UpdateFrame();
+	cout << "Row: " << row << ", Col: " << col << endl;
 	if (currentFrame == 40)
 	{
-		//cout << "Change color Back RenderMode: " << renderMode << endl;
 		renderMode = 1;
 		currentFrame = 0;
 	}
 	currentFrame++;
 }
+
+
 
 void Enemy::Render(glm::mat4 globalModelTransform)
 {
