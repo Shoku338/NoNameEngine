@@ -107,7 +107,7 @@ int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw, floa
 		//cout << "RIGHT" << endl;
 		return 2;
 	}
-	else if (aPoints[6][0] <= bRig && (aPoints[6][1] < bTop && aPoints[6][1] > bBot) && aPoints[6][0] > bx) {
+	else if (aPoints[6][0] <= bRig && (aPoints[7][1] < bTop && aPoints[6][1] > bBot) && aPoints[6][0] > bx) {
 		//cout << "LEFT" << endl;
 		return 1;
 	}
