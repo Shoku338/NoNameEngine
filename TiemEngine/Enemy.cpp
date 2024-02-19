@@ -31,7 +31,7 @@ bool Enemy::getGrounded() {
 
 void Enemy::Update() {
 	UpdateFrame();
-	cout << "Row: " << row << ", Col: " << col << endl;
+	//cout << "Row: " << row << ", Col: " << col << endl;
 	if (currentFrame == 40)
 	{
 		renderMode = 1;

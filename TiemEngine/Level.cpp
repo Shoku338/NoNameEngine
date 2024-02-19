@@ -158,6 +158,7 @@ void Level::LevelUpdate(float dt)
 						collidingObject->getPosX(), collidingObject->getPosY(),
 						abs(collidingObject->getsizeY()), collidingObject->getsizeX(), dt);
 					if (colB) {
+						//check if the bulet is a grapple
 						collidingObject->applyDamage(1);
 						cout << "SUPER AMAZING EXPLOSION IS HAPPENING RN" << endl;
 						removeBullet = true;//mark to be destroy
@@ -181,9 +182,9 @@ void Level::LevelUpdate(float dt)
 							gameObject2->getPosX(), gameObject2->getPosY(),
 							abs(gameObject2->getsizeY()), gameObject2->getsizeX(), dt);
 						//cout << "colresult:" << colG << endl;
-						if (colG != 0) {
+						if (colG) {
 							// Collision detected, execute pull function
-							//cout << "boop" << endl;
+							cout << "boop" << endl;
 							grapple->velocity = glm::vec3(0, 0, 0);
 							grapple->pull(*player, dt * 2, 150);
 							// Handle other logic if needed
@@ -200,10 +201,15 @@ void Level::LevelUpdate(float dt)
 						int colG = grapple->detectCollisionAABB(
 							gameObject2->getPosX(), gameObject2->getPosY(),
 							abs(gameObject2->getsizeY()), gameObject2->getsizeX(), dt);
-						//cout << "colresult:" << colG << endl;
-						if (colG != 0) {
+						
+						if (colG) {
+							cout << "colresult:" << colG << endl;
 							// Collision detected, execute pull function
-							//cout << "boop" << endl;
+							cout << "boop" << endl;
+							cout << "Gpos : " << grapple->getPosition().x << " , " << grapple->getPosition().y << endl;
+							cout << "Gsize : " << grapple->getsizeX() << " , " << grapple->getsizeY() << endl;
+							cout << "Opos : " << gameObject2->getPosition().x << " , " << gameObject2->getPosition().y << endl;
+							cout << "Osize : " << gameObject2->getsizeX() << " , " << gameObject2->getsizeY() << endl;
 							grapple->velocity = glm::vec3(0, 0, 0);
 							grapple->pull(*player, dt * 2, 150);
 							// Handle other logic if needed
