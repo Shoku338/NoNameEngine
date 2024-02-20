@@ -5,6 +5,11 @@
 #include <iostream>
 
 class Player :public AnimatedObject {
+	typedef enum {
+		IDLE = 0,
+		RUNNING = 1,
+		JUMPING = 2
+	};
 	float health = 10;
 	float shield = 10;
 	int jumpCount = 0;

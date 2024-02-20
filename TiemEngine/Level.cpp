@@ -82,7 +82,6 @@ void Level::LevelUpdate(float dt)
 	}
 	player->velocity.x *= (1.0f - FRACTION); //friction
 	player->update();
-	//cout << "player grav: " << player->getGrounded() << endl;
 	if (!player->getGrounded()) {
 		//cout << "add grav" << endl;
 		if(player->velocity.y >= -1000)
@@ -139,7 +138,7 @@ void Level::LevelUpdate(float dt)
 					// Game logic for collision at the Top of player
 					float offsetY = (gameObject->getPosition().y - abs(gameObject->getsizeY() / 2)) - (player->getPosition().y + abs(player->getsizeY() / 2));
 					player->Translate(glm::vec3(0.0f, offsetY, 0.0f));
-					player->velocity.y = 0;
+					//player->velocity.y = 0;
 				}
 				else
 				{
@@ -218,6 +217,9 @@ void Level::LevelUpdate(float dt)
 				}
 				++otherIt;
 			}
+		}
+		else {
+			player->setPhysic(true);
 		}
 		 if (GameObject* gameObject = dynamic_cast<GameObject*>(*it)) {
 			//gameObject->Translate(gameObject->velocity);

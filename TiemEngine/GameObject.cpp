@@ -79,8 +79,9 @@ int GameObject::detectCollisionAABB(float bx, float by, float bh, float bw, floa
 	float bRig = abs(bx + (bw / 2));
 	float bLef = abs(bx - (bw / 2));
 
-	float posX = this->getPosX() + (this->getVelocity().x * dt);
-	float posY = this->getPosY() + (this->getVelocity().y * dt);
+	float posX = this->getPosX() ;
+	float posY = this->getPosY() ;
+	
 	// Calculate the eight points for each object
 	float aPoints[8][2] = {
 		{posX - aQuatWidth, posY + aHalfHeight},   // half top left
