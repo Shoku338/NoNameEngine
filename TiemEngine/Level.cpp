@@ -138,7 +138,7 @@ void Level::LevelUpdate(float dt)
 					// Game logic for collision at the Top of player
 					float offsetY = (gameObject->getPosition().y - abs(gameObject->getsizeY() / 2)) - (player->getPosition().y + abs(player->getsizeY() / 2));
 					player->Translate(glm::vec3(0.0f, offsetY, 0.0f));
-					//player->velocity.y = 0;
+					player->velocity.y -= 100;
 				}
 				else
 				{
@@ -151,20 +151,67 @@ void Level::LevelUpdate(float dt)
 		if (Bullet* bullet = dynamic_cast<Bullet*>(*it)) {
 			bullet->update(dt);
 			bool removeBullet = false;
-			for (auto otherIt = objectsList.begin(); otherIt != objectsList.end();) {
-				if (Enemy* collidingObject = dynamic_cast<Enemy*>(*otherIt)) {
-					int colB = bullet->detectCollisionAABB(
-						collidingObject->getPosX(), collidingObject->getPosY(),
-						abs(collidingObject->getsizeY()), collidingObject->getsizeX(), dt);
-					if (colB) {
-						//check if the bulet is a grapple
-						collidingObject->applyDamage(1);
-						cout << "SUPER AMAZING EXPLOSION IS HAPPENING RN" << endl;
-						removeBullet = true;//mark to be destroy
+			if (Grapple* grapple = dynamic_cast<Grapple*>(bullet)) {
+				// Check for collision with other GameObjects
+				for (auto otherIt = objectsList.begin(); otherIt != objectsList.end();)
+				{
+					if (GameObject* gameObject2 = dynamic_cast<GameObject*>(*otherIt)) {
+						if (gameObject2->getCollision()) {
+							int colG = grapple->detectCollisionAABB(
+								gameObject2->getPosX(), gameObject2->getPosY(),
+								abs(gameObject2->getsizeY()), gameObject2->getsizeX(), dt);
+							//cout << "colresult:" << colG << endl;
+							if (colG) {
+								// Collision detected, execute pull function
+								//cout << "boop" << endl;
+								grapple->velocity = glm::vec3(0, 0, 0);
+								grapple->pull(*player, dt * 2, 150);
+								// Handle other logic if needed
+							}
+						}
 					}
+					++otherIt;
 				}
-				++otherIt;
+				for (int i = 0; i < tilemap->getTilemap().size(); i++)
+				{
+					GameObject* otherIt = dynamic_cast<GameObject*>(tilemap->getTilemap().at(i));
+					if (GameObject* gameObject2 = dynamic_cast<GameObject*>(otherIt)) {
+						if (gameObject2->getCollision()) {
+							int colG = grapple->detectCollisionAABB(
+								gameObject2->getPosX(), gameObject2->getPosY(),
+								abs(gameObject2->getsizeY()), gameObject2->getsizeX(), dt);
+
+							if (colG) {
+
+								// Collision detected, execute pull function
+
+								grapple->velocity = glm::vec3(0, 0, 0);
+								grapple->pull(*player, dt * 2, 150);
+								// Handle other logic if needed
+							}
+						}
+					}
+					++otherIt;
+				}
+				
 			}
+			else {
+				for (auto otherIt = objectsList.begin(); otherIt != objectsList.end();) {
+					if (Enemy* collidingObject = dynamic_cast<Enemy*>(*otherIt)) {
+						int colB = bullet->detectCollisionAABB(
+							collidingObject->getPosX(), collidingObject->getPosY(),
+							abs(collidingObject->getsizeY()), collidingObject->getsizeX(), dt);
+						if (colB) {
+							//check if the bulet is a grapple
+							collidingObject->applyDamage(1);
+							cout << "SUPER AMAZING EXPLOSION IS HAPPENING RN" << endl;
+							removeBullet = true;//mark to be destroy
+						}
+					}
+					++otherIt;
+				}
+			}
+			
 			if (bullet->timesUp() || removeBullet) {
 				it = objectsList.erase(it);
 				continue;  // Skip the rest of the loop for this iteration
@@ -172,51 +219,7 @@ void Level::LevelUpdate(float dt)
 			
 		}
 		if (Grapple* grapple = dynamic_cast<Grapple*>(*it)) {
-			// Check for collision with other GameObjects
-			for (auto otherIt = objectsList.begin(); otherIt != objectsList.end();)
-			{
-				if (GameObject* gameObject2 = dynamic_cast<GameObject*>(*otherIt)) {
-					if (gameObject2->getCollision()) {
-						int colG = grapple->detectCollisionAABB(
-							gameObject2->getPosX(), gameObject2->getPosY(),
-							abs(gameObject2->getsizeY()), gameObject2->getsizeX(), dt);
-						//cout << "colresult:" << colG << endl;
-						if (colG) {
-							// Collision detected, execute pull function
-							cout << "boop" << endl;
-							grapple->velocity = glm::vec3(0, 0, 0);
-							grapple->pull(*player, dt * 2, 150);
-							// Handle other logic if needed
-						}
-					}
-				}
-				++otherIt;
-			}
-			for (int i = 0; i < tilemap->getTilemap().size(); i++)
-			{
-				GameObject* otherIt = dynamic_cast<GameObject*>(tilemap->getTilemap().at(i));
-				if (GameObject* gameObject2 = dynamic_cast<GameObject*>(otherIt)) {
-					if (gameObject2->getCollision()) {
-						int colG = grapple->detectCollisionAABB(
-							gameObject2->getPosX(), gameObject2->getPosY(),
-							abs(gameObject2->getsizeY()), gameObject2->getsizeX(), dt);
-						
-						if (colG) {
-							cout << "colresult:" << colG << endl;
-							// Collision detected, execute pull function
-							cout << "boop" << endl;
-							cout << "Gpos : " << grapple->getPosition().x << " , " << grapple->getPosition().y << endl;
-							cout << "Gsize : " << grapple->getsizeX() << " , " << grapple->getsizeY() << endl;
-							cout << "Opos : " << gameObject2->getPosition().x << " , " << gameObject2->getPosition().y << endl;
-							cout << "Osize : " << gameObject2->getsizeX() << " , " << gameObject2->getsizeY() << endl;
-							grapple->velocity = glm::vec3(0, 0, 0);
-							grapple->pull(*player, dt * 2, 150);
-							// Handle other logic if needed
-						}
-					}
-				}
-				++otherIt;
-			}
+			
 		}
 		else {
 			player->setPhysic(true);
