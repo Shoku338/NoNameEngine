@@ -42,7 +42,7 @@ void SoundManager::playSound(string name, bool loop) {
     if (soundSources.find(name) != soundSources.end())
     {
         soundEngine->play2D(soundSources[name], loop);
-        cout << "Playing sound: " << name << endl;
+        //cout << "Playing sound: " << name << endl;
     }
     else
     {

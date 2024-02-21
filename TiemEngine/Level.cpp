@@ -443,14 +443,14 @@ void Level::HandleMouse(int type, int x, int y)
 	float wg = GameEngine::GetInstance()->GetGameWidth();
 
 	//cout << h << ',' << w << endl;
-	//cout << "mouse x,y " << x << ',' << y << endl;
+	cout << "mouse x,y " << x << ',' << y << endl;
 	realX = (x) / (w / wg);
 	realY = hg - (y / (h / hg));
 	glm::vec2 offset = camera->getPosition();
 	realX = realX + offset.x;
-	realY = realY + offset.y;
-	//cout << realX << ',' << realY << endl;
-	glm::vec2 playerPos = glm::vec2(player->getPosX(), player->getPosY());
+	realY = realY + offset.y;	
+	cout << realX << ',' << realY << endl;
+	glm::vec2 playerPos = glm::vec2(player->getPosition().x, player->getPosition().y);
 	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
 	if (type == 0) {
 		player->getWeapon()->Fire(glm::vec2(realX, realY), objectsList, soundManager);
