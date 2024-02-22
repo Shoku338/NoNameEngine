@@ -2,6 +2,7 @@
 
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+#include "Player.h"
 
 class Camera2D {
 public:
@@ -22,18 +23,34 @@ public:
         return translateMatrix * scaleMatrix; // Note the order of multiplication
     }
 
-    void UpdateCameraPosition(const glm::vec2& playerPosition) {
+    void UpdateCameraPosition(const glm::vec2& playerPosition, bool faceRight) {
         float screenMidPoint = m_Position.x + (m_Width / 2.0f);
+        float forwardThreshold = faceRight ? screenMidPoint + (m_Width / 4.0f) : screenMidPoint - (m_Width / 4.0f);
+        float backwardThreshold = faceRight ? screenMidPoint - (m_Width / 4.0f) : screenMidPoint + (m_Width / 4.0f);
 
-        // Check if the player has moved past the midpoint of the screen
-        if (playerPosition.x > screenMidPoint) {
-            // The camera should move so that the player is just past the midpoint, maintaining the player's forward progression
-            // Since we want the camera to move right but not immediately with every tiny player movement beyond the midpoint,
-            // you can calculate the difference and apply it to the camera's position.
-            float moveAmount = playerPosition.x - screenMidPoint;
+        // Check if the player has moved past the midpoint of the screen to the right
+        if (playerPosition.x > forwardThreshold) {
+            // Move the camera right
+            float moveAmount = playerPosition.x - forwardThreshold;
             m_Position.x += moveAmount;
         }
+        // Check if the player moves back past the backwardThreshold
+        else if (playerPosition.x < backwardThreshold) {
+            // Move the camera left
+            float moveAmount = playerPosition.x - backwardThreshold;
+            m_Position.x += moveAmount; // This will be a negative value, moving the camera to the left
+        }
+
+        // Ensure the camera does not move left past the game's starting point (e.g., 0 or another minimum x value)
+        m_Position.x = std::max(m_Position.x, 0.0f);
+
+        // Adjust camera position when the player is facing left
+        if (!faceRight) {
+            m_Position.x += m_Width;  // Move the camera to the right side of the player
+        }
     }
+
+    
 
     glm::vec2 getPosition(){
         return m_Position;

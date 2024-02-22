@@ -98,7 +98,7 @@ void Level::LevelUpdate(float dt)
 		// Example: Set an offset to move the player to the left and lower the camera
 		//
 		glm::vec2 offset(-50.0f, -100.0f); // Adjust the x and y coordinates as needed
-		camera->UpdateCameraPosition(playerPosition);
+		camera->UpdateCameraPosition(playerPosition, player->facingRight());
 
 
 		// Print camera position (optional for debugging)
