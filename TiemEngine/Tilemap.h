@@ -18,6 +18,7 @@ public:
     unsigned int getTexture();
     int getWidth();
     int getHeight();
+    float getTileSize(){return tileSize;}
     vector<Tile*> getTilemap();
     void setTile(vector<DrawableObject*> * list);
     void calculateUV(float MaxCol, float MaxRow, float CurrentCol, float CurrentRow, float* newUV);

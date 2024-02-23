@@ -90,19 +90,24 @@ void Level::LevelUpdate(float dt)
 
 	// Update camera position with an offset
 	float halfScreenWidth = GameEngine::GetInstance()->GetWindowWidth() / 2.0f;
+	float levelMinX = 0.0f; // Assuming the level starts at X=0
+	float levelMaxX = tilemap->getWidth() * tilemap->getTileSize();
 
 	if (camera && player) {
 
 		glm::vec2 playerPosition(player->getPosX(), player->getPosY());
 
+		std::cout<<"Player Position: (" << playerPosition.x << ", " << playerPosition.y << ")" << std::endl;
+
 		// Example: Set an offset to move the player to the left and lower the camera
 		//
 		glm::vec2 offset(-50.0f, -100.0f); // Adjust the x and y coordinates as needed
-		camera->UpdateCameraPosition(playerPosition, player->facingRight());
+		camera->UpdateCameraPosition(playerPosition, player->facingRight(),dt, levelMinX, levelMaxX);
 
 
 		// Print camera position (optional for debugging)
 		glm::vec2 cameraPosition = camera->getPosition();
+		//camera->MoveRight(100.0f);
 		//std::cout << "Camera Position: (" << cameraPosition.x << ", " << cameraPosition.y << ")" << std::endl;
 	}
 
