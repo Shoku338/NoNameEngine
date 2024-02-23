@@ -222,6 +222,6 @@ void Player::UpdateFrame()
 			break;
 		}
 	
-	//cout << speed << endl;
+	cout << speed << endl;
 	//cout << "Row: " << row << ", Col: " << col << endl;
 }

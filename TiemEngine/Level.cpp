@@ -16,7 +16,8 @@ void Level::LevelLoad()
 
 	//Added by Kapom
 
-	tilemap = new Tilemap(19, 9, 64, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/map.txt");
+	//tilemap = new Tilemap(19, 9, 64, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/map.txt");
+	tilemap = new Tilemap(35, 9, 64, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/TestMap.txt");
 	tilemap->setTile(&objectsList);
 
 	Animate = new AnimateMeshVbo();
@@ -415,13 +416,13 @@ void Level::HandleKey(char key)
 		case 'a': //move right
 			if(player->getVelocity().x <= 120)
 			{
-				player->velocity.x += -25.f; //[Editable] walk speed left
+				player->velocity.x += -50.f; //[Editable] walk speed left
 			}
 			break;//move velocity value
 		case 'd': // move left
 			if (player->getVelocity().x >= -120)
 			{
-				player->velocity.x += 25.f; //[Editable] walk speed right
+				player->velocity.x += 50.f; //[Editable] walk speed right
 			}
 			break;//move velocity value
 		case 'C'://dashing
