@@ -102,6 +102,9 @@
     <ClCompile Include="Explosion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CombineObject.h">
@@ -194,8 +197,8 @@
     <ClInclude Include="Explosion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

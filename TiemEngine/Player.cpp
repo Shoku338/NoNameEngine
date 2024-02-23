@@ -8,6 +8,8 @@ Player::Player(const char* path, int MaxR, int MaxC):AnimatedObject(path,MaxR,Ma
 	shield = 10;
 	jumpCount = 0;
 	grounded = false;
+	speed = 10;
+	currentState = IDLE;
 }
 
 void Player::setPhysic(bool setPhysic) {
@@ -36,7 +38,33 @@ int Player::getJump() {
 void Player::setJump(int count) {
 	jumpCount = count;
 }
-void Player::update() {
+void Player::Update() {
+	UpdateFrame();
+	if (velocity.x != 0&&velocity.y ==0)
+	{
+		if ((facingRight() && velocity.x>0) || (!facingRight() && velocity.x<0))
+		{
+			cout << "Forward" << endl;
+			currentState = RUNNINGFORWARD;
+		}
+		else
+		{
+			cout << "Backward" << endl;
+			currentState = RUNNINGBACKWARD;
+		}
+		
+	}
+	else if(velocity.y != 0)
+	{
+		cout << "In air" << endl;
+		currentState = JUMPING;
+	}
+	else
+	{
+		cout << "Idle" << endl;
+		currentState = IDLE;
+	}
+	//cout << velocity.x << " " << velocity.y << " " << velocity.z << " " << endl;
 	currentWeapon->update(this->getPosition()); 
 	//cout << "Row: " << row << ", Col: " << col << endl;
 }
@@ -112,4 +140,67 @@ Weapon * Player::getWeapon()
 }
 void Player::setWeapon(Weapon* weapon) {
 	currentWeapon = weapon;
+}
+
+void Player::UpdateFrame()
+{
+	frames++;
+	switch (currentState) {
+		case IDLE:
+			row = 0;
+			if (frames > speed) {
+
+
+				if (col >= MaxCol - 1) {
+					col = 0;
+
+				}
+				else {
+					col++;
+				}
+				frames = 0;
+				CalculateUV(row, col);
+
+			}
+			break;
+		case RUNNINGFORWARD:
+			row = 1;
+			if (frames > speed) {
+
+				if (col >= MaxCol - 1) {
+					col = 0;
+
+				}
+				else {
+					col++;
+				}
+				frames = 0;
+				CalculateUV(row, col);
+
+			}
+			break;
+		case RUNNINGBACKWARD:
+			row = 1;
+			if (frames > speed) {
+
+				if (col <= 0) {
+					col = MaxCol - 1;
+				}
+				else {
+					col--;
+				}
+				frames = 0;
+				CalculateUV(row, col);
+			}
+			break;
+		case JUMPING:
+
+			break;
+		default:
+
+			break;
+		}
+	
+	
+	//cout << "Row: " << row << ", Col: " << col << endl;
 }

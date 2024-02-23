@@ -3,6 +3,8 @@
 #include<GL/glew.h>
 #include "glm.hpp"
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 
 struct ParticleProp
 {
@@ -11,17 +13,19 @@ struct ParticleProp
 	glm::vec4 ColorBegin, ColorEnd;
 	float SizeBegin, SizeEnd, SizeVariation;
 	float LifeTime = 1.0f;
+	
 };
 
 class ParticleSystem
 {
 public:
 	 ParticleSystem();
-	 void OnUpdate();
+	 void Update();
 	 void Render();
-	 void Emit(const ParticleProp& particleProps);
+	 void Emit(const ParticleProp& particleProps,int index);
 
 private:
+	float dt = 0.01f;
 	struct Particle
 	{
 		glm::vec2 Position;

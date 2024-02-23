@@ -3,13 +3,17 @@
 #include "weapon.h"
 #include <GL/glew.h>
 #include <iostream>
+#include "glm.hpp"
 
 class Player :public AnimatedObject {
-	typedef enum {
+	enum States {
 		IDLE = 0,
-		RUNNING = 1,
-		JUMPING = 2
+		RUNNINGFORWARD = 1,
+		RUNNINGBACKWARD = 2,
+		JUMPING = 3
 	};
+	
+
 	float health = 10;
 	float shield = 10;
 	int jumpCount = 0;
@@ -18,10 +22,14 @@ class Player :public AnimatedObject {
 	bool isFaceRight = true;
 	bool hasFlippedRight = true;
 	bool hasFlippedLeft = false;
+	States currentState;
 	bool physic = true;
+	
 public:
+	
 	Player(const char* path, int MaxR, int MaxC);
-	void update();
+	void Update();
+	void UpdateFrame();
 	void setPhysic(bool setPhysic);
 	void setFaceRight(bool fliping);
 	void checkFace();

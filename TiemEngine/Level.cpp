@@ -51,9 +51,9 @@ void Level::LevelInit()
 	
 	//Game object
 
-	Player* ply = new Player("../Resource/Texture/Main_Character_Run.png", 1, 6);
+	Player* ply = new Player("../Resource/Texture/Main_Character_Run.png", 2, 9);
 
-	ply->SetSize(78.0f, -135.0f);
+	ply->SetSize(178.0f, -140.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(false);
 	player = ply;
@@ -80,8 +80,17 @@ void Level::LevelUpdate(float dt)
 	if (player->getPhysic()) {
 		player->Translate(player->velocity * dt);
 	}
-	player->velocity.x *= (1.0f - FRACTION); //friction
-	player->update();
+	
+	if (player->velocity.x < 1&& player->velocity.x > -1)
+	{
+		player->velocity.x = 0;
+	}
+	else 
+	{
+		player->velocity.x *= (1.0f - FRACTION); //friction
+	}
+
+	//player->Update();
 	if (!player->getGrounded()) {
 		//cout << "add grav" << endl;
 		if(player->velocity.y >= -1000)
@@ -97,7 +106,7 @@ void Level::LevelUpdate(float dt)
 
 		glm::vec2 playerPosition(player->getPosX(), player->getPosY());
 
-		std::cout<<"Player Position: (" << playerPosition.x << ", " << playerPosition.y << ")" << std::endl;
+		//std::cout<<"Player Position: (" << playerPosition.x << ", " << playerPosition.y << ")" << std::endl;
 
 		// Example: Set an offset to move the player to the left and lower the camera
 		//
