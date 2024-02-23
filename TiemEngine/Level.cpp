@@ -54,7 +54,7 @@ void Level::LevelInit()
 
 	Player* ply = new Player("../Resource/Texture/Main_Character_sprite.png", 3, 9);
 
-	ply->SetSize(178.0f, -140.0f);
+	ply->SetSize(158.0f, -120.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(false);
 	player = ply;
