@@ -51,7 +51,7 @@ void Level::LevelInit()
 	
 	//Game object
 
-	Player* ply = new Player("../Resource/Texture/Main_Character_Run.png", 2, 9);
+	Player* ply = new Player("../Resource/Texture/Main_Character_sprite.png", 3, 9);
 
 	ply->SetSize(178.0f, -140.0f);
 	objectsList.push_back(ply);
@@ -65,7 +65,7 @@ void Level::LevelInit()
 	soundManager = new SoundManager();
 	soundManager->loadSound("Zelda", "../Resource/Sound/TestZelda.mp3");
 	soundManager->loadSound("Blaster", "../Resource/Sound/Blaster.mp3");
-	soundManager->playSound("Zelda", true);
+	//soundManager->playSound("Zelda", true);
 	soundManager->getSound("Zelda")->setDefaultVolume(0.3);
 
 	//cout << "Init Level" << endl;

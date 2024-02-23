@@ -8,7 +8,7 @@ Player::Player(const char* path, int MaxR, int MaxC):AnimatedObject(path,MaxR,Ma
 	shield = 10;
 	jumpCount = 0;
 	grounded = false;
-	speed = 10;
+	speed = 24;
 	currentState = IDLE;
 }
 
@@ -44,24 +44,24 @@ void Player::Update() {
 	{
 		if ((facingRight() && velocity.x>0) || (!facingRight() && velocity.x<0))
 		{
-			cout << "Forward" << endl;
+			//cout << "Forward" << endl;
 			currentState = RUNNINGFORWARD;
 		}
 		else
 		{
-			cout << "Backward" << endl;
+			//cout << "Backward" << endl;
 			currentState = RUNNINGBACKWARD;
 		}
 		
 	}
 	else if(velocity.y != 0)
 	{
-		cout << "In air" << endl;
+		//cout << "In air" << endl;
 		currentState = JUMPING;
 	}
 	else
 	{
-		cout << "Idle" << endl;
+		//cout << "Idle" << endl;
 		currentState = IDLE;
 	}
 	//cout << velocity.x << " " << velocity.y << " " << velocity.z << " " << endl;
@@ -148,10 +148,11 @@ void Player::UpdateFrame()
 	switch (currentState) {
 		case IDLE:
 			row = 0;
+			speed = 24;
 			if (frames > speed) {
 
 
-				if (col >= MaxCol - 1) {
+				if (col >= 3) {
 					col = 0;
 
 				}
@@ -164,7 +165,8 @@ void Player::UpdateFrame()
 			}
 			break;
 		case RUNNINGFORWARD:
-			row = 1;
+			row = 2;
+			speed = 12;
 			if (frames > speed) {
 
 				if (col >= MaxCol - 1) {
@@ -180,7 +182,8 @@ void Player::UpdateFrame()
 			}
 			break;
 		case RUNNINGBACKWARD:
-			row = 1;
+			row = 2;
+			speed = 12;
 			if (frames > speed) {
 
 				if (col <= 0) {
@@ -194,13 +197,31 @@ void Player::UpdateFrame()
 			}
 			break;
 		case JUMPING:
+			row = 1;
+			speed = 24;
+			if (!JumpStart&&col!=2)
+			{
+				JumpStart = true;
+				col = 0;
+			}
+			if (frames > speed) {
 
+
+				if (col >= 2) {
+					JumpStart = false;
+				}
+				else {
+					col++;
+				}
+				frames = 0;
+				CalculateUV(row, col);
+			}
 			break;
 		default:
 
 			break;
 		}
 	
-	
+	//cout << speed << endl;
 	//cout << "Row: " << row << ", Col: " << col << endl;
 }

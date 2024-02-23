@@ -24,6 +24,7 @@ class Player :public AnimatedObject {
 	bool hasFlippedLeft = false;
 	States currentState;
 	bool physic = true;
+	bool JumpStart = false;
 	
 public:
 	
