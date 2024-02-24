@@ -68,6 +68,7 @@ void Level::LevelInit()
 	soundManager->loadSound("Blaster", "../Resource/Sound/Blaster.mp3");
 	//soundManager->playSound("Zelda", true);
 	soundManager->getSound("Zelda")->setDefaultVolume(0.3);
+	soundManager->getSound("Blaster")->setDefaultVolume(0.3);
 
 	//cout << "Init Level" << endl;
 }
