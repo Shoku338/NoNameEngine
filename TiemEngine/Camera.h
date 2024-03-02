@@ -35,7 +35,7 @@
             float targetPositionX = faceRight ? playerPosition.x - leftOffset : playerPosition.x - rightOffset;
 
           
-            float smoothingSpeed = 3.5f; // The higher the value, the faster the camera moves to the target position
+            float smoothingSpeed = 1.25f; // The higher the value, the faster the camera moves to the target position
 
             // Calculate the difference between the current position and the target position
             float positionDifference = targetPositionX - m_Position.x;

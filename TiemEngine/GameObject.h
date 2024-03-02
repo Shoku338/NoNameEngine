@@ -13,6 +13,7 @@ protected:
 
 public:
 	GameObject();
+	GameObject(string Path);
 	~GameObject();
 	void flip();
 	void SetColor(float r, float g, float b);

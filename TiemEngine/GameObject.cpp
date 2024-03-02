@@ -10,6 +10,12 @@ GameObject::GameObject()
 	color = glm::vec3(0.0, 0.0, 0.0);
 }
 
+GameObject::GameObject(string Path)
+{
+	color = glm::vec3(0.0, 0.0, 0.0);
+	SetTexture(Path);
+}
+
 
 GameObject::~GameObject()
 {
