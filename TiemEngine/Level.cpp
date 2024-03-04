@@ -296,16 +296,10 @@ void Level::LevelUpdate(float dt)
 		if (Enemy* enemy = dynamic_cast<Enemy*>(object)) {
 			if (enemy->handleDeath()) {
 				
-				Explosion* deathExplosion = new Explosion("../Resource/Texture/explosion.png",5,5,1);
+				/*Explosion* deathExplosion = new Explosion("../Resource/Texture/explosion.png",5,5,1);
 				deathExplosion->SetPosition(object->getPosition());
-				//objectsList.push_back(deathExplosion);
-				/*ParticleProp Explosion;
-				Explosion.ColorBegin = { 255 / 255.0f, 102 / 255.0f, 34 / 255.0f, 1.0f };
-				Explosion.ColorEnd = { 255 / 255.0f, 51 / 255.0f, 17 / 255.0f, 1.0f };
-				Explosion.SizeBegin = 15.0f, Explosion.SizeVariation = 25.0f, Explosion.SizeEnd = 0.0f;
-				Explosion.LifeTime = 0.75f;
-				Explosion.Velocity = { 0.0f, 0.0f };
-				Explosion.VelocityVariation = { 200.0f, 200.0f };*/
+				objectsList.push_back(deathExplosion);*/
+
 				ParticleProp explosion = ParticleData::Explosion;
 				explosion.Position = { object->getPosX(), object->getPosY()};
 				for (size_t i = 0; i < 20; i++)
@@ -485,18 +479,12 @@ void Level::HandleMouse(int type, int x, int y)
 	glm::vec2 playerPos = glm::vec2(player->getPosition().x, player->getPosition().y);
 	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
 	if (type == 0) {
-		ParticleProp m_Particle;
-		m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
-		m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
-		m_Particle.SizeBegin = 15.0f, m_Particle.SizeVariation = 25.0f, m_Particle.SizeEnd = 0.0f;
-		m_Particle.LifeTime = 1.0f;
-		m_Particle.Velocity = { 150.0f, 0.0f };
-		m_Particle.VelocityVariation = { 150.0f, 150.0f };
+		ParticleProp m_Particle = ParticleData::Gun;
 		m_Particle.Position = { player->getWeapon()->getPosX() + 45.0f, player->getWeapon()->getPosY()+ 25.0f};
-		/*for (size_t i = 0; i < 4; i++)
+		for (size_t i = 0; i < 4; i++)
 		{
 			particleSystem->Emit(m_Particle);
-		}*/
+		}
 		player->getWeapon()->Fire(glm::vec2(realX, realY), objectsList, soundManager);
 	}
 	else if (type == 1) {
