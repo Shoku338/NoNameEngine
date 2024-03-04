@@ -86,11 +86,7 @@ void Level::LevelUpdate(float dt)
 		player->Translate(player->velocity * dt);
 	}
 	
-	if (player->velocity.x < 1&& player->velocity.x > -1)
-	{
-		player->velocity.x = 0;
-	}
-	else 
+	if (!(player->velocity.x < 1 && player->velocity.x > -1))
 	{
 		player->velocity.x *= (1.0f - FRACTION); //friction
 	}
@@ -181,10 +177,9 @@ void Level::LevelUpdate(float dt)
 								abs(gameObject2->getsizeY()), gameObject2->getsizeX(), dt);
 							//cout << "colresult:" << colG << endl;
 							if (colG) {
-								// Collision detected, execute pull function
 								//cout << "boop" << endl;
 								grapple->velocity = glm::vec3(0, 0, 0);
-								grapple->pull(*player, dt * 2, 150);
+								grapple->pull(*player, dt , 500);
 								// Handle other logic if needed
 							}
 						}
@@ -205,7 +200,7 @@ void Level::LevelUpdate(float dt)
 								// Collision detected, execute pull function
 
 								grapple->velocity = glm::vec3(0, 0, 0);
-								grapple->pull(*player, dt * 2, 150);
+								grapple->pull(*player, dt , 500);
 								// Handle other logic if needed
 							}
 						}
@@ -445,9 +440,9 @@ void Level::HandleKey(char key)
 		case 'C'://dashing
 
 			if (player->velocity.x < 0)
-				player->velocity.x -= 5500.f; //[Editable] Dash left
+				player->velocity.x -= 2000.f; //[Editable] Dash left
 			else if(player->velocity.x >= 0)
-				player->velocity.x += 5500.f; //[Editable] Dash right
+				player->velocity.x += 2000.f; //[Editable] Dash right
 			break;
 			//need spacebar		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
