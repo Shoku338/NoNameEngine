@@ -15,6 +15,7 @@ protected:
 	float MaxCol = 0.0f;
 
 public:
+	AnimatedObject();
 	AnimatedObject(const char* path, int MaxR, int MaxC);
 	~AnimatedObject();
 	virtual void CalculateUV(int r, int c);

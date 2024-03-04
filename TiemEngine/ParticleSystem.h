@@ -5,6 +5,8 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <random>
+#include "AnimatedObject.h"
 
 struct ParticleProp
 {
@@ -16,14 +18,13 @@ struct ParticleProp
 	
 };
 
-class ParticleSystem
+class ParticleSystem: public AnimatedObject
 {
 public:
 	 ParticleSystem();
 	 void Update();
-	 void Render();
-	 void Emit(const ParticleProp& particleProps,int index);
-
+	 void Render(glm::mat4 globalModelTransform);
+	 void Emit(const ParticleProp& particleProps);
 private:
 	float dt = 0.01f;
 	struct Particle
@@ -40,4 +41,5 @@ private:
 		bool Active = false;
 	};
 	std::vector<Particle> ParticlePool;
+	uint32_t m_PoolIndex = 999;
 };

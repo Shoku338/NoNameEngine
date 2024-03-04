@@ -13,7 +13,7 @@ protected:
 	glm::vec3 size;
 	float degree;
 public:
-	glm::mat4 getTransform();
+	virtual glm::mat4 getTransform();
 	glm::vec3 velocity = glm::vec3(0, 0, 0);
 	DrawableObject();
 	~DrawableObject();

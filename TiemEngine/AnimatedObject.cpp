@@ -4,6 +4,15 @@
 #include "AnimateMeshVbo.h"
 #include "GameEngine.h"
 
+AnimatedObject::AnimatedObject()
+{
+	this->row = row;
+	this->col = col;
+	MaxRow = 1;
+	MaxCol = 1;
+	texture = -1;
+}
+
 AnimatedObject::AnimatedObject(const char* path, int MaxR, int MaxC) {
 	this->row = row;
 	this->col = col;

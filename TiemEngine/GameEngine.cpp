@@ -38,6 +38,7 @@ void GameEngine::Init(int width, int height)
 
 	stateController = new GameStateController();
 	stateController->Init(GameState::GS_LEVEL1);
+	srand(time(nullptr));
 }
 
 void GameEngine::Render(vector<DrawableObject*> renderObjects, const glm::mat4& viewMatrix)

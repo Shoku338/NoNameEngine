@@ -18,6 +18,8 @@
 #include "AnimatedObject.h"
 #include "AnimateMeshVbo.h"
 #include "Explosion.h"
+#include "ParticleSystem.h"
+#include "ParticleData.h"
 
 class Level
 {
@@ -30,6 +32,8 @@ private:
 	SoundManager* soundManager;
 	AnimateMeshVbo* Animate;
 	vector<DrawableObject*> backGroundObjects;
+
+	ParticleSystem* particleSystem;
 
 public:
 	virtual void LevelLoad();
