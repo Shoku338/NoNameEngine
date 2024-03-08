@@ -223,6 +223,23 @@ void Level::LevelUpdate(float dt)
 						}
 					}
 					++otherIt;
+					
+				}
+				for (int i = 0; i < tilemap->getTilemap().size(); i++)
+				{
+					GameObject* otherIt = dynamic_cast<GameObject*>(tilemap->getTilemap().at(i));
+					if (GameObject* gameObject2 = dynamic_cast<GameObject*>(otherIt)) {
+						if (gameObject2->getCollision()) {
+							int colB = bullet->detectCollisionAABB(
+								gameObject2->getPosX(), gameObject2->getPosY(),
+								abs(gameObject2->getsizeY()), gameObject2->getsizeX(), dt);
+
+							if (colB) {
+
+								removeBullet = true;//mark to be destroy
+							}
+						}
+					}
 				}
 			}
 			
@@ -231,6 +248,9 @@ void Level::LevelUpdate(float dt)
 				continue;  // Skip the rest of the loop for this iteration
 			}
 			
+		}
+		if (Enemy* enemy = dynamic_cast<Enemy*>(*it)) {
+			enemy->Update(dt);
 		}
 		if (Grapple* grapple = dynamic_cast<Grapple*>(*it)) {
 			
@@ -314,12 +334,9 @@ void Level::LevelUpdate(float dt)
 		else if(Explosion* explosion = dynamic_cast<Explosion*>(object))
 		{
 			if (explosion->Expired()) {
-
 				objectsList.erase(std::remove(objectsList.begin(), objectsList.end(), object), objectsList.end());
 				delete object; // Assuming you need to delete the object from memory
-
-
-			}
+				}
 			else
 			{
 				object->Update();
@@ -433,10 +450,10 @@ void Level::HandleKey(char key)
 			break;//move velocity value
 		case 'C'://dashing
 
-			if (player->velocity.x < 0)
-				player->velocity.x -= 2000.f; //[Editable] Dash left
-			else if(player->velocity.x >= 0)
+			if (player->facingRight())
 				player->velocity.x += 2000.f; //[Editable] Dash right
+			else 
+				player->velocity.x -= 2000.f; //[Editable] Dash left
 			break;
 			//need spacebar		
 		case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;

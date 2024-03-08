@@ -9,13 +9,16 @@ Enemy::Enemy(const char* path, int MaxR, int MaxC) :AnimatedObject(path, MaxR, M
 	grounded = true;
 	setCollision(false);
 	SetColor(1, 0, 0);
-	
+	startingPosition = this->getPosition();
+	currentState = patrol;
 }
 
 Enemy::Enemy(const char* path, int MaxR, int MaxC, int Health) :AnimatedObject(path, MaxR, MaxC) {
 	health = Health;
 	grounded = true;
 	SetColor(2, 1, 1);
+	startingPosition = this->getPosition();
+	currentState = patrol;
 }
 
 float Enemy::getHealth() {
@@ -29,8 +32,48 @@ bool Enemy::getGrounded() {
 	return grounded;
 }
 
-void Enemy::Update() {
+void Enemy::Update(float dt) {
 	UpdateFrame();
+	switch (currentState) {
+	case patrol:
+		static bool moveRight = true;
+		static float patrolDistance = 3 * 64; // 3 blocks * 64 pixels per block
+
+		if (moveRight) {
+			// Move right
+			SetPosition(getPosition() + (glm::vec3(walkSpeed, 0, 0) * dt));
+		}
+		else {
+			// Move left
+			SetPosition(getPosition() - (glm::vec3(walkSpeed, 0, 0) * dt));
+		}
+
+		// Check if reached the end of patrol distance
+		if (abs(getPosition().x - startingPosition.x) >= patrolDistance) {
+			moveRight = !moveRight; // Change direction
+		}
+		break;
+	/*case Detect:
+		glm::vec2 playerPosition = GameEngine::GetInstance()->GetPlayerPosition();
+		glm::vec2 enemyPosition = glm::vec2(getPosition().x, getPosition().y);
+
+		// Calculate direction vector towards the player
+		glm::vec2 direction = glm::normalize(playerPosition - enemyPosition);
+
+		// Move the enemy towards the player
+		SetPosition(getPosition() + glm::vec3(direction.x * speed, direction.y * speed, 0));
+		break;
+	case Attack:
+		glm::vec2 playerPosition = GameEngine::GetInstance()->GetPlayerPosition();
+		glm::vec2 enemyPosition = glm::vec2(getPosition().x, getPosition().y);
+
+		float distanceToPlayer = glm::length(playerPosition - enemyPosition);
+		if (distanceToPlayer < attackRange) {
+			// Start shooting bullets at the player
+			//FireBullet(playerPosition); // Implement this function to shoot bullets
+		}
+		break;*/
+	}
 	//cout << "Row: " << row << ", Col: " << col << endl;
 	if (currentFrame == 40)
 	{
