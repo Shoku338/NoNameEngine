@@ -102,6 +102,9 @@ void Level::LevelUpdate(float dt)
 	float halfScreenWidth = GameEngine::GetInstance()->GetWindowWidth() / 2.0f;
 	float levelMinX = 0.0f; // Assuming the level starts at X=0
 	float levelMaxX = tilemap->getWidth() * tilemap->getTileSize();
+	float levelMinY = 0.0f; // Assuming the level starts at Y=0
+    float levelMaxY = tilemap->getHeight() * tilemap->getTileSize();
+
 
 	if (camera && player) {
 
@@ -112,7 +115,7 @@ void Level::LevelUpdate(float dt)
 		// Example: Set an offset to move the player to the left and lower the camera
 		//
 		glm::vec2 offset(-50.0f, -100.0f); // Adjust the x and y coordinates as needed
-		camera->UpdateCameraPosition(playerPosition, player->facingRight(),dt, levelMinX, levelMaxX);
+		camera->UpdateCameraPosition(playerPosition, player->facingRight(),dt, levelMinX, levelMaxX,levelMinY,levelMaxY);
 
 
 		// Print camera position (optional for debugging)
