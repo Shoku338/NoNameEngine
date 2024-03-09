@@ -12,6 +12,7 @@ enum ParticleShape
 {
 	Basic,
 	Circle,
+	Boom,
 	Cone,
 	Dash
 };
@@ -34,7 +35,7 @@ public:
 	 ParticleSystem();
 	 void Update();
 	 void Render(glm::mat4 globalModelTransform);
-	 void Emit(const ParticleProp& particleProps);
+	 void Emit(const ParticleProp& particleProps,ParticleShape shape);
 private:
 	float dt = 0.01f;
 	struct Particle
@@ -52,5 +53,5 @@ private:
 	};
 	std::vector<Particle> ParticlePool;
 	uint32_t m_PoolIndex = 999;
-	ParticleShape CurrentShape;
+	//ParticleShape CurrentShape;
 };

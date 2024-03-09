@@ -320,9 +320,9 @@ void Level::LevelUpdate(float dt)
 
 				ParticleProp explosion = ParticleData::Explosion;
 				explosion.Position = { object->getPosX(), object->getPosY()};
-				for (size_t i = 0; i < 20; i++)
+				for (size_t i = 0; i < 40; i++)
 				{
-					particleSystem->Emit(explosion);
+					particleSystem->Emit(explosion, Boom);
 				}
 				objectsList.erase(std::remove(objectsList.begin(), objectsList.end(), object), objectsList.end());
 				delete object; // Assuming you need to delete the object from memory

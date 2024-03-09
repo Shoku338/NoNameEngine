@@ -7,7 +7,7 @@
 ParticleSystem::ParticleSystem():AnimatedObject()
 {
 	ParticlePool.resize(1000);
-	CurrentShape = Basic;
+	//CurrentShape = Basic;
 }
 
 void ParticleSystem::Update()
@@ -31,7 +31,7 @@ void ParticleSystem::Update()
 	}
 }
 
-void ParticleSystem::Emit(const ParticleProp& particleProps)
+void ParticleSystem::Emit(const ParticleProp& particleProps,ParticleShape shape)
 {
 	Particle& particle = ParticlePool[m_PoolIndex];
 	particle.Active = true;
@@ -39,9 +39,52 @@ void ParticleSystem::Emit(const ParticleProp& particleProps)
 	particle.Rotation = static_cast<float>(std::rand()) / RAND_MAX * 2.0f * 3.14f;
 
 	//Velocity
-	particle.Velocity = particleProps.Velocity;
-	particle.Velocity.x += particleProps.VelocityVariation.x * (static_cast<float>(std::rand()) / RAND_MAX - 0.5f);
-	particle.Velocity.y += particleProps.VelocityVariation.y * (static_cast<float>(std::rand()) / RAND_MAX - 0.5f);
+	
+	switch (shape) {
+	case ParticleShape::Basic:
+		particle.Velocity = particleProps.Velocity;
+		particle.Velocity.x += particleProps.VelocityVariation.x * (static_cast<float>(std::rand()) / RAND_MAX - 0.5f);
+		particle.Velocity.y += particleProps.VelocityVariation.y * (static_cast<float>(std::rand()) / RAND_MAX - 0.5f);
+		
+	case ParticleShape::Circle:
+	{
+		// Generate random angle for velocity direction
+		float angle = static_cast<float>(std::rand()) / RAND_MAX * 2.0f * glm::pi<float>();
+		particle.Velocity = glm::vec2(std::cos(angle), std::sin(angle)) * glm::length(particleProps.Velocity);
+	
+	}
+	break;
+	case ParticleShape::Boom:
+	{
+
+		// Generate random angle for velocity direction
+		float angle = static_cast<float>(std::rand()) / RAND_MAX * 2.0f * glm::pi<float>();
+
+		// Apply velocity variation
+		float speed = glm::length(particleProps.Velocity);
+		float minAdjustedSpeed = speed - particleProps.VelocityVariation.x; // Minimum adjusted speed
+		float maxAdjustedSpeed = speed + particleProps.VelocityVariation.x; // Maximum adjusted speed
+		float adjustedSpeed = minAdjustedSpeed + (maxAdjustedSpeed - minAdjustedSpeed) * (static_cast<float>(std::rand()) / RAND_MAX);
+		adjustedSpeed = std::max(0.0f, adjustedSpeed); // Ensure adjusted speed is not negative
+
+		// Calculate velocity with adjusted speed
+		particle.Velocity = glm::vec2(std::cos(angle), std::sin(angle)) * adjustedSpeed;
+		break;
+	}
+	break;
+	case ParticleShape::Cone:
+	{
+		// Generate random angle within cone angle
+		float coneAngle = glm::radians(30.0f); // Example cone angle (30 degrees)
+		float angle = static_cast<float>(std::rand()) / RAND_MAX * coneAngle - coneAngle / 2.0f;
+		glm::vec2 direction = glm::normalize(particleProps.Velocity);
+		// Rotate direction vector by random angle
+		particle.Velocity = glm::vec2(std::cos(angle) * direction.x - std::sin(angle) * direction.y,
+			std::sin(angle) * direction.x + std::cos(angle) * direction.y) * glm::length(particleProps.Velocity);
+	}
+	break;
+	}
+
 
 	//Color
 	particle.ColorBegin = particleProps.ColorBegin;
