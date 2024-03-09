@@ -7,6 +7,7 @@
 ParticleSystem::ParticleSystem():AnimatedObject()
 {
 	ParticlePool.resize(1000);
+	CurrentShape = Basic;
 }
 
 void ParticleSystem::Update()

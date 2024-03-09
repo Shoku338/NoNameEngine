@@ -494,13 +494,8 @@ void Level::HandleMouse(int type, int x, int y)
 	glm::vec2 playerPos = glm::vec2(player->getPosition().x, player->getPosition().y);
 	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
 	if (type == 0) {
-		ParticleProp m_Particle = ParticleData::Gun;
-		m_Particle.Position = { player->getWeapon()->getPosX() + 45.0f, player->getWeapon()->getPosY()+ 25.0f};
-		for (size_t i = 0; i < 4; i++)
-		{
-			particleSystem->Emit(m_Particle);
-		}
-		player->getWeapon()->Fire(glm::vec2(realX, realY), objectsList, soundManager);
+		
+		player->getWeapon()->Fire(glm::vec2(realX, realY), objectsList, soundManager,particleSystem);
 	}
 	else if (type == 1) {
 		bool grappleExists = false;

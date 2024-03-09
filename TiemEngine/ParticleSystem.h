@@ -8,6 +8,16 @@
 #include <random>
 #include "AnimatedObject.h"
 
+enum ParticleShape
+{
+	Basic,
+	Circle,
+	Cone,
+	Dash
+};
+
+
+
 struct ParticleProp
 {
 	glm::vec2 Position;
@@ -42,4 +52,5 @@ private:
 	};
 	std::vector<Particle> ParticlePool;
 	uint32_t m_PoolIndex = 999;
+	ParticleShape CurrentShape;
 };
