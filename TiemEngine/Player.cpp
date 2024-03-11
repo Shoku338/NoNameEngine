@@ -3,13 +3,15 @@
 #include "SquareMeshVbo.h"
 #include "AnimateMeshVbo.h"
 
-Player::Player(const char* path, int MaxR, int MaxC):AnimatedObject(path,MaxR,MaxC) {
+Player::Player(const char* pathCharacter, const char* pathCape, int MaxR, int MaxC):AnimatedObject(pathCharacter,MaxR,MaxC) {
 	health = 10;
 	shield = 10;
 	jumpCount = 0;
 	grounded = false;
 	speed = 24;
 	currentState = IDLE;
+	prevState = IDLE;
+	textureCape = GameEngine::GetInstance()->GetRenderer()->LoadTexture(pathCape);
 }
 
 void Player::setPhysic(bool setPhysic) {
@@ -40,7 +42,8 @@ void Player::setJump(int count) {
 }
 void Player::Update() {
 	UpdateFrame();
-	if (velocity.x != 0&&velocity.y ==0)
+	cout << "Moving " << isMoving << endl;
+	if (isMoving&&velocity.y ==0)
 	{
 		if ((facingRight() && velocity.x>0) || (!facingRight() && velocity.x<0))
 		{
@@ -61,12 +64,18 @@ void Player::Update() {
 	}
 	else
 	{
-		//cout << "Idle" << endl;
+		cout << "Idle" << endl;
 		currentState = IDLE;
 	}
 	//cout << velocity.x << " " << velocity.y << " " << velocity.z << " " << endl;
 	currentWeapon->update(this->getPosition()); 
 	//cout << "Row: " << row << ", Col: " << col << endl;
+	if (prevState != currentState)
+	{
+		frames = 999;
+		col = 999;
+	}
+	prevState = currentState;
 }
 
 void Player::Render(glm::mat4 globalModelTransform)
@@ -94,7 +103,17 @@ void Player::Render(glm::mat4 globalModelTransform)
 	glm::mat4 currentMatrix = this->getTransform();
 
 	if (spriteMesh != nullptr) {
-
+		//Cape
+		currentMatrix = globalModelTransform * currentMatrix;
+		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
+		glUniform3f(colorId, color.x, color.y, color.z);
+		glUniform1i(renderModeId, 1);
+		glBindTexture(GL_TEXTURE_2D, textureCape);
+		spriteMesh->UpdateUV(getNewUV());
+		spriteMesh->Render();
+		
+		//Character
+		currentMatrix = this->getTransform();
 		currentMatrix = globalModelTransform * currentMatrix;
 		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
 		glUniform3f(colorId, color.x, color.y, color.z);
@@ -166,7 +185,7 @@ void Player::UpdateFrame()
 			break;
 		case RUNNINGFORWARD:
 			row = 2;
-			speed = 12;
+			speed = 9;
 			if (frames > speed) {
 
 				if (col >= MaxCol - 1) {
@@ -182,23 +201,26 @@ void Player::UpdateFrame()
 			}
 			break;
 		case RUNNINGBACKWARD:
-			row = 2;
-			speed = 12;
+			row = 3;
+			speed = 9;
 			if (frames > speed) {
 
-				if (col <= 0) {
-					col = MaxCol - 1;
+				if (col >= MaxCol - 1) {
+					col = 0;
+
 				}
 				else {
-					col--;
+					col++;
 				}
 				frames = 0;
 				CalculateUV(row, col);
+
 			}
 			break;
 		case JUMPING:
 			row = 1;
-			speed = 24;
+			col = 0;
+			speed = 12;
 			if (!JumpStart&&col!=2)
 			{
 				JumpStart = true;

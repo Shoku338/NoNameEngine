@@ -23,12 +23,17 @@ class Player :public AnimatedObject {
 	bool hasFlippedRight = true;
 	bool hasFlippedLeft = false;
 	States currentState;
+	States prevState;
 	bool physic = true;
 	bool JumpStart = false;
+	unsigned int textureCape = -1;
+	
+	
+
 	
 public:
 	
-	Player(const char* path, int MaxR, int MaxC);
+	Player(const char* pathCharacter, const char* pathCape, int MaxR, int MaxC);
 	void Update();
 	void UpdateFrame();
 	void setPhysic(bool setPhysic);
@@ -45,5 +50,6 @@ public:
 	bool getGrounded();
 	void Render(glm::mat4 globalModelTransform);
 	void setWeapon(Weapon* weapon);
+	bool isMoving = false;
 };
 

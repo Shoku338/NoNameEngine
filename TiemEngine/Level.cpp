@@ -52,9 +52,9 @@ void Level::LevelInit()
 	
 	//Game object
 
-	Player* ply = new Player("../Resource/Texture/Main_Character_sprite.png", 3, 9);
+	Player* ply = new Player("../Resource/Texture/Main Character/Main_Character_sprite.png","../Resource/Texture/explosion.png" ,4, 9);
 
-	ply->SetSize(158.0f, -120.0f);
+	ply->SetSize(121.0f, -136.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(false);
 	player = ply;
@@ -89,6 +89,10 @@ void Level::LevelUpdate(float dt)
 	if (!(player->velocity.x < 1 && player->velocity.x > -1))
 	{
 		player->velocity.x *= (1.0f - FRACTION); //friction
+	}
+	else
+	{
+		player->velocity.x = 0;
 	}
 
 	//player->Update();
@@ -351,6 +355,8 @@ void Level::LevelUpdate(float dt)
 		}
 		
 	}
+
+	player->isMoving = false;
 }
 
 void Level::LevelDraw()
@@ -416,8 +422,6 @@ void Level::LevelUnload()
 
 void Level::HandleKey(char key)
 {
-
-	
 	 
 	switch (key)
 	{
@@ -442,12 +446,14 @@ void Level::HandleKey(char key)
 		case 'a': //move right
 			if(player->getVelocity().x <= 120)
 			{
+				player->isMoving = true;
 				player->velocity.x += -50.f; //[Editable] walk speed left
 			}
 			break;//move velocity value
 		case 'd': // move left
 			if (player->getVelocity().x >= -120)
 			{
+				player->isMoving = true;
 				player->velocity.x += 50.f; //[Editable] walk speed right
 			}
 			break;//move velocity value

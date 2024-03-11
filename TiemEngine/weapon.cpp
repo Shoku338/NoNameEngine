@@ -25,7 +25,7 @@ void Weapon::Fire(glm::vec2 targetPosition, vector<DrawableObject*>& objectsList
     m_Particle.Position = barrelPos;
     for (size_t i = 0; i < 2; i++)
     {
-        ps->Emit(m_Particle,Circle);
+        ps->Emit(m_Particle,Circle );
     }
 }
 
