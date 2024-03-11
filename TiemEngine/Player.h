@@ -28,7 +28,6 @@ class Player :public AnimatedObject {
 	bool JumpStart = false;
 	unsigned int textureCape = -1;
 	
-	
 
 	
 public:
@@ -50,6 +49,7 @@ public:
 	bool getGrounded();
 	void Render(glm::mat4 globalModelTransform);
 	void setWeapon(Weapon* weapon);
+	int  detectCollisionAABB(float bx, float by, float bh, float bw, float dt);
 	bool isMoving = false;
 };
 

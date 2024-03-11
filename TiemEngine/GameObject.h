@@ -10,6 +10,8 @@ protected:
 	glm::vec3 color;
 	unsigned int texture = -1;
 	bool haveCollision = false;
+	float collisionModifierX = 1.0f;
+	float collisionModifierY = 1.0f;
 
 public:
 	GameObject();
@@ -22,8 +24,11 @@ public:
 	void setCollision(bool have);
 	void Update();
 	virtual void Render(glm::mat4 globalModelTransform);
-	int detectCollisionAABB(float bx, float by, float bh, float bw,float dt);
+	virtual int detectCollisionAABB(float bx, float by, float bh, float bw,float dt);
 	void SmoothTranslate(const glm::vec3& targetPosition, float deltaTime, float speed);
+	virtual float getCollisionX();
+	virtual float getCollisionY();
+	
 	
 };
 

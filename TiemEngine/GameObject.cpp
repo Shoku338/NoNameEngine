@@ -142,3 +142,13 @@ void GameObject::Update()
 {
 
 }
+
+float GameObject::getCollisionX()
+{
+	return collisionModifierX * size.x;
+}
+
+float GameObject::getCollisionY()
+{
+	return collisionModifierY * size.y;
+}

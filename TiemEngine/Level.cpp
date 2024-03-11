@@ -54,7 +54,7 @@ void Level::LevelInit()
 
 	Player* ply = new Player("../Resource/Texture/Main Character/Main_Character_sprite.png","../Resource/Texture/explosion.png" ,4, 9);
 
-	ply->SetSize(121.0f, -136.0f);
+	ply->SetSize(111.0f, -126.0f);
 	objectsList.push_back(ply);
 	ply->setCollision(false);
 	player = ply;
@@ -141,24 +141,24 @@ void Level::LevelUpdate(float dt)
 					player->setJump(0);
 					player->velocity.y = 0;
 					player->setGround(true);
-					float offsetY = (gameObject->getPosition().y + abs(gameObject->getsizeY() / 2)) - (player->getPosition().y - abs(player->getsizeY() / 2));
+					float offsetY = (gameObject->getPosition().y + abs(gameObject->getCollisionY() / 2.0f)) - (player->getPosition().y - abs(player->getCollisionY() / 2.0f));
 					player->Translate(glm::vec3(0.0f, offsetY, 0.0f));
 				}
 				else if (resultCol == COLLISION_RIGHT) {
 					// Game logic for collision on the right of player
-					float offsetX = (gameObject->getPosition().x - abs(gameObject->getsizeX() / 2)) - (player->getPosition().x + abs(player->getsizeX() / 2));
+					float offsetX = (gameObject->getPosition().x - abs(gameObject->getCollisionX() / 2.0f)) - (player->getPosition().x + abs(player->getCollisionX() / 2.0f));
 					player->Translate(glm::vec3(offsetX, 0, 0));
 					player->velocity.x = 0;
 				}
 				else if (resultCol == COLLISION_LEFT) {
 					// Game logic for collision on the left of player
-					float offsetX = (gameObject->getPosition().x + abs(gameObject->getsizeX() / 2)) - (player->getPosition().x - abs(player->getsizeX() / 2));
+					float offsetX = (gameObject->getPosition().x + abs(gameObject->getCollisionX() / 2.0f)) - (player->getPosition().x - abs(player->getCollisionX() / 2.0f));
 					player->Translate(glm::vec3(offsetX, 0, 0));
 					player->velocity.x = 0;
 				}
 				else if (resultCol == COLLISION_TOP) {
 					// Game logic for collision at the Top of player
-					float offsetY = (gameObject->getPosition().y - abs(gameObject->getsizeY() / 2)) - (player->getPosition().y + abs(player->getsizeY() / 2));
+					float offsetY = (gameObject->getPosition().y - abs(gameObject->getCollisionY() / 2.0f)) - (player->getPosition().y + abs(player->getCollisionY() / 2.0f));
 					player->Translate(glm::vec3(0.0f, offsetY, 0.0f));
 					player->velocity.y -= 100;
 				}

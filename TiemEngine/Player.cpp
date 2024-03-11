@@ -12,6 +12,7 @@ Player::Player(const char* pathCharacter, const char* pathCape, int MaxR, int Ma
 	currentState = IDLE;
 	prevState = IDLE;
 	textureCape = GameEngine::GetInstance()->GetRenderer()->LoadTexture(pathCape);
+	collisionModifierX = 0.5f;
 }
 
 void Player::setPhysic(bool setPhysic) {
@@ -108,7 +109,7 @@ void Player::Render(glm::mat4 globalModelTransform)
 		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
 		glUniform3f(colorId, color.x, color.y, color.z);
 		glUniform1i(renderModeId, 1);
-		glBindTexture(GL_TEXTURE_2D, textureCape);
+		glBindTexture(GL_TEXTURE_2D, texture);
 		spriteMesh->UpdateUV(getNewUV());
 		spriteMesh->Render();
 		
@@ -247,3 +248,55 @@ void Player::UpdateFrame()
 	cout << speed << endl;
 	//cout << "Row: " << row << ", Col: " << col << endl;
 }
+
+int Player::detectCollisionAABB(float bx, float by, float bh, float bw, float dt) {
+
+	float collisionX = getCollisionX();
+	float collisionY = getCollisionY();
+	
+	float aHalfWidth = abs(collisionX / 2.0f);
+	float aHalfHeight = abs(collisionY / 2.0f);
+	float aQuatWidth = abs(collisionX / 4.0f);
+	float aQuatHeight = abs(collisionY / 4.0f);
+
+	float bTop = abs(by + (bh / 2));
+	float bBot = abs(by - (bh / 2));
+	float bRig = abs(bx + (bw / 2));
+	float bLef = abs(bx - (bw / 2));
+
+	float posX = this->getPosX();
+	float posY = this->getPosY();
+
+	// Calculate the eight points for each object
+	float aPoints[8][2] = {
+		{posX - aQuatWidth, posY + aHalfHeight},   // half top left
+		{posX + aQuatWidth, posY + aHalfHeight},    // half top right
+		{posX + aHalfWidth, posY + aQuatHeight},   // upper right
+		{posX + aHalfWidth, posY - aQuatHeight},    // lower right
+		{posX - aQuatWidth, posY - aHalfHeight},     // half bottom left
+		{posX + aQuatWidth, posY - aHalfHeight},   // half bottom right
+		{posX - aHalfWidth, posY + aQuatHeight},   // upper left
+		{posX - aHalfWidth, posY - aQuatHeight}    // lower left
+	};
+
+	//collision logic
+
+	if (aPoints[0][1] >= bBot && (aPoints[0][0] <= bRig && aPoints[1][0] >= bLef) && aPoints[0][1] < by) {
+		//cout << "TOP" << endl;
+		return 4;
+	}
+	else if (aPoints[4][1] <= bTop && (aPoints[4][0] <= bRig && aPoints[5][0] >= bLef) && aPoints[4][1] >= by) {
+		//cout << "BOTTOM" << endl;
+		return 3;
+	}
+	else if (aPoints[2][0] >= bLef && (aPoints[2][1] >= bBot && aPoints[3][1] < bTop) && aPoints[2][0] <= bx) {
+		//cout << "RIGHT" << endl;
+		return 2;
+	}
+	else if (aPoints[6][0] <= bRig && (aPoints[7][1] < bTop && aPoints[6][1] > bBot) && aPoints[6][0] > bx) {
+		//cout << "LEFT" << endl;
+		return 1;
+	}
+	return 0;
+}
+
