@@ -22,8 +22,18 @@ void Weapon::update(glm::vec3 Playerpos) {
 
 void Weapon::Fire(glm::vec2 targetPosition, vector<DrawableObject*>& objectsList, SoundManager* soundManager,ParticleSystem* ps) {
     if (canShoot) {
-        barrelPos = { getPosX() + 45.0f, getPosY() + 25.0f };
-        glm::vec3 bulletStartPosition = this->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
+        glm::vec3 weaponPos = getPosition();
+        glm::vec3 barrelOffset = { 45.0f, 25.0f, 0.0f };
+        float rotationRadians = glm::radians(this->getDegree());
+        float cosTheta = cos(rotationRadians);
+        float sinTheta = sin(rotationRadians);
+        glm::vec3 rotatedOffset = {
+            barrelOffset.x * cosTheta - barrelOffset.y * sinTheta,
+            barrelOffset.x * sinTheta + barrelOffset.y * cosTheta,
+            0.0f
+        };
+        barrelPos = weaponPos + rotatedOffset;
+        glm::vec3 bulletStartPosition = barrelPos; // Adjust the offset as needed
         Bullet* newBullet = new Bullet(bulletStartPosition, "../Resource/Texture/bullet3.png", 150.f);
         newBullet->SetSize(20.f, 20.f);
         newBullet->shootAt(targetPosition, newBullet->getVelocity().x);

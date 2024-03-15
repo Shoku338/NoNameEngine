@@ -14,5 +14,5 @@ public:
 	virtual void update(glm::vec3 Playerpos);
 	virtual void Fire(glm::vec2 targetPosition, vector<DrawableObject*>& objectsList, SoundManager* soundManager,ParticleSystem* ps);
 private:
-	glm::vec2 barrelPos;
+	glm::vec3 barrelPos;
 };

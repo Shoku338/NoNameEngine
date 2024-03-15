@@ -62,6 +62,9 @@ float DrawableObject::getsizeX() {
 float DrawableObject::getsizeY() {
 	return size.y;
 }
+float DrawableObject::getDegree() {
+	return degree;
+}
 
 void DrawableObject::rotateDegree(float degree) {
 	this->degree = degree;
