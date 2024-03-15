@@ -32,26 +32,44 @@ bool Enemy::getGrounded() {
 	return grounded;
 }
 
-void Enemy::Update(float dt) {
+void Enemy::Update(vector<Tile*> map,float dt) {
 	UpdateFrame();
 	switch (currentState) {
 	case patrol:
 		static bool moveRight = true;
 		static float patrolDistance = 3 * 64; // 3 blocks * 64 pixels per block
+		for (int i = 0; i < map.size(); i++) {
+			// Check if the current tile contains an enemy
+			GameObject* tile = dynamic_cast<GameObject*>(map.at(i));
+			
+			// If it's not an enemy, proceed with collision detection and movement
+			if (tile && tile->getCollision()) {
+				if (Enemy* enemy = dynamic_cast<Enemy*>(tile)) {
+					continue; // Skip collision detection and movement if it's an enemy
+				}
 
-		if (moveRight) {
-			// Move right
-			SetPosition(getPosition() + (glm::vec3(walkSpeed, 0, 0) * dt));
-		}
-		else {
-			// Move left
-			SetPosition(getPosition() - (glm::vec3(walkSpeed, 0, 0) * dt));
+				// Perform collision detection
+				int nmeCol = this->detectCollisionAABB(tile->getPosX(), tile->getPosY(), abs(tile->getsizeY()), tile->getsizeX(), dt);
+				// Handle collision results
+				if (nmeCol == 1 || nmeCol == 2) {
+					moveRight = !moveRight;
+				}
+				// Move according to the patrol direction
+				if (moveRight) {
+					// Move right
+					SetPosition(getPosition() + (glm::vec3(walkSpeed, 0, 0) * dt));
+				}
+				else {
+					// Move left
+					SetPosition(getPosition() - (glm::vec3(walkSpeed, 0, 0) * dt));
+				}
+				// Check if reached the end of patrol distance
+				if (abs(getPosition().x - startingPosition.x) >= patrolDistance) {
+					moveRight = !moveRight; // Change direction
+				}
+			}
 		}
 
-		// Check if reached the end of patrol distance
-		if (abs(getPosition().x - startingPosition.x) >= patrolDistance) {
-			moveRight = !moveRight; // Change direction
-		}
 		break;
 	/*case Detect:
 		glm::vec2 playerPosition = GameEngine::GetInstance()->GetPlayerPosition();

@@ -7,6 +7,4 @@ class ProtoPlasma : public Weapon {
     float cdTimer = 0.5f;
 public:
     ProtoPlasma();
-    void update(glm::vec3 Playerpos);
-    void Fire(glm::vec2 targetPosition, vector<DrawableObject*>& objectsList,SoundManager* soundManager);
 };

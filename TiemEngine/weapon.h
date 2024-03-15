@@ -9,9 +9,10 @@
 class Weapon :public GameObject {
 public:
 	Weapon();
+	bool canShoot = true;
+	float cdTimer = 0.5f;
 	virtual void update(glm::vec3 Playerpos);
 	virtual void Fire(glm::vec2 targetPosition, vector<DrawableObject*>& objectsList, SoundManager* soundManager,ParticleSystem* ps);
-	void RotateBarrel();
 private:
 	glm::vec2 barrelPos;
 };

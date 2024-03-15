@@ -1,6 +1,7 @@
 #pragma once
 #include "AnimatedObject.h"
 #include "weapon.h"
+#include "Tilemap.h"
 #include <GL/glew.h>
 #include <iostream>
 
@@ -26,7 +27,7 @@ class Enemy :public AnimatedObject {
 public:
 	Enemy(const char* path, int MaxR, int MaxC);
 	Enemy(const char* path, int MaxR, int MaxC,int Health);
-	void Update(float dt);
+	void Update(vector<Tile*> map, float dt);
 	void Render(glm::mat4 globalModelTransform);
 	void setFaceRight(bool fliping);
 	void checkFace();

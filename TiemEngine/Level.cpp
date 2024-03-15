@@ -257,7 +257,7 @@ void Level::LevelUpdate(float dt)
 			
 		}
 		if (Enemy* enemy = dynamic_cast<Enemy*>(*it)) {
-			enemy->Update(dt);
+			enemy->Update(tilemap->getTilemap(), dt);
 		}
 		if (Grapple* grapple = dynamic_cast<Grapple*>(*it)) {
 			
@@ -501,7 +501,7 @@ void Level::HandleMouse(int type, int x, int y)
 	glm::vec3 bulletStartPosition = player->getPosition() + glm::vec3(10.0f, 20.0f, 0.0f); // Adjust the offset as needed
 	if (type == 0) {
 		
-		player->getWeapon()->Fire(glm::vec2(realX, realY), objectsList, soundManager,particleSystem);
+		player->getWeapon()->Fire(glm::vec2(realX, realY), objectsList, soundManager, particleSystem);
 	}
 	else if (type == 1) {
 		bool grappleExists = false;
