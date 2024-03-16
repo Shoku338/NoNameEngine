@@ -10,7 +10,7 @@ Weapon::Weapon()
 void Weapon::update(glm::vec3 Playerpos) {
     this->pos = Playerpos;
     cout << "cooldown" << cdTimer << ", shoot" << canShoot << endl;
-    if (cdTimer > 0) {
+    if (cdTimer > 0 && !canShoot) {
         cdTimer -= 0.01;
     }
     else
