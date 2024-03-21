@@ -257,7 +257,7 @@ void Level::LevelUpdate(float dt)
 			
 		}
 		if (Enemy* enemy = dynamic_cast<Enemy*>(*it)) {
-			enemy->Update(tilemap->getTilemap(), dt);
+			enemy->Update(*player,tilemap->getTilemap(), dt);
 		}
 		if (Grapple* grapple = dynamic_cast<Grapple*>(*it)) {
 			

@@ -1,6 +1,7 @@
 #pragma once
 #include "AnimatedObject.h"
 #include "weapon.h"
+#include "Player.h"
 #include "Tilemap.h"
 #include <GL/glew.h>
 #include <iostream>
@@ -23,11 +24,11 @@ class Enemy :public AnimatedObject {
 	int currentFrame = 0;
 	glm::vec3 startingPosition;
 	float attackRange = 64;
-	
+	float PatrolBlocks = 3;
 public:
 	Enemy(const char* path, int MaxR, int MaxC);
 	Enemy(const char* path, int MaxR, int MaxC,int Health);
-	void Update(vector<Tile*> map, float dt);
+	void Update(Player& player,vector<Tile*> map, float dt);
 	void Render(glm::mat4 globalModelTransform);
 	void setFaceRight(bool fliping);
 	void checkFace();

@@ -5,7 +5,7 @@
 #include "Explosion.h"
 
 Enemy::Enemy(const char* path, int MaxR, int MaxC) :AnimatedObject(path, MaxR, MaxC) {
-	health = 4;
+	health = 10;
 	grounded = true;
 	setCollision(false);
 	SetColor(1, 0, 0);
@@ -32,12 +32,14 @@ bool Enemy::getGrounded() {
 	return grounded;
 }
 
-void Enemy::Update(vector<Tile*> map,float dt) {
+void Enemy::Update(Player& player,vector<Tile*> map,float dt) {
 	UpdateFrame();
+	
+	static bool moveRight = true;
+	static float patrolDistance = 3 * 64; // 3 blocks * 64 pixels per block
 	switch (currentState) {
 	case patrol:
-		static bool moveRight = true;
-		static float patrolDistance = 3 * 64; // 3 blocks * 64 pixels per block
+
 		for (int i = 0; i < map.size(); i++) {
 			// Check if the current tile contains an enemy
 			GameObject* tile = dynamic_cast<GameObject*>(map.at(i));
@@ -71,26 +73,8 @@ void Enemy::Update(vector<Tile*> map,float dt) {
 		}
 
 		break;
-	/*case Detect:
-		glm::vec2 playerPosition = GameEngine::GetInstance()->GetPlayerPosition();
-		glm::vec2 enemyPosition = glm::vec2(getPosition().x, getPosition().y);
-
-		// Calculate direction vector towards the player
-		glm::vec2 direction = glm::normalize(playerPosition - enemyPosition);
-
-		// Move the enemy towards the player
-		SetPosition(getPosition() + glm::vec3(direction.x * speed, direction.y * speed, 0));
+	case Detect:
 		break;
-	case Attack:
-		glm::vec2 playerPosition = GameEngine::GetInstance()->GetPlayerPosition();
-		glm::vec2 enemyPosition = glm::vec2(getPosition().x, getPosition().y);
-
-		float distanceToPlayer = glm::length(playerPosition - enemyPosition);
-		if (distanceToPlayer < attackRange) {
-			// Start shooting bullets at the player
-			//FireBullet(playerPosition); // Implement this function to shoot bullets
-		}
-		break;*/
 	}
 	//cout << "Row: " << row << ", Col: " << col << endl;
 	if (currentFrame == 40)

@@ -9,6 +9,7 @@ Bullet::Bullet(glm::vec3 startPosition,const string texture,float speed) : start
 {
     this->SetTexture(texture); // change to (name of bullet sprite)
     this->velocity.x = speed;
+    //cout << "bullet has been spawned" << endl;
 }
 void Bullet::update(float dt) {
     timer += dt;

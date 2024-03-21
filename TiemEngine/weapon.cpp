@@ -1,15 +1,22 @@
 #include "weapon.h"
 
-
 Weapon::Weapon()
 {
     canShoot = true;
     cdTimer = 0.5f;
+    fireType = 0;
+}
+
+Weapon::Weapon(int type)
+{
+    canShoot = true;
+    cdTimer = 0.5f;
+    fireType = type;
 }
 
 void Weapon::update(glm::vec3 Playerpos) {
     this->pos = Playerpos;
-    cout << "cooldown" << cdTimer << ", shoot" << canShoot << endl;
+    //cout << "cooldown " << cdTimer << ", shoot" << canShoot << ", type " << fireType << endl;
     if (cdTimer > 0 && !canShoot) {
         cdTimer -= 0.01;
     }
@@ -34,10 +41,37 @@ void Weapon::Fire(glm::vec2 targetPosition, vector<DrawableObject*>& objectsList
         };
         barrelPos = weaponPos + rotatedOffset;
         glm::vec3 bulletStartPosition = barrelPos; // Adjust the offset as needed
-        Bullet* newBullet = new Bullet(bulletStartPosition, "../Resource/Texture/bullet3.png", 150.f);
-        newBullet->SetSize(20.f, 20.f);
-        newBullet->shootAt(targetPosition, newBullet->getVelocity().x);
-        objectsList.push_back(newBullet);
+        if (fireType == normal) {
+            Bullet* newBullet = new Bullet(bulletStartPosition, "../Resource/Texture/bullet3.png", 150.f);
+            newBullet->SetSize(20.f, 20.f);
+            newBullet->shootAt(targetPosition, newBullet->getVelocity().x);
+            objectsList.push_back(newBullet);
+        }
+        else if (fireType == burst) {
+            if (!isBurstFiring && burstBulletCount == 0) {
+                isBurstFiring = true;
+                // Reset the burst firing cooldown timer
+                burstCooldownTimer = 0.1f;
+            }
+            if (isBurstFiring) {
+                if (burstBulletCount < 3 && burstCooldownTimer <= 0) {
+                    Bullet* newBullet = new Bullet(bulletStartPosition, "../Resource/Texture/bullet3.png", 150.f);
+                    newBullet->SetSize(20.f, 20.f);
+                    newBullet->shootAt(targetPosition, newBullet->getVelocity().x);
+                    objectsList.push_back(newBullet);
+                    burstBulletCount++;
+                    // Reset the cooldown timer for the next bullet
+                    burstCooldownTimer = 0.1f;
+                }
+                // Update the cooldown timer
+                burstCooldownTimer -= 0.1;
+                if (burstBulletCount >= 3) {
+                    // Reset burst firing state after firing three bullets
+                    isBurstFiring = false;
+                    burstBulletCount = 0;
+                }
+            }
+        }
         
         // SoundEffect
         soundManager->playSound("Blaster", false);
