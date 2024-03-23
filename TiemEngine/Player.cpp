@@ -186,7 +186,7 @@ void Player::UpdateFrame()
 			break;
 		case RUNNINGFORWARD:
 			row = 2;
-			speed = 9;
+			speed = 10;
 			if (frames > speed) {
 
 				if (col >= MaxCol - 1) {
@@ -203,7 +203,7 @@ void Player::UpdateFrame()
 			break;
 		case RUNNINGBACKWARD:
 			row = 3;
-			speed = 9;
+			speed = 10;
 			if (frames > speed) {
 
 				if (col >= MaxCol - 1) {

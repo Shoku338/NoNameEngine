@@ -79,8 +79,25 @@ void ParticleSystem::Emit(const ParticleProp& particleProps,ParticleShape shape)
 		float angle = static_cast<float>(std::rand()) / RAND_MAX * coneAngle - coneAngle / 2.0f;
 		glm::vec2 direction = glm::normalize(particleProps.Velocity);
 		// Rotate direction vector by random angle
-		particle.Velocity = glm::vec2(std::cos(angle) * direction.x - std::sin(angle) * direction.y,
-			std::sin(angle) * direction.x + std::cos(angle) * direction.y) * glm::length(particleProps.Velocity);
+		glm::vec2 rotatedDirection = glm::vec2(std::cos(angle) * direction.x - std::sin(angle) * direction.y,
+			std::sin(angle) * direction.x + std::cos(angle) * direction.y);
+
+		// Introduce velocity variation
+		glm::vec2 velocityVariation = particleProps.VelocityVariation;
+		glm::vec2 randomVariation = glm::vec2((static_cast<float>(std::rand()) / RAND_MAX - 0.5f),
+			(static_cast<float>(std::rand()) / RAND_MAX - 0.5f));
+		glm::vec2 finalVelocity = rotatedDirection * glm::length(particleProps.Velocity);
+
+		// Adjust random variation to stay within cone boundaries and maintain direction
+		float coneBoundaryFactor = glm::dot(finalVelocity, particleProps.Velocity) / (glm::length(finalVelocity) * glm::length(particleProps.Velocity));
+		randomVariation *= coneBoundaryFactor;
+		if (glm::dot(finalVelocity, particleProps.Velocity) < 0)
+			randomVariation = -randomVariation;
+
+		// Apply velocity variation
+		finalVelocity += velocityVariation * randomVariation;
+
+		particle.Velocity = finalVelocity;
 	}
 	break;
 	}

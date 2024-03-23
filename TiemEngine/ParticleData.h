@@ -7,6 +7,7 @@ class ParticleData
 public:
     static ParticleProp Explosion;
     static ParticleProp Gun;
+    static ParticleProp PlasmaGun;
 private:
 
 };

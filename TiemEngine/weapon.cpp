@@ -77,11 +77,11 @@ void Weapon::Fire(glm::vec2 targetPosition, vector<DrawableObject*>& objectsList
         soundManager->playSound("Blaster", false);
 
         //Particle Effects
-        ParticleProp m_Particle = ParticleData::Gun;
+        ParticleProp m_Particle = ParticleData::PlasmaGun;
         m_Particle.Position = barrelPos;
-        for (size_t i = 0; i < 2; i++)
+        for (size_t i = 0; i < 20 ; i++)
         {
-            ps->Emit(m_Particle, Circle);
+            ps->Emit(m_Particle, Boom);
         }
         canShoot = false;
     }

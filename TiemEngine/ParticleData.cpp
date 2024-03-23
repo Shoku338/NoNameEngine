@@ -25,3 +25,16 @@ ParticleProp ParticleData::Gun = {
  1.0f                                               // LifeTime
 
 };
+
+ParticleProp ParticleData::PlasmaGun = {
+{ 0.0f, 0.0f},                                      // Positon
+{ 50.0f, 0.0f },                                    // Velocity
+{ 0.0f, 0.0f },                                     // VelocityVariation
+{ 41 / 255.0f, 173 / 255.0f, 255 / 255.0f, 1.0f },  // ColorBegin
+{ 21 / 255.0f, 153 / 255.0f, 235 / 255.0f, 1.0f },	// ColorEnd
+ 15.0f,                                             // SizeBegin
+ 0.0f,                                              // SizeEnd
+ 25.0f,                                             // SizeVariation
+ 0.25f                                               // LifeTime
+
+};
