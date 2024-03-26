@@ -2,6 +2,12 @@
 
 #include "GameObject.h"
 
+enum EnemyList
+{
+    None = 0,
+    LootDrone,
+    Scout
+};
 
 class Tile :public GameObject
 {
@@ -10,6 +16,7 @@ class Tile :public GameObject
     vector<vector<int>> tileMap;
     string tileName;
     int tileType = 0;
+    EnemyList EnemyToSpawn;
 
 public:
 	
@@ -18,6 +25,8 @@ public:
     void setTextureID(unsigned int newTexture);
     void Render(glm::mat4 globalModelTransform);
     glm::vec3 getPosition();
+    void setSpawner(unsigned int EnemyIndex);
+    EnemyList getSpawner();
 
 
 };

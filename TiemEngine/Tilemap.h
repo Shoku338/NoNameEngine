@@ -8,6 +8,8 @@
 #include "Enemy.h"
 
 
+
+
 class Tilemap {
 public:
     Tilemap(int width, int height, int tileSize, int tileSetWidth,int tileSetHeight, string tileSet, string mapFile);
@@ -20,7 +22,8 @@ public:
     int getHeight();
     float getTileSize(){return tileSize;}
     vector<Tile*> getTilemap();
-    void setTile(vector<DrawableObject*> * list);
+    void setTile();
+    void spawnEnemies(vector<DrawableObject*>* list);
     void calculateUV(float MaxCol, float MaxRow, float CurrentCol, float CurrentRow, float* newUV);
 
 private:
@@ -30,5 +33,6 @@ private:
     vector<Tile*> TileList;
     unsigned int texture;
     std::vector<std::vector<int>> tileMap; // 2D vector representing the tile IDs
+    
 
 };

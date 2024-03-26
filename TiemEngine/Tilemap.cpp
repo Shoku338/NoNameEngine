@@ -106,7 +106,7 @@ int Tilemap::getHeight()
     return mapHeight;
 }
 
-void Tilemap::setTile(vector<DrawableObject*> * list)
+void Tilemap::setTile()
 {
     for (int y = 0; y < mapHeight; ++y) {
         for (int x = 0; x < mapWidth; ++x) {
@@ -115,31 +115,26 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
             if (tileType == 19)
             {
                 Tile* tile = new Tile(64.0f, x, y, texture, 11);
-                GameObject* Rock = new GameObject("../Resource/Texture/rock.png");
+                /*GameObject* Rock = new GameObject("../Resource/Texture/rock.png");
                 Rock->SetPosition(tile->getPosition());
                 Rock->SetSize(108.0f, -108.0f);
                 Rock->setCollision(false);
-                list->push_back(Rock);
+                list->push_back(Rock);*/
+                //tile->setSpawner(3);
                 TileList.push_back(tile);
             }
             else if (tileType == 20)
             {
                 // LootDrone Spawn Tile
                 Tile* tile = new Tile(64.0f, x, y, texture, 11);
-                Enemy* lootDrone = new Enemy("../Resource/Texture/enemy_lootdrone_idle_sprite.png", 1, 10);
-                lootDrone->SetPosition(tile->getPosition());
-                lootDrone->SetSize(125.0f, -64.0f);
-                list->push_back(lootDrone);
+                tile->setSpawner(1);
                 TileList.push_back(tile);
             }
             else if(tileType == 21)
             {
                 // Scout Spawn Tile
                 Tile* tile = new Tile(64.0f, x, y, texture, 11);
-                Enemy* Scout = new Enemy("../Resource/Texture/enemy_scout_walk_sprite.png", 2, 5);
-                Scout->SetPosition(tile->getPosition());
-                Scout->SetSize(128.0f, -128.0f);
-                list->push_back(Scout);
+                tile->setSpawner(2);
                 TileList.push_back(tile);
             }
             else
@@ -150,6 +145,7 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
                 {
                     tile->setCollision(true);
                 }
+                tile->setSpawner(0);
                 TileList.push_back(tile);
             }
             
@@ -159,6 +155,42 @@ void Tilemap::setTile(vector<DrawableObject*> * list)
         }
     }
 }
+
+void Tilemap::spawnEnemies(vector<DrawableObject*>* list)
+{
+    for (auto& tile : TileList)
+    {
+        switch (tile->getSpawner())
+        {
+        case None:
+            // Handle None case
+            break;
+        case LootDrone:
+            // Handle LootDrone case
+        {
+            Enemy* lootDrone = new Enemy("../Resource/Texture/enemy_lootdrone_idle_sprite.png", 1, 10);
+            lootDrone->SetPosition(tile->getPosition());
+            lootDrone->SetSize(125.0f, -64.0f);
+            list->push_back(lootDrone);
+        }
+        break;
+        case Scout:
+            // Handle Scout case
+        {
+            Enemy* scout = new Enemy("../Resource/Texture/enemy_scout_walk_sprite.png", 2, 5);
+            scout->SetPosition(tile->getPosition());
+            scout->SetSize(128.0f, -128.0f);
+            list->push_back(scout);
+        }
+        break;
+        default:
+            // Handle default case (if needed)
+            break;
+        }
+    }
+}
+
+
 
 void Tilemap::calculateUV(float MaxCol, float MaxRow, float CurrentCol, float CurrentRow, float* newUV)
 {

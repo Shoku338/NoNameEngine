@@ -75,3 +75,13 @@ void Tile::Render(glm::mat4 globalModelTransform)
 
 	}
 }
+
+void Tile::setSpawner(unsigned int enemyIndex)
+{
+	EnemyToSpawn = static_cast<EnemyList>(enemyIndex);
+}
+
+EnemyList Tile::getSpawner()
+{
+	return EnemyToSpawn;
+}

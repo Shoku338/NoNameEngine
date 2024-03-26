@@ -31,6 +31,7 @@ private:
 	Camera2D* camera;
 	SoundManager* soundManager;
 	AnimateMeshVbo* Animate;
+	ImageObject* BG;
 	vector<DrawableObject*> backGroundObjects;
 
 	ParticleSystem* particleSystem;

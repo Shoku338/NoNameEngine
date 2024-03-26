@@ -16,38 +16,36 @@ void Level::LevelLoad()
 
 	//Added by Kapom
 
-	//tilemap = new Tilemap(19, 9, 64, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/map.txt");
-	tilemap = new Tilemap(35, 9, 64, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/TestMap.txt");
-	tilemap->setTile(&objectsList);
-
 	Animate = new AnimateMeshVbo();
 	Animate->LoadData();
 	GameEngine::GetInstance()->AddMesh(AnimateMeshVbo::MESH_NAME, Animate);
 	cout << AnimateMeshVbo::MESH_NAME << endl;
 
-	ImageObject* BG = new ImageObject("../Resource/Texture/Desert.jpg");
-	BG->SetSize(7520.0f, -1152.0f);
-	BG->SetPosition(glm::vec3(3760.0f, 576.0f, 0));
-	//BG->SetPosition(glm::vec3(BG->getPosX() / 2, (BG->getPosY() / 2) * -1, 0));
-	backGroundObjects.push_back(BG);
+	tilemap = new Tilemap(35, 9, 64, 4, 3, "../Resource/Texture/TileLevel1.png", "../Resource/Texture/TestMap.txt");
+	tilemap->setTile();
+
+	
+
+	
+	
 		
 	//cout << "Load Level" << endl;
 }
 
 void Level::LevelInit()
 {
+	//BackGround
+	BG = new ImageObject("../Resource/Texture/Desert.jpg");
+	BG->SetSize(7520.0f, -1152.0f);
+	BG->SetPosition(glm::vec3(3760.0f, 576.0f, 0));
+	//BG->SetPosition(glm::vec3(BG->getPosX() / 2, (BG->getPosY() / 2) * -1, 0));
+	backGroundObjects.push_back(BG);
+
 	//Tilemap and Enemies
-	tilemap->setTile(&objectsList);
+	tilemap->spawnEnemies(&objectsList);
 
 	//Camera
 	camera = new Camera2D(GameEngine::GetInstance()->GetWindowWidth() , GameEngine::GetInstance()->GetWindowHeight());
-
-	/*GameObject* other = new GameObject();
-	other->SetTexture("../Resource/Texture/MOTIVATED.png");
-	other->SetSize(128.0f, -128.0f);
-	other->SetPosition(glm::vec3(500, 250, 0));
-	objectsList.push_back(other);
-	other->setCollision(true);*/
 
 	
 	//Game object
@@ -398,6 +396,12 @@ void Level::LevelFree()
 		delete obj;
 	}
 	objectsList.clear();
+
+	// Clear background objects
+	for (DrawableObject* obj : backGroundObjects) {
+		delete obj;
+	}
+	backGroundObjects.clear();
 
 	/*for (Tile* tiles : tilemap->getTilemap()) {
 		delete tiles;

@@ -35,6 +35,6 @@ ParticleProp ParticleData::PlasmaGun = {
  15.0f,                                             // SizeBegin
  0.0f,                                              // SizeEnd
  25.0f,                                             // SizeVariation
- 0.25f                                               // LifeTime
+ 0.25f                                              // LifeTime
 
 };
