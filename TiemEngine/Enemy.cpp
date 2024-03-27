@@ -5,7 +5,7 @@
 #include "Explosion.h"
 
 Enemy::Enemy(const char* path, int MaxR, int MaxC) :AnimatedObject(path, MaxR, MaxC) {
-	health = 10;
+	health = 3;
 	grounded = true;
 	setCollision(false);
 	SetColor(1, 0, 0);
